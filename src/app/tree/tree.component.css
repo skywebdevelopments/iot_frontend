@@ -1,0 +1,28 @@
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+.mat-badge {
+  width:10px;
+  height:10px;
+}
+
+.scroll{
+  overflow: scroll;
+  height: 300px;
+}
+
+.example-button {
+  margin-top: 16px;
+}
+
+.example-tooltip-red {
+  background: #b71c1c;
+}
