@@ -24,39 +24,7 @@ export class TodoItemFlatNode {
 /**
  * The Json object for to-do list data.
  */
-const TREE_DATA = [
-  {
-    'item': 'parent 1'
-    , 'id': '123'
-    , 'children': [{'item': 'progress1', 'id': 7654321, 'children': []}]
-  },
-  {
-    'item': 'parent 2'
-    , 'id': '1234567'
-    , 'children': [
-      {
-        'item': 'progress1', 'id': 7654321, 'children': [
-
-          {'item': 'progress13', 'id': 7654321, 'children': []},
-          {'item': 'progress134', 'id': 7654321, 'children': []},
-
-
-        ]
-      }
-      , {
-        'item': 'progress2', 'id': 7654321, 'children': [
-
-          {'item': 'progress23', 'id': 7654321, 'children': []},
-          {'item': 'progress234', 'id': 7654321, 'children': []},
-
-
-        ]
-      }
-
-    ]
-  }
-];
-
+let TREE_DATA = []
 
 /**
  * Checklist database, it can build a tree structured Json object.
@@ -72,10 +40,16 @@ export class ChecklistDatabase {
   }
 
   constructor() {
-    this.initialize();
+
+    setTimeout(() => {
+      this.initialize();
+    }, 10000)
+
   }
 
   initialize() {
+    console.log(TREE_DATA)
+
     // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
     //     file node as children.
     const data = this.buildFileTree(TREE_DATA, 0);
@@ -88,13 +62,14 @@ export class ChecklistDatabase {
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `TodoItemNode`.
    */
-  buildFileTree(obj: ({ item: string; children: { children: any[]; item: string; id: number }[]; id: string } | { item: string; children: { children: { children: any[]; name: string; id: number }[]; item: string; id: number }[]; id: string })[], level: number): TodoItemNode[] {
+  buildFileTree(obj: ({ item: string; children: { item: string; children: any[]; id: string }[]; id: string } | { item: string; children: { item: string; children: any[]; id: string }[]; id: string } | { item: string; children: { item: string; children: any[]; id: string }[]; id: string })[], level: number): TodoItemNode[] {
     return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
 
       const value = obj[key];
       const node = new TodoItemNode();
       node.item = obj[key].item;
       node.id = obj[key].id;
+
       node.children = obj[key].children;
 
       if (value != null) {
@@ -103,6 +78,7 @@ export class ChecklistDatabase {
           node.children = this.buildFileTree(value.children, level + 1);
         } else {
           node.item = value;
+          node.id = obj[key].id
         }
       }
       // console.log(node)
@@ -112,15 +88,16 @@ export class ChecklistDatabase {
 
 
   uuidv4() {
-    return 'xxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
+
   /** Add an item to to-do list */
   insertItem(parent: TodoItemNode, name: string) {
     if (parent.children) {
-      parent.children.push({item: name, id:this.uuidv4(),children:[]} as TodoItemNode);
+      parent.children.push({item: name, id: this.uuidv4(), children: []} as TodoItemNode);
       this.dataChange.next(this.data);
 
     }
@@ -143,8 +120,12 @@ export class ChecklistDatabase {
   providers: [ChecklistDatabase]
 })
 export class TreeMultilayersComponent implements OnInit {
- @Input() title:any;
- data_rows:any;
+  @Input() title: any;
+  @Input() tree_data: any;
+  selected_childs = []
+
+
+  data_rows: any;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
 
@@ -168,6 +149,8 @@ export class TreeMultilayersComponent implements OnInit {
 
 
   constructor(private _database: ChecklistDatabase) {
+
+
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
@@ -198,6 +181,7 @@ export class TreeMultilayersComponent implements OnInit {
       : new TodoItemFlatNode();
     flatNode.item = node.item;
     flatNode.level = level;
+    flatNode.id = node.id
     flatNode.expandable = !!node.children?.length;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
@@ -300,13 +284,25 @@ export class TreeMultilayersComponent implements OnInit {
   }
 
 
-  log() {
-    console.log(this._database.data);
+  log_childs() {
+    this.selected_childs = []
+    this.checklistSelection.selected.forEach(item => {
+    if (item['expandable'] == false)
+    {
+      this.selected_childs.push(item)
+    }
+    })
 
   }
 
   ngOnInit(): void {
-this.data_rows=this._database.data
+
+    setTimeout(() => {
+      TREE_DATA = this.tree_data
+      this.data_rows = this._database.data
+
+    }, 5000)
+
   }
 
 }

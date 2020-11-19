@@ -49,12 +49,14 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import { TreeComponent } from './tree/tree.component';
 import { TreeMultilayersComponent } from './tree-multilayers/tree-multilayers.component';
 import {FormsModule} from '@angular/forms';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TreeComponent,
-    TreeMultilayersComponent
+    TreeMultilayersComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,

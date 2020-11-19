@@ -25,7 +25,7 @@ body {
 
 .scroll {
   overflow: scroll;
-  overflow-y: hidden;
+  overflow-y: visible;
   overflow-x: hidden;
   height: 30vh;
   max-height: 60vh;
@@ -39,9 +39,9 @@ body {
   transition: 1s;
   height: 60vh;
   overflow: scroll;
-  overflow-y: visible;
-  overflow-x: visible;
+ overflow-x: hidden;
   scroll-behavior: smooth;
+  width:30vw
 }
 .pointer{
   cursor: pointer;

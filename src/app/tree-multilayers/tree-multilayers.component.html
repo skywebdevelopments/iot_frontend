@@ -1,12 +1,14 @@
 <mat-accordion class="shadow">
 
+
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{title | uppercase}}
+       <p class="m-auto"> {{title | uppercase}}</p>
         <hr>
       </mat-panel-title>
       <mat-panel-description>
+        <mat-progress-bar class="m-auto" *ngIf="!data_rows" mode="query"></mat-progress-bar>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -14,14 +16,17 @@
       <mat-chip (click)="treeControl.expandAll()" class=" bg-danger pointer  text-white">
    Expand all
       </mat-chip>
+
       <mat-chip (click)="treeControl.collapseAll()" class=" bg-danger pointer text-white"> Collapse all
       </mat-chip>
       <mat-chip *ngIf="checklistSelection.selected.length >0" (click)="checklistSelection.clear()" class="pointer  bg-danger text-white"> Clear all
       </mat-chip>
     </mat-chip-list>
     <hr>
-    <mat-chip-list class="m-1">
-      <mat-chip>Main Categories: {{data_rows.length}} </mat-chip>
+    <p *ngIf="!data_rows">Loading and rendering data, please be patient..</p>
+
+    <mat-chip-list class="m-1" *ngIf="data_rows">
+      <mat-chip>Main Categories: {{_database.data.length}} </mat-chip>
       <mat-chip [hidden]="!checklistSelection.selected.length">Selected : {{checklistSelection.selected.length}}
         item(s)
       </mat-chip>
@@ -65,6 +70,5 @@
     </mat-tree>
   </mat-expansion-panel>
 </mat-accordion>
-<!--<button (click)="log()">log</button>-->
+<!--<button (click)="log_childs()">log</button>-->
 
-<!--<p *ngFor="let i of data_rows ">{{i.item}} {{i.id}}</p>-->
