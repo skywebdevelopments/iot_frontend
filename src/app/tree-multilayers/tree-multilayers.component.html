@@ -4,7 +4,7 @@
   <mat-expansion-panel >
     <mat-expansion-panel-header>
       <mat-panel-title>
-       <p class="m-auto"> {{title | uppercase}}</p>
+       <p class="m-auto"><mat-icon>account_tree</mat-icon> {{title | uppercase}}</p>
         <hr>
       </mat-panel-title>
       <mat-panel-description>
@@ -14,12 +14,12 @@
 
     <mat-chip-list class="pointer">
       <mat-chip (click)="treeControl.expandAll()" class=" bg-danger pointer  text-white">
-   Expand all
+   <mat-icon>keyboard_arrow_down</mat-icon> Expand all
       </mat-chip>
 
-      <mat-chip (click)="treeControl.collapseAll()" class=" bg-danger pointer text-white"> Collapse all
+      <mat-chip (click)="treeControl.collapseAll()" class=" bg-danger pointer text-white"><mat-icon>keyboard_arrow_right</mat-icon> Collapse all
       </mat-chip>
-      <mat-chip *ngIf="checklistSelection.selected.length >0" (click)="checklistSelection.clear()" class="pointer  bg-danger text-white"> Clear all
+      <mat-chip *ngIf="checklistSelection.selected.length >0" (click)="checklistSelection.clear()" class="pointer  bg-danger text-white"><mat-icon>clear_all</mat-icon> Clear all
       </mat-chip>
     </mat-chip-list>
     <hr>

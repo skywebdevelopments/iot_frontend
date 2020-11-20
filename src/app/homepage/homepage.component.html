@@ -26,12 +26,12 @@
 
 </div>
 <div class="row">
-  <div class="col-4">
+  <div class="col-4" *ngIf="data">
     <div class="m-3">
       <app-tree-multilayers [title]="tree_title" [tree_data]="data" ></app-tree-multilayers>
     </div>
   </div>
-  <div class="col-8">
+  <div class="col-8" *ngIf="datatable_data">
     <div class="m-3">
           <app-datatable [data]="datatable_data"></app-datatable>
 
