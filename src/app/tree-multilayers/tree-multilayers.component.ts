@@ -3,6 +3,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject} from 'rxjs';
+import {HttpClient} from "@angular/common/http";
 
 /**
  * Node for to-do item
@@ -26,6 +27,7 @@ export class TodoItemFlatNode {
  */
 let TREE_DATA = []
 
+
 /**
  * Checklist database, it can build a tree structured Json object.
  * Each node in Json object represents a to-do item or a category.
@@ -39,16 +41,11 @@ export class ChecklistDatabase {
     return this.dataChange.value;
   }
 
-  constructor() {
-
-    setTimeout(() => {
-      this.initialize();
-    }, 10000)
-
+  constructor(private http: HttpClient) {
+    this.initialize();
   }
 
   initialize() {
-    console.log(TREE_DATA)
 
     // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
     //     file node as children.
@@ -56,6 +53,7 @@ export class ChecklistDatabase {
 
     // Notify the change.
     this.dataChange.next(data);
+
   }
 
   /**
@@ -123,6 +121,7 @@ export class TreeMultilayersComponent implements OnInit {
   @Input() title: any;
   @Input() tree_data: any;
   selected_childs = []
+  @Input() show_progress_bar = false;
 
 
   data_rows: any;
@@ -148,7 +147,7 @@ export class TreeMultilayersComponent implements OnInit {
   checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
 
 
-  constructor(private _database: ChecklistDatabase) {
+  constructor(private _database: ChecklistDatabase, private http: HttpClient) {
 
 
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
@@ -287,21 +286,24 @@ export class TreeMultilayersComponent implements OnInit {
   log_childs() {
     this.selected_childs = []
     this.checklistSelection.selected.forEach(item => {
-    if (item['expandable'] == false)
-    {
-      this.selected_childs.push(item)
-    }
+      if (item['expandable'] == false) {
+        this.selected_childs.push(item)
+      }
     })
 
   }
 
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    TREE_DATA = this.tree_data
+    this._database.initialize()
+
+
+  }
+
   ngOnInit(): void {
-
-    setTimeout(() => {
-      TREE_DATA = this.tree_data
-      this.data_rows = this._database.data
-
-    }, 5000)
+    this.data_rows = this._database.data
 
   }
 

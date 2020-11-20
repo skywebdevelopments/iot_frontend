@@ -1,3 +1,18 @@
-<div  class="m-lg-5 w-25">
-<app-tree-multilayers title="tree data"  [tree_data]="data"></app-tree-multilayers>
+<!--<div *ngIf="tree_title" class="m-lg-5 w-25">-->
+<!--  <app-tree-multilayers [title]="tree_title" [show_progress_bar]="show_progress_bar" [tree_data]="data"></app-tree-multilayers>-->
+<!--</div>-->
+
+<!--<div *ngIf="!tree_title" class="bg-white w-25 h-25 "><p class="m-auto p-auto">TreeMat configuration is missing..</p></div>-->
+<!--<app-datatable [show_progress_bar]="show_progress_bar" [data]="data"></app-datatable>-->
+<div class="w-50 m-4 h-25">
+
+  <app-google-chart
+
+chart_title="chart title"
+index_name="vc_vms_systems_status"
+col_group="system_status"
+chart_type="BarChart"
+
+></app-google-chart>
+
 </div>

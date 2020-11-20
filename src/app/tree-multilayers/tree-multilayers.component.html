@@ -8,7 +8,7 @@
         <hr>
       </mat-panel-title>
       <mat-panel-description>
-        <mat-progress-bar class="m-auto" *ngIf="!data_rows" mode="query"></mat-progress-bar>
+        <mat-progress-bar class="m-auto" *ngIf="show_progress_bar" mode="query"></mat-progress-bar>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -23,7 +23,8 @@
       </mat-chip>
     </mat-chip-list>
     <hr>
-    <p *ngIf="!data_rows">Loading and rendering data, please be patient..</p>
+    <p *ngIf="show_progress_bar">Loading and rendering data, please be patient..</p>
+    <p *ngIf="!show_progress_bar">No available data..</p>
 
     <mat-chip-list class="m-1" *ngIf="data_rows">
       <mat-chip>Main Categories: {{_database.data.length}} </mat-chip>
@@ -34,7 +35,7 @@
 
     </mat-chip-list>
     <hr>
-    <mat-tree class="scroll"  [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree class=""  [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
         <button mat-icon-button disabled></button>
         <mat-checkbox class="checklist-leaf-node"

@@ -50,13 +50,18 @@ import { TreeComponent } from './tree/tree.component';
 import { TreeMultilayersComponent } from './tree-multilayers/tree-multilayers.component';
 import {FormsModule} from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
+import { DatatableComponent } from './datatable/datatable.component';
+import { GoogleChartComponent } from './google-chart/google-chart.component';
+import {GoogleChartsModule} from "angular-google-charts";
 
 @NgModule({
   declarations: [
     AppComponent,
     TreeComponent,
     TreeMultilayersComponent,
-    HomepageComponent
+    HomepageComponent,
+    DatatableComponent,
+    GoogleChartComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +114,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     PortalModule,
     ScrollingModule,
     FormsModule,
+    GoogleChartsModule,
 
   ],
   providers: [],
