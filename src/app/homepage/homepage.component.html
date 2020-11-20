@@ -18,8 +18,8 @@
 <!--</div>-->
 <app-searchbar (sendEvent)="get_search_value($event)"></app-searchbar>
 
-<div>
-        <mat-radio-group  class="mb-3" style="display:inline" aria-label="Select an option">
+<div class="m-3">
+        <mat-radio-group  class="mb-3" style="display:grid" aria-label="Select an option">
         <mat-radio-button (change)="radio_switch_selection($event);"  value="1">System Status</mat-radio-button>
         <mat-radio-button (change)="radio_switch_selection($event)"  value="2">Market Name</mat-radio-button>
       </mat-radio-group>
