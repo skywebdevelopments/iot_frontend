@@ -4,15 +4,37 @@
 
 <!--<div *ngIf="!tree_title" class="bg-white w-25 h-25 "><p class="m-auto p-auto">TreeMat configuration is missing..</p></div>-->
 <!--<app-datatable [show_progress_bar]="show_progress_bar" [data]="data"></app-datatable>-->
-<div class="w-50 m-4 h-25">
+<!--<div class="w-50 m-4 h-25">-->
 
-  <app-google-chart
+<!--  <app-google-chart-->
 
-chart_title="chart title"
-index_name="vc_vms_systems_status"
-col_group="system_status"
-chart_type="BarChart"
+<!--chart_title="chart title"-->
+<!--index_name="vc_vms_systems_status"-->
+<!--col_group="system_status"-->
+<!--chart_type="BarChart"-->
 
-></app-google-chart>
+<!--&gt;</app-google-chart>-->
 
+<!--</div>-->
+<app-searchbar (sendEvent)="get_search_value($event)"></app-searchbar>
+
+<div>
+        <mat-radio-group  class="mb-3" style="display:inline" aria-label="Select an option">
+        <mat-radio-button (change)="radio_switch_selection($event);"  value="1">System Status</mat-radio-button>
+        <mat-radio-button (change)="radio_switch_selection($event)"  value="2">Market Name</mat-radio-button>
+      </mat-radio-group>
+
+</div>
+<div class="row">
+  <div class="col-4">
+    <div class="m-3">
+      <app-tree-multilayers [title]="tree_title" [tree_data]="data" ></app-tree-multilayers>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="m-3">
+          <app-datatable [data]="datatable_data"></app-datatable>
+
+    </div>
+  </div>
 </div>

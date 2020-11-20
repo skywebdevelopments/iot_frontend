@@ -120,6 +120,7 @@ export class ChecklistDatabase {
 export class TreeMultilayersComponent implements OnInit {
   @Input() title: any;
   @Input() tree_data: any;
+  @Input() query_object: any;
   selected_childs = []
   @Input() show_progress_bar = false;
 
@@ -304,7 +305,6 @@ export class TreeMultilayersComponent implements OnInit {
 
   ngOnInit(): void {
     this.data_rows = this._database.data
-
   }
 
 }

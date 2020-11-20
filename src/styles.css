@@ -50,3 +50,207 @@ body {
 mat-chip-list >mat-chip  {
   cursor: pointer;
 }
+
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.speech-bubble {
+  position: relative;
+  background: lightgray;
+  border-radius: .4em;
+  padding: 10px;
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 17px solid transparent;
+  border-bottom-color: lightgrey;
+  border-top: 0;
+  border-left: 0;
+  margin-left: -8.5px;
+  margin-top: -17px;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vfred {
+  color: #E60000;
+}
+
+
+.vl {
+  position: relative;
+  border-left: 6px solid lightgrey;
+  height: 500px;
+
+}
+
+.example-tab-icon {
+  margin-right: 5px
+}
+
+.post_list_item {
+  margin-bottom: 10px;
+}
+
+.badge {
+  font-size: 12px;
+}
+
+.tone_level {
+  width: 200px;
+  height: 50px;
+  border: 1px solid black;
+  position: relative;
+  color: black;
+}
+
+.tone_level:after {
+  color: white;
+  content: '\A';
+  position: absolute;
+  background: green;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Specify the width.. */
+}
+
+h4 {
+  font-weight: bold;
+  font-size: x-large;
+
+}
+
+
+.speech-bubble-left {
+  position: relative;
+  background: lightgrey;
+  border-radius: .4em;
+
+}
+
+.speech-bubble-left:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: lightgrey;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -5px;
+  margin-left: -10px;
+
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+
+mat-icon {
+  margin-right: 1px;
+}
+
+.searchbox {
+  width: 40vw;
+  padding: 10px;
+  border-radius: 10px;
+  border-width: 0px;
+  transition: 1s;
+}
+
+.searchbox:hover {
+  width: 50vw;
+  transition: .25s;
+  padding: 15px;
+  color: #000000;
+  margin-top: 5px;
+  font-size:large;
+
+
+}
+section {
+  display: table;
+}
+.transition {
+transition: 2s;
+}
+.transition:hover {
+  transition: 2s;
+  margin-left:30px;
+
+
+}
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+
+.hide_overflow {
+  height: 70vh;
+  overflow: hidden;
+  overflow-x: hidden;
+  transition: .5s;
+overflow-scrolling: auto;
+  scroll-behavior: smooth;
+}
+
+.show_overflow {
+  height: 70vh;
+  overflow: scroll;
+  overflow-x: scroll;
+  transition: .5s;
+overflow-scrolling: auto;
+  scroll-behavior: smooth;
+}

@@ -53,6 +53,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { GoogleChartComponent } from './google-chart/google-chart.component';
 import {GoogleChartsModule} from "angular-google-charts";
+import { SearchbarComponent } from './searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {GoogleChartsModule} from "angular-google-charts";
     TreeMultilayersComponent,
     HomepageComponent,
     DatatableComponent,
-    GoogleChartComponent
+    GoogleChartComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,
