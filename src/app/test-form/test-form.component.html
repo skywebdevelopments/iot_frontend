@@ -1,0 +1,8 @@
+<div class="shadow m-xl-5 w-75 h-75 bg-white ">
+<form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+  <input type="text" formControlName="firstName">
+  <input type="text" formControlName="lastName">
+  <input type="text" formControlName="age">
+  <button>submit</button>
+</form>
+</div>
