@@ -1,8 +1,24 @@
-<div class="shadow m-xl-5 w-75 h-75 bg-white ">
-<form [formGroup]="profileForm" (ngSubmit)="submitForm()">
-  <input type="text" formControlName="firstName">
-  <input type="text" formControlName="lastName">
-  <input type="text" formControlName="age">
-  <button>submit</button>
-</form>
+<div class="shadow w-25  m-xl-5  bg-white ">
+
+
+  <form style="display: grid" [formGroup]="profileForm" (ngSubmit)="submitForm()" class="  m-auto example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>First name</mat-label>
+      <input formControlName="firstName" matInput placeholder="Ex. Pizza" value="Sushi">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>last name</mat-label>
+      <input formControlName="lastName" matInput placeholder="Ex. Pizza" value="Sushi">
+    </mat-form-field>
+
+    <mat-slider
+      thumbLabel
+
+      formControlName="age"
+      [displayWith]="formatLabel"
+      tickInterval="0"
+      min="18"
+      max="70"></mat-slider>
+    <button mat-raised-button >save</button>
+  </form>
 </div>

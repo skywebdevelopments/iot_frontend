@@ -18,6 +18,9 @@ export class HomepageComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
 
+  log_requ(v){
+    console.log(v)
+  }
   get_search_value(event) {
 
     this.tree_by_market({

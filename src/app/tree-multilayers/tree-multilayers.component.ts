@@ -1,4 +1,4 @@
-import {Component, OnInit, Injectable, SimpleChanges, Input} from '@angular/core';
+import {Component, OnInit, Injectable, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -121,9 +121,12 @@ export class TreeMultilayersComponent implements OnInit {
   @Input() title: any;
   @Input() tree_data: any;
   @Input() query_object: any;
-  selected_childs = []
   @Input() show_progress_bar = false;
-
+  @Output() sendSelectedNodes: EventEmitter<any> = new EventEmitter();
+  selected_childs = []
+ sendEvent(){
+    this.sendSelectedNodes.emit(this.checklistSelection.selected);
+  }
 
   data_rows: any;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -190,6 +193,7 @@ export class TreeMultilayersComponent implements OnInit {
 
   /** Whether all the descendants of the node are selected. */
   descendantsAllSelected(node: TodoItemFlatNode): boolean {
+
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected = descendants.length > 0 && descendants.every(child => {
       return this.checklistSelection.isSelected(child);
@@ -207,6 +211,7 @@ export class TreeMultilayersComponent implements OnInit {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: TodoItemFlatNode): void {
+
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     this.checklistSelection.isSelected(node)
@@ -293,6 +298,7 @@ export class TreeMultilayersComponent implements OnInit {
     })
 
   }
+
 
 
   ngOnChanges(changes: SimpleChanges) {
