@@ -38,15 +38,15 @@ export class AddGroupComponent implements OnInit {
     if(this.form_AddGroup.valid){
       // submit the form
       this.service_addGroup.service_add_group(this.form_AddGroup.value).then(res=>{
-        this.openSnackBar(res['status']['message'],"Ok");
+        this.openSnackBar(res['status']['message'],"Ok",4000);
 
       })
     }
     else{
-      this.openSnackBar("invalid form values","Ok");
+      this.openSnackBar("invalid form values","Ok",4000);
     }
   }
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
   }
   ngOnInit(): void {
