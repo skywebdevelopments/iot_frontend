@@ -1,29 +1,31 @@
-<div class="container mt-4 w-50">
-    <h1>Add Group</h1>
-    <form class="example-form" [formGroup]="form_AddGroup">
 
-        <div class="row">
-            <!-- group name -->
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Group name</mat-label>
-                <input type="text" matInput formControlName="name" placeholder="Enter a group name">
-            </mat-form-field>
-            <!-- end -->
-        </div>
-
-        <div class="row">
-            <!-- checkbox: is enabled -->
-            <mat-checkbox formControlName="active" class="example-margin">
-                Active Group
-            </mat-checkbox>
-            <!-- end -->
-        </div>
-    </form>
-    <!-- submit -->
-    <button [disabled]="!form_AddGroup.valid" (click)="save_group();" mat-raised-button color="primary">Save</button>
-
-
-    <!-- snack bar -->
-
-    <!-- end -->
-</div>
+    
+    <div class="container mt-4 w-50">
+        <h1>Add Group</h1>
+        <form class="example-form" [formGroup]="form_AddGroup">
+            
+            <div class="row">
+                <!-- group name -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Group name</mat-label>
+                    <input type="text" matInput formControlName="name" placeholder="Enter a group name">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+            
+            <div class="row">
+                <!-- checkbox: is enabled -->
+                <mat-checkbox formControlName="active" class="example-margin">
+                    Active Group
+                </mat-checkbox>
+                <!-- end -->
+            </div>
+        </form>
+        <!-- submit -->
+        <button [disabled]="!form_AddGroup.valid" (click)="save_group();" mat-raised-button color="primary">Save</button>
+        
+        
+        <!-- snack bar -->
+        
+        <!-- end -->
+    </div>

@@ -39,6 +39,7 @@ export class AddGroupComponent implements OnInit {
       // submit the form
       this.service_addGroup.service_add_group(this.form_AddGroup.value).then(res=>{
         this.openSnackBar(res['status']['message'],"Ok",4000);
+      this.form_AddGroup.reset();
 
       })
     }

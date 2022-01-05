@@ -1,114 +1,183 @@
-<!-- delete confirmation -->
-<div *ngIf="selection.hasValue()" class="container w-25 mt-3">
-    <div class="row">
-        <div class="col-auto">
-            <h3>Are you sure you want to delete the below records?</h3>
+<div class="row">
+    <div  *ngIf="selection.hasValue()" class="col-auto w-50">
+        <!-- delete confirmation -->
+        <div class="m-5">
+            <div class="row">
+                <div class="col-auto">
+                    <h3>Are you sure you want to delete the below records?</h3>
 
-            <ol>
-                <li *ngFor="let item of selection.selected">
-                    {{item.name}}
-                </li>
-            </ol>
-        </div>
-    </div>
+                    <ol>
+                        <li *ngFor="let item of selection.selected">
+                            {{item.name}}
+                        </li>
+                    </ol>
+                </div>
+            </div>
 
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <!-- delete -->
-            <button (click)="delete_group()" *ngIf="selection.hasValue()" mat-fab class="mb-4 right" color="warn"
-                aria-label="Example icon button with a home icon">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
-    </div>
-
-
-</div>
-
-<!-- end -->
-
-<div class="container-fluid mt-4">
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <!-- delete -->
-            <button (click)="get_group_list(true)" mat-fab class="mb-4 right" color="primary"
-                aria-label="Example icon button with a home icon">
-                <mat-icon>refresh</mat-icon>
-            </button>
-
-        </div>
-    </div>
-    <!-- filter control -->
-    <mat-form-field appearance="standard" class="w-100">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
-    </mat-form-field>
-
-
-
-    <!-- end -->
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-
-
-            <!-- Checkbox Column -->
-            <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-
-
-            <!-- group name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Group</th>
-                <td mat-cell *matCellDef="let element">
-                    {{element.name}}
-                </td>
-            </ng-container>
-
-            <!-- active (groupt status) Column -->
-            <ng-container matColumnDef="active">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                <td mat-cell *matCellDef="let element">
-
-                    <!-- active icon -->
-                    <mat-icon class="text-success" *ngIf="element.active ==true">check_circle_outline</mat-icon>
-                    <!-- inactive -->
-                    <mat-icon class="text-danger" *ngIf="element.active ==false">close_outline</mat-icon>
-
-                </td>
-
-            </ng-container>
-
-            <!-- <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef>
-                    Actions
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    
-                    <button (click)="delete_group(element)" mat-icon-button class="btn text-danger">
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <!-- delete -->
+                    <button (click)="delete_group()" *ngIf="selection.hasValue()" mat-fab class="mb-4 right"
+                        color="warn" aria-label="Example icon button with a home icon">
                         <mat-icon>delete</mat-icon>
                     </button>
-                </td>
-            </ng-container> -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                </div>
+            </div>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
-        </mat-paginator>
+        </div>
+
     </div>
+    <div class="col-auto  w-100">
+        <!-- end -->
+        <div class="container-fluid mt-1">
+            <!-- table control  -->
+            <div class="row justify-content-end">
+                <div class="col-auto">
+
+
+                    <!-- refresh -->
+                    <button (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                        aria-label="Example icon button with a home icon">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+
+                    <!-- save -->
+                    <button *ngIf="enable_save_all;" (click)="submit_all()" mat-fab class="mb-4 mr-1 right"
+                        color="primary" aria-label="Example icon button with a home icon">
+                        <mat-icon>save</mat-icon>
+                    </button>
+
+
+                </div>
+            </div>
+
+            <!-- filter control -->
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+            </mat-form-field>
+
+
+
+            <!-- end -->
+
+            <!-- table -->
+            <div class="mat-elevation-z8">
+                <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- Checkbox Column -->
+
+
+
+
+
+                    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+
+                        <div *ngIf="col !=='select' ">
+
+
+                            <!-- table header -->
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                                <span *ngIf="col !== 'isEdit'  ">
+                                    {{col}}
+                                </span>
+                            </th>
+
+                            <!-- table cell -->
+                            <td mat-cell *matCellDef="let element">
+                                <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+
+                                    <!-- edit button -->
+                                    <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                                        <button (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                            mat-icon-button color="primary"
+                                            aria-label="Example icon-button with a heart icon">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+
+
+                                    <!-- row: view mode -->
+                                    <span *ngSwitchDefault>
+                                        <!-- text cell -->
+                                        <label for="" *ngIf="!isBool(element[col])">
+                                            {{element[col]}}
+                                        </label>
+
+                                        <!-- slide type cell -->
+                                        <mat-slide-toggle disabled="true" [checked]="element[col]"
+                                            *ngIf="isBool(element[col])">
+                                        </mat-slide-toggle>
+
+                                        <!-- dropdown cell -->
+                                        <!-- end -->
+                                    </span>
+                                </div>
+
+
+                                <!-- edit mode -->
+                                <div *ngIf="element.isEdit">
+                                    <!-- done -->
+                                    <div class="btn-edit" *ngIf="col === 'isEdit'; else dataField">
+
+
+                                    </div>
+
+                                    <!-- col with edit -->
+                                    <ng-template #dataField>
+                                        <!-- input text -->
+                                        <mat-form-field *ngIf="!isBool(element[col])">
+                                            <mat-label>{{col}}</mat-label>
+                                            <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                                        </mat-form-field>
+
+
+                                        <!-- slide type cell -->
+                                        <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
+                                            *ngIf="isBool(element[col])">
+                                        </mat-slide-toggle>
+
+                                    </ng-template>
+                                </div>
+                            </td>
+                        </div>
+
+                        <!-- for checkboxes -->
+                        <div *ngIf="col ==='select'">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </div>
+
+
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
 </div>
+
 
 
 

@@ -3,14 +3,21 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListGroupService } from '../../service/group/list-group.service';
 import { DeleteGroupService } from '../../service/group/delete-group.service';
+import { UpdateGroupService } from '../../service/group/update-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+
 
 export interface groupElement {
-  name: string;
-  active: boolean;
-  rec_id: string;
+  name: "text",
+  active: "boolean",
+  rec_id: "text"
+}
+
+const TABLE_SCHEMA = {
+  "isEdit": "isEdit"
 }
 // to be filled from the service
 const ELEMENT_DATA: groupElement[] = [];
@@ -22,21 +29,35 @@ const ELEMENT_DATA: groupElement[] = [];
 
 
 export class ListGroupComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'name', 'active'];
+  // form controls.
+  enable_save_all = false
+  form_updateGroup: any;
+  replace_with_input = false;
+  // end
+
+
+  displayedColumns: string[] = ['select', 'name', 'active', 'isEdit'];
   dataSource = new MatTableDataSource<groupElement>(ELEMENT_DATA);
   selection = new SelectionModel<groupElement>(true, []);
+
+
+  dataSchema = TABLE_SCHEMA;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
   ngAfterViewInit() {
+
     this.dataSource.paginator = this.paginator;
+
   }
   constructor(
     private service_listGroup: ListGroupService,
     private service_deleteGroup: DeleteGroupService,
+    private service_updateGroup: UpdateGroupService,
     private _snackBar: MatSnackBar,
+    private fb: FormBuilder
 
   ) { }
 
@@ -74,22 +95,31 @@ export class ListGroupComponent implements OnInit {
   }
 
   // get group list
-  get_group_list(showSnackBar:boolean) {
+  get_group_list(showSnackBar: boolean) {
 
     this.service_listGroup.service_list_group().then(res => {
       // add data to the table (data source)
       this.dataSource.data = res['data']
+
+      // control the sort
+      // TODO: switch to an input
+      this.sort.sort({ id: 'name', start: 'asc' } as MatSortable)
       this.dataSource.sort = this.sort;
       // end
       // display a notification
 
-      if(showSnackBar){
+      if (showSnackBar) {
 
-        this.openSnackBar("list is updated", "Ok",4000);
+        this.openSnackBar("list is updated", "Ok", 4000);
       }
 
     });
   };
+
+  // UI Functions
+  isBool(val): boolean { return typeof val === 'boolean'; }
+
+  // end
 
   // delete group
   delete_group() {
@@ -109,13 +139,13 @@ export class ListGroupComponent implements OnInit {
 
       })
     })
-// !important: clear all the current selections after delete requests
+    // !important: clear all the current selections after delete requests
     this.selection.clear();
 
 
   }
 
-  openSnackBar(message: string, action: string,interval:number) {
+  openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
 
     setTimeout(() => {
@@ -123,10 +153,51 @@ export class ListGroupComponent implements OnInit {
     }, interval);
   }
 
+
+  // log event (test)
+  enable_edit_mode() {
+    this.replace_with_input = !this.replace_with_input;
+
+  }
+  edit_group(e: any) {
+
+
+    let rec_id = e.rec_id
+    this.dataSource.data.forEach(item => {
+
+      this.form_updateGroup = this.fb.group({
+        name: [item.name, Validators.compose([
+          Validators.required,
+          Validators.minLength(3)
+        ])]
+      });
+    });
+  };
+
+  
+
+  submit_all() {
+    // flag the 
+    this.dataSource.data.forEach(item => {
+      if (item['isEdit'] !== undefined && item['isEdit'] == true) {
+          // 1. delete the flag
+        delete item['isEdit']
+        // 2. post to the update API
+        this.service_updateGroup.service_update_group(item).then(res=>{
+          this.openSnackBar(`Saved successfully`,'',2000)
+        })
+        
+      }
+      this.enable_save_all = false;
+    })
+  
+  }
+
+
   ngOnInit(): void {
     // get the data table on init.
     this.get_group_list(false);
-   
+
 
     // end
   };

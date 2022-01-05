@@ -51,10 +51,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StepperComponent } from './stepper/stepper.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
-import { UpdateGroupComponent } from './groups/update-group/update-group.component';
+
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
-import { } from './app-routing.module'
+import { } from './app-routing.module';
+import { TestComponentComponent } from './test-component/test-component.component'
 
 
 @NgModule({
@@ -62,8 +63,8 @@ import { } from './app-routing.module'
     AppComponent,
     StepperComponent,
     AddGroupComponent,
-    UpdateGroupComponent,
-    ListGroupComponent
+    ListGroupComponent,
+    TestComponentComponent
   ],
   imports: [
     BrowserModule,
