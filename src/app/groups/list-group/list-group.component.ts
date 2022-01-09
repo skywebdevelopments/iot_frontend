@@ -96,7 +96,8 @@ export class ListGroupComponent implements OnInit {
 
   // get group list
   get_group_list(showSnackBar: boolean) {
-
+    
+    
     this.service_listGroup.service_list_group().then(res => {
       // add data to the table (data source)
       this.dataSource.data = res['data']
@@ -198,7 +199,7 @@ export class ListGroupComponent implements OnInit {
     // get the data table on init.
     this.get_group_list(false);
 
-
+    
     // end
   };
 

@@ -1,20 +1,7 @@
 
-<mat-tab-group class="container mt-4"   mat-align-tabs="center">
-    <mat-tab>
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">list</mat-icon>
-            Groups list
-        </ng-template>
-        <app-list-group></app-list-group>
-    </mat-tab>
 
-    <mat-tab>
-        <ng-template mat-tab-label>
-            <mat-icon class="example-tab-icon">add</mat-icon>
-            Add group
-        </ng-template>
-        <app-add-group></app-add-group>
-    </mat-tab>
-    
-</mat-tab-group>
+<button [routerLink]="['/addGroup']" routerLinkActive="router-link-active" >group</button>
+<button [routerLink]="['/listGroup']" routerLinkActive="router-link-active" >list</button>
+<router-outlet></router-outlet>
 
+ 

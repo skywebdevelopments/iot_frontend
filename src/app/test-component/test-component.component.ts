@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 const USER_INFO = [
   { "name": "John Smith", "occupation": "Advisor", "age": 36 },
   { "name": "Muhi Masri", "occupation": "Developer", "age": 28 },

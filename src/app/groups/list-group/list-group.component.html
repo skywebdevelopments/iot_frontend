@@ -1,31 +1,39 @@
-<div class="row">
-    <div  *ngIf="selection.hasValue()" class="col-auto w-50">
-        <!-- delete confirmation -->
-        <div class="m-5">
-            <div class="row">
-                <div class="col-auto">
-                    <h3>Are you sure you want to delete the below records?</h3>
-
-                    <ol>
-                        <li *ngFor="let item of selection.selected">
-                            {{item.name}}
-                        </li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="row justify-content-end">
-                <div class="col-auto">
-                    <!-- delete -->
-                    <button (click)="delete_group()" *ngIf="selection.hasValue()" mat-fab class="mb-4 right"
-                        color="warn" aria-label="Example icon button with a home icon">
-                        <mat-icon>delete</mat-icon>
+<div class="row" >
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Delete {{selection.selected.length}} Groups</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="modal-body">
+                    <!-- delete confirmation -->
+                    <div class="m-5">
+                        <div class="row">
+                            <div class="col-auto">
+                                <h3>Are you sure you want to delete the below record(s)?</h3>
+    
+                                <ol>
+                                    <li *ngFor="let item of selection.selected">
+                                        {{item.name}}
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+    
+    
+    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" (click)="delete_group()" data-dismiss="modal" class="btn btn-danger">yes, Delete</button>
+                </div>
             </div>
-
         </div>
-
     </div>
     <div class="col-auto  w-100">
         <!-- end -->
@@ -35,6 +43,11 @@
                 <div class="col-auto">
 
 
+                    <!-- delete -->
+                    <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal" (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                        aria-label="Example icon button with a home icon">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                     <!-- refresh -->
                     <button (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
                         aria-label="Example icon button with a home icon">
@@ -173,12 +186,11 @@
 
 
     </div>
-
-
-
 </div>
 
 
 
 
 <!-- Button trigger modal -->
+
+
