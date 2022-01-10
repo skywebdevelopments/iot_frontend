@@ -6,7 +6,7 @@ import { ListGroupComponent } from './groups/list-group/list-group.component';
 import { TestComponentComponent } from './test-component/test-component.component';
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component';
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
-//
+import { LoginComponent } from './login/login/login.component';
 
 const routes: Routes = [
   { path: "addGroup", component: AddGroupComponent },
@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: "addGroup", component: AddGroupComponent },
   { path: "test", component: TestComponentComponent },
   { path: "addSensor", component: AddSensorComponent },
-  { path: "listSensor", component: ListSensorComponent }
+  { path: "listSensor", component: ListSensorComponent },
+  { path: "Login", component: LoginComponent }
 
 
 ]

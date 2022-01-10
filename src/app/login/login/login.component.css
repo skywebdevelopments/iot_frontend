@@ -1,0 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+#profile-img {
+    border-radius: 80%;
+    width: 80px;
+    margin-left: 32%;
+    margin-top: 5%;
+  }
+  .card{
+   padding: 5%;
+  }
+
