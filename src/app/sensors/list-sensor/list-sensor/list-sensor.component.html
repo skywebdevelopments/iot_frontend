@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="row">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Delete {{selection.selected.length}} Sensors</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- delete confirmation -->
+                    <div class="m-5">
+                        <div class="row">
+                            <div class="col-auto">
+                                <h3>Are you sure you want to delete the below record(s)?</h3>
+
+                                <ol>
+                                    <li *ngFor="let item of selection.selected">
+                                        {{item.name}}
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" (click)="delete_group()" data-dismiss="modal" class="btn btn-danger">yes,
+                        Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-auto  w-100">
+        <!-- end -->
+        <div class="container-fluid mt-1">
+            <!-- table control  -->
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                    <!-- delete -->
+                    <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
+                        (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                        aria-label="Example icon button with a home icon" matTooltip="Click to Delete Selected Sensors">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <!-- refresh -->
+                    <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                        aria-label="Example icon button with a home icon" matTooltip="Click to Refresh Data">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+
+
+                    <!-- Create sensor button -->
+                    <button [routerLink]="['/addGroup']" routerLinkActive="router-link-active" mat-fab
+                        class="mb-4 mr-1 right" color="primary" aria-label="Example icon button with a home icon"
+                        matTooltip="Click to Create Sensor">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <!-- end -->
+
+                    <!-- save -->
+                    <button *ngIf="enable_save_all;" (click)="submit_all()" mat-fab class="mb-4 mr-1 right"
+                        color="primary" aria-label="Example icon button with a home icon"
+                        matTooltip="Click to Save all Changes">
+                        <mat-icon>save</mat-icon>
+                    </button>
+
+
+                </div>
+            </div>
+
+
+            <h1>Sensors</h1>
+
+
+            <!-- filter control -->
+            <mat-form-field appearance="standard" style="width: 25%;">
+                <mat-label class="fa fa-search"> Search</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+            </mat-form-field>
+            <!-- end -->
+            
+            <!-- table -->
+            <div class="mat-elevation-z8">
+                <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- Checkbox Column -->
+                    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+
+                        <div *ngIf="col !=='select' ">
+
+
+                            <!-- table header -->
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                                <span *ngIf="col !== 'isEdit' && col!== 'isDelete'">
+                                    {{col}}
+                                </span>
+                            </th>
+
+                            <!-- table cell -->
+                            <td mat-cell *matCellDef="let element">
+                                <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit && !element.isDelete">
+
+                                    <!-- edit button -->
+                                    <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                                        <button (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                            mat-icon-button color="primary"
+                                            aria-label="Example icon-button with a heart icon"
+                                            matTooltip="Click to Edit">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+
+                                    </div>
+                                    <!--end-->
+
+                                    <!-- delete button -->
+                                    <div class="btn-edit" *ngSwitchCase="'isDelete'">
+                                        <button (click)="enable_save_all = true ;element.isDelete = !element.isEdit"
+                                            mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+                                            color="warn">
+                                            <mat-icon aria-label="Delete">delete</mat-icon>
+                                        </button>
+
+                                    </div>
+                                    <!--end-->
+
+                                    <!-- row: view mode -->
+                                    <span *ngSwitchDefault>
+                                        <!-- text cell -->
+                                        <label for="" *ngIf="!isBool(element[col]) && col!=='sleep_time'">
+                                            {{element[col]}}
+                                        </label>
+                                        <label *ngIf="col==='sleep_time'">
+                                            {{element[col]}} Sec
+                                        </label>
+                                        <!-- slide type cell -->
+                                        <mat-slide-toggle disabled="true" [checked]="element[col]"
+                                            *ngIf="isBool(element[col])">
+                                        </mat-slide-toggle>
+
+                                        <!-- dropdown cell -->
+                                        <!-- end -->
+                                    </span>
+                                </div>
+
+
+                                <!-- edit mode -->
+                                <div *ngIf="element.isEdit">
+                                    <!-- done -->
+                                    <div class="btn-edit" *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
+
+
+                                    </div>
+
+                                    <!-- col with edit -->
+                                    <ng-template #dataField>
+                                        <!-- input text -->
+                                        <mat-form-field *ngIf="!isBool(element[col])">
+                                            <mat-label>{{col}}</mat-label>
+                                            <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                                        </mat-form-field>
+
+
+                                        <!-- slide type cell -->
+                                        <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
+                                            *ngIf="isBool(element[col])">
+                                        </mat-slide-toggle>
+
+                                    </ng-template>
+                                </div>
+
+                                <!-- delete mode -->
+                                <div *ngIf="element.isDelete">
+                                </div>
+                            </td>
+                        </div>
+
+
+                        <!-- for checkboxes -->
+                        <div *ngIf="col ==='select'">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </div>
+
+
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<!-- Button trigger modal -->
