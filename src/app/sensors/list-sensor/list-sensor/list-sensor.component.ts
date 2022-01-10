@@ -314,16 +314,16 @@ export class ListSensorComponent implements OnInit {
   
   // delete sensor
   delete_sensor_onerec(e:any) { 
-    
-    let rec_id = e.rec_id
-
+    if (e['isDelete'] !== undefined && e['isDelete'] == true) {
+        // 1. delete the flag
+      delete e['isDelete']
       this.service_deleteSensor.service_delete_sensor(e).then(res => {
         console.log(res);
-
         this.openSnackBar(res['data']['message'], '', 4000);
         // recall refresh
         this.get_sensor_list(true);
-      })
+    })
+    }
   }
 
 

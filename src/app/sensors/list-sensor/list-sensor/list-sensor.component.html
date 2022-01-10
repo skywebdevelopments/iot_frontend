@@ -175,9 +175,7 @@
                                 </div>
 
                                 <!-- delete mode -->
-                                <div  *ngIf="element.isDelete">
-                                    
-
+                                <div *ngIf="element.isDelete; then delete_sensor_onerec(element);">
                                 </div>
                             </td>
                         </div>
