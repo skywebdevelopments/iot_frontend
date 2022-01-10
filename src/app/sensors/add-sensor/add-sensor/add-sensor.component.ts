@@ -21,6 +21,7 @@ export class AddSensorComponent implements OnInit {
 
   ) { }
   init_form() {
+    //
     // validators 
     // pattern 
     // required.

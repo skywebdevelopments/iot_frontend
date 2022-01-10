@@ -16,6 +16,7 @@ export class AddSensorService {
         .toPromise()
         .then(
           res => { // Success
+            //
             
             resolve(res);
           }
