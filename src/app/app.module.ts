@@ -56,11 +56,11 @@ import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
 import { } from './app-routing.module';
 import { TestComponentComponent } from './test-component/test-component.component';
-<<<<<<< HEAD
+
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
-=======
+
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component'
->>>>>>> 0eefe7608af37e5690c0ea716c243b98355bcb6b
+
 
 
 @NgModule({
@@ -70,11 +70,11 @@ import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sens
     AddGroupComponent,
     ListGroupComponent,
     TestComponentComponent,
-<<<<<<< HEAD
-    AddSensorComponent
-=======
+
+    AddSensorComponent,
+
     ListSensorComponent
->>>>>>> 0eefe7608af37e5690c0ea716c243b98355bcb6b
+
   ],
   imports: [
     BrowserModule,

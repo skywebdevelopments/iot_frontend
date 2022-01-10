@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListSensorService } from '../../../service/sensor/list-sensor.service';
+import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
+import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface sensorElement {
   mac_address: "text",
@@ -32,12 +34,13 @@ export interface sensorElement {
   sim_msidm: "text",
   flags: "text",
   mqttUserId: "number",
+  rec_id: "text"
 
 }
 
 const TABLE_SCHEMA = {
   "isEdit": "isEdit",
-  "isDelete":"isDelete"
+  "isDelete": "isDelete"
 }
 // to be filled from the service
 const ELEMENT_DATA: sensorElement[] = [];
@@ -48,13 +51,13 @@ const ELEMENT_DATA: sensorElement[] = [];
   styleUrls: ['./list-sensor.component.css']
 })
 export class ListSensorComponent implements OnInit {
- // form controls.
- enable_save_all = false
- form_updateGroup: any;
- replace_with_input = false;
- // end
+  // form controls.
+  enable_save_all = false
+  form_updateSensor: any;
+  replace_with_input = false;
+  // end
   displayedColumns: string[] =
-    [ 'select',
+    ['select',
       'mac_address',
       'client_id',
       'active',
@@ -95,6 +98,8 @@ export class ListSensorComponent implements OnInit {
   }
   constructor(
     private service_listSensor: ListSensorService,
+    private service_updateSensor: UpdateSensorService,
+    private service_deleteSensor: DeleteSensorService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -133,10 +138,6 @@ export class ListSensorComponent implements OnInit {
 
   }
 
-  openDialog() {
-    this.dialog.open(ListSensorComponent);
-  }
-  
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
@@ -159,8 +160,30 @@ export class ListSensorComponent implements OnInit {
   // UI Functions
   isBool(val): boolean { return typeof val === 'boolean'; }
   // end
-  // delete group
-  delete_group() { }
+
+  // delete sensor
+  delete_sensor() { 
+    
+    this.selection.selected.forEach(sensor => {
+      let formData = {
+        rec_id: sensor.rec_id
+      }
+
+      this.service_deleteSensor.service_delete_sensor(formData).then(res => {
+        console.log(res);
+
+        this.openSnackBar(res['data']['message'], '', 4000);
+
+        // recall refresh
+        this.get_sensor_list(true);
+
+      })
+    })
+    // !important: clear all the current selections after delete requests
+    this.selection.clear();
+
+  }
+
 
   openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
@@ -171,9 +194,139 @@ export class ListSensorComponent implements OnInit {
   }
 
   // log event (test)
-  enable_edit_mode() {}
-  edit_group(e: any) {}
-  submit_all() {}
+  enable_edit_mode() {
+    this.replace_with_input = !this.replace_with_input;
+  }
+  edit_sensor(e: any) {
+
+    let rec_id = e.rec_id
+    this.dataSource.data.forEach(item => {
+
+      this.form_updateSensor = this.fb.group({
+        mac_address: [item.mac_address, Validators.compose([
+          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
+          Validators.required
+        ])],
+
+        client_id: [item.client_id, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        ota_password: [item.ota_password, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        sensor_type: [item.sensor_type, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        static_ip: [item.static_ip, Validators.compose([
+          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
+          Validators.required,
+        ])],
+        dns1: [item.dns1, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        dns2: [item.dns2, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        gateway: [item.gateway, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        subnet: [item.subnet, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        serial_number: [item.serial_number, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        sleep_time: [item.sleep_time, Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+        ])],
+        ap_name: [item.ap_name, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        ap_ip: [item.ap_ip, Validators.compose([
+          Validators.required,
+          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+        ])],
+        ap_password: [item.ap_password, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        node_profile: [item.node_profile, Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+        ])],
+        host_ip: [item.host_ip, Validators.compose([
+          Validators.required,
+          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+        ])],
+        board_name: [item.board_name, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        board_model: [item.board_model, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        sim_serial: [item.sim_serial, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        sim_msidm: [item.sim_msidm, Validators.compose([
+          Validators.required,
+          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+        ])],
+        flags: [item.flags, Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+        ])],
+        mqttUserId: [item.mqttUserId, Validators.compose([
+          Validators.required,
+          Validators.minLength(1),
+        ])]
+      });
+    });
+  }
+  submit_all() {
+    // flag the 
+    this.dataSource.data.forEach(item => {
+      if (item['isEdit'] !== undefined && item['isEdit'] == true) {
+        // 1. delete the flag
+        delete item['isEdit']
+        // 2. post to the update API
+        this.service_updateSensor.service_update_sensor(item).then(res => {
+          this.openSnackBar(`Saved successfully`, '', 2000)
+        })
+
+      }
+      this.enable_save_all = false;
+    })
+  }
+
+  
+  // delete sensor
+  delete_sensor_onerec(e:any) { 
+    
+    let rec_id = e.rec_id
+
+      this.service_deleteSensor.service_delete_sensor(e).then(res => {
+        console.log(res);
+
+        this.openSnackBar(res['data']['message'], '', 4000);
+        // recall refresh
+        this.get_sensor_list(true);
+      })
+  }
+
+
   ngOnInit(): void {
     // get the data table on init.
     this.get_sensor_list(false);

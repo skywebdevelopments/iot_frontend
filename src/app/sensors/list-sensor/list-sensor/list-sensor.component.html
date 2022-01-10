@@ -7,7 +7,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Delete {{selection.selected.length}} Sensors</h3>
+                    <h3 class="modal-title" id="exampleModalLabel">Delete {{selection.selected.length}} Sensor(s)</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -17,11 +17,11 @@
                     <div class="m-5">
                         <div class="row">
                             <div class="col-auto">
-                                <h3>Are you sure you want to delete the below record(s)?</h3>
+                                <h3>Are you sure you want to delete the below record(s) with the following Mac address ?</h3>
 
                                 <ol>
                                     <li *ngFor="let item of selection.selected">
-                                        {{item.name}}
+                                        {{item.mac_address}}
                                     </li>
                                 </ol>
                             </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="delete_group()" data-dismiss="modal" class="btn btn-danger">yes,
+                    <button type="button" (click)="delete_sensor()" data-dismiss="modal" class="btn btn-danger">yes,
                         Delete</button>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <!-- end -->
 
                     <!-- save -->
-                    <button *ngIf="enable_save_all;" (click)="submit_all()" mat-fab class="mb-4 mr-1 right"
+                    <button *ngIf="enable_save_all;" (click)="submit_all() " mat-fab class="mb-4 mr-1 right"
                         color="primary" aria-label="Example icon button with a home icon"
                         matTooltip="Click to Save all Changes">
                         <mat-icon>save</mat-icon>
@@ -75,9 +75,7 @@
             </div>
 
 
-            <h1>Sensors</h1>
-
-
+        
             <!-- filter control -->
             <mat-form-field appearance="standard" style="width: 25%;">
                 <mat-label class="fa fa-search"> Search</mat-label>
@@ -150,19 +148,20 @@
 
 
                                 <!-- edit mode -->
+                                
                                 <div *ngIf="element.isEdit">
                                     <!-- done -->
                                     <div class="btn-edit" *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
 
-
                                     </div>
 
                                     <!-- col with edit -->
-                                    <ng-template #dataField>
+                                  
+                                    <ng-template #dataField >
                                         <!-- input text -->
                                         <mat-form-field *ngIf="!isBool(element[col])">
                                             <mat-label>{{col}}</mat-label>
-                                            <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                                            <input [type]="dataSchema[col]"  matInput [(ngModel)]="element[col]">
                                         </mat-form-field>
 
 
@@ -172,10 +171,13 @@
                                         </mat-slide-toggle>
 
                                     </ng-template>
+                             
                                 </div>
 
                                 <!-- delete mode -->
-                                <div *ngIf="element.isDelete">
+                                <div  *ngIf="element.isDelete">
+                                    
+
                                 </div>
                             </td>
                         </div>
@@ -203,9 +205,7 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                    aria-label="Select page of periodic elements">
-                </mat-paginator>
+            
             </div>
         </div>
 
