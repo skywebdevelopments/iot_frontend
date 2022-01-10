@@ -55,7 +55,8 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
 import { } from './app-routing.module';
-import { TestComponentComponent } from './test-component/test-component.component'
+import { TestComponentComponent } from './test-component/test-component.component';
+import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component'
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { TestComponentComponent } from './test-component/test-component.componen
     StepperComponent,
     AddGroupComponent,
     ListGroupComponent,
-    TestComponentComponent
+    TestComponentComponent,
+    ListSensorComponent
   ],
   imports: [
     BrowserModule,

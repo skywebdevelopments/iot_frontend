@@ -1,7 +1,10 @@
 
-
-<button [routerLink]="['/addGroup']" routerLinkActive="router-link-active" >group</button>
-<button [routerLink]="['/listGroup']" routerLinkActive="router-link-active" >list</button>
+<nav mat-tab-nav-bar>
+    <a mat-tab-link [routerLink]="['/addGroup']" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive" >Create Group</a>
+    <a mat-tab-link [routerLink]="['/listGroup']"  routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">List Group</a>
+    <a mat-tab-link [routerLink]="['/listSensor']"  routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">List Sensor</a>
+</nav>
 <router-outlet></router-outlet>
+
 
  
