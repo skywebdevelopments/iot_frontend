@@ -8,4 +8,10 @@
   .card{
    padding: 5%;
   }
-
+.field-icon {
+  float: right;
+  margin-right: 5px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
