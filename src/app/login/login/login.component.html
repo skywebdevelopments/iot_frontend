@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <div class="w-26 row justify-content-center" style="margin-top: 3%;">
     <div class="card card-container" style="width: 25%;">
         <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
@@ -12,8 +13,9 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+                <input #x type="password" class="form-control" name="password" [(ngModel)]="form.password" required
                     minlength="6" #password="ngModel" />
+                <span class="fa fa-fw fa-eye field-icon" (click)="x.type=x.type=='password'?'text':'password'"></span>
                 <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
                     <div *ngIf="password.errors.required">Password is required</div>
                     <div *ngIf="password.errors.minlength">
@@ -27,13 +29,12 @@
                 </button>
                 <!--Google button-->
                 <div class="col s12 m6 offset-m3 center-align">
-                    <a class="oauth-container btn darken-4 white black-text" href="/users/google-oauth/" style="text-transform:none">
-                            <img width="20px" style="margin-top:px; margin-right:5px" alt="Google sign-in" 
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    <a class="oauth-container btn darken-4 white black-text" style="text-transform:none">
+                        <img width="20px" style="margin-top:px; margin-right:5px" alt="Google sign-in"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                         Sign in with Google
                     </a>
-                </div>               
-                <!--end-->
+                </div>
             </div>
             <div class="form-group">
                 <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
