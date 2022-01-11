@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     // name min length 
     // required.
     this.form_login = this.formBuilder.group({
-      username: ['', Validators.compose([
+      email: ['', Validators.compose([
         Validators.required
       ])],
       password: ['', Validators.compose([

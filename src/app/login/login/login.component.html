@@ -1,28 +1,30 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 <div class="w-26 row justify-content-center" style="margin-top: 3%;">
     <div class="card card-container" style="width: 25%;">
         <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+        <!--Form Login-->
         <form class="example-form" [formGroup]="form_login">
-
-
-            <div class="form-group">
-                <label for="username">username</label>
-                <input type="text" matInput formControlName="username" >
+            <!--Email Field-->
+            <div class="container mt-4">
+                <mat-form-field class="example-full-width">
+                <label for="email">Email</label>
+                <input class="form-group" type="email" matInput formControlName="email">
+            </mat-form-field>
             </div>
-
-           
-
-
-            <div class="form-group">
+            <!--End Email Field-->
+            <!--Password Field-->
+            <div class="container mt-4">
+                <mat-form-field class="example-full-width">
                 <label for="password">Password</label>
-                <input type="text" matInput formControlName="password" >
+                <input  #eye_password type="password" matInput formControlName="password">
+                <mat-icon  class="field-icon" (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
+                </mat-icon>
+            </mat-form-field>
             </div>
-
-            <div class="form-group">
-                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid"
-                    (click)="onsubmit();">Login </button>
-
-
+            <!--End Password Field-->
+            <div>
+                <!--Login button -->
+                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid" (click)="onsubmit();">Login
+                </button>
                 <!--Google button-->
                 <div class="col s12 m6 offset-m3 center-align">
                     <a href="http://localhost:3000/auth/google" class="oauth-container btn darken-4 white black-text"
@@ -34,5 +36,6 @@
                 </div>
             </div>
         </form>
+        <!--End Form Login-->
     </div>
 </div>
