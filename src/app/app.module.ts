@@ -60,7 +60,8 @@ import { TestComponentComponent } from './test-component/test-component.componen
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
 
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
-import { LoginComponent } from './login/login/login.component'
+import { LoginComponent } from './login/login/login.component';
+
 
 
 
@@ -76,7 +77,9 @@ import { LoginComponent } from './login/login/login.component'
 
     ListSensorComponent,
 
-    LoginComponent
+    LoginComponent,
+
+
 
   ],
   imports: [
