@@ -1,6 +1,5 @@
-
-    
-    <div class="container mt-4 w-50">
+    <p *ngIf="!authorized;" >'You are not authorized to visit this route.  No data is displayed.'</p>
+    <div  *ngIf="authorized;" class="container mt-4 w-50">
         <h1>Add Group</h1>
         <form class="example-form" [formGroup]="form_AddGroup">
             

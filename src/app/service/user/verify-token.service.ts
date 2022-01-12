@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod'
-
 @Injectable({
   providedIn: 'root'
 })
-export class GenerateTokenService {
+export class VerifyTokenService {
 
   constructor(private http: HttpClient) { }
- 
-  // generate token function.
-  service_generate_token(formData: any) {
-    
+   // generate token function.
+   
+   verify_token() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/users/GenerateToken`;
-      this.http.post(apiURL, formData)
+      let apiURL = `${environment.backend.api_url}/users/VerifyToken`;
+      var header = {
+        headers: new HttpHeaders()
+          .set('Authorization',  localStorage.getItem("token"))
+      }
+      this.http.get(apiURL,header)
         .toPromise()
         .then(
           res => { // Success
-            localStorage.setItem('token',res["token"]); //to store token in local storage 
             resolve(res);
           }
         ).catch((err)=> {
@@ -28,5 +29,4 @@ export class GenerateTokenService {
     return promise;
 
   };
-
 }

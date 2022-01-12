@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {AddGroupService} from '../../service/group/add-group.service'
-
+import { VerifyTokenService } from '../../service/user/verify-token.service';
 @Component({
   selector: 'app-add-group',
   templateUrl: './add-group.component.html',
@@ -11,13 +11,16 @@ import {AddGroupService} from '../../service/group/add-group.service'
 export class AddGroupComponent implements OnInit {
   // form vars.
   form_AddGroup: any;
+  message: String;
+  authorized:boolean;
   // end
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private service_addGroup :AddGroupService
+    private service_addGroup :AddGroupService,
+    private service_verifyToken: VerifyTokenService
   ) { }
-
+ 
   init_form() {
     // validators 
     // name min length 
@@ -50,8 +53,19 @@ export class AddGroupComponent implements OnInit {
   openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
   }
+  
+  check_authorization(){
+    this.service_verifyToken.verify_token().then(res => {
+      this.authorized=true;
+    }).catch((err) => {
+      if (err.status === 401) {
+        this.authorized=false;
+      }
+    })
+  }
   ngOnInit(): void {
     // init_form on page load
+    this.check_authorization();
     this.init_form();
   }
 

@@ -18,7 +18,9 @@ export class AppComponent {
   title = 'ProjectX';
 
   constructor() { }
-
+  logout() {
+    localStorage.removeItem("token");
+   }
   ngOnInit() {
 
   }

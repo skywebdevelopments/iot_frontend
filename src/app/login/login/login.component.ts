@@ -9,8 +9,7 @@ import { FormControl, Validators, FormBuilder } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   form_login: any;
-  
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private service_generateToken: GenerateTokenService
@@ -29,17 +28,18 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  
+
   onsubmit() {
     // check the form is valid 
+
     if (this.form_login.valid) {
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
         this.form_login.reset();
-
       })
     }
   }
+  
   ngOnInit(): void {
     this.init_form();
   }

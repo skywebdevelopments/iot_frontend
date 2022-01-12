@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "test", component: TestComponentComponent },
   { path: "addSensor", component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
-  { path: "Login", component: LoginComponent },
+  { path: "Login", component: LoginComponent }
 
 
 
