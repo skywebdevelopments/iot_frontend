@@ -23,8 +23,9 @@
             <!--End Password Field-->
             <div>
                 <!--Login button -->
-                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid" (click)="onsubmit();">Login
+                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid" (click)="user_data==true ?onsubmit() :Invalid_login()">Login
                 </button>
+                
                 <!--Google button-->
                 <div class="col s12 m6 offset-m3 center-align">
                     <a href="http://localhost:3000/auth/google" class="oauth-container btn darken-4 white black-text"

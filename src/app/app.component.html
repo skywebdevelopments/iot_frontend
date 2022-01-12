@@ -10,8 +10,9 @@
     <a mat-tab-link [routerLink]="['/listSensor']" routerLinkActive #rla4="routerLinkActive"
         [active]="rla4.isActive">List Sensor</a>
 
-    <button (click)=" logout()" mat-fab style="margin-left: 15cm;"color="primary" aria-label="Example icon button with a home icon">
+    <button (click)=" logout()"  matTooltip="Click to Logout"  mat-fab style="margin-left: 15cm;"color="primary" aria-label="Example icon button with a home icon">
         <mat-icon>keyboard_return</mat-icon>
+        
     </button>
 </nav>
 

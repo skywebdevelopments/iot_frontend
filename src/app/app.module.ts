@@ -61,6 +61,7 @@ import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.c
 
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
 import { LoginComponent } from './login/login/login.component';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 
 
@@ -78,6 +79,8 @@ import { LoginComponent } from './login/login/login.component';
     ListSensorComponent,
 
     LoginComponent,
+
+    LoginDialogComponent,
 
 
 
