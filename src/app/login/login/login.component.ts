@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         console.log('Invalid login');
       }
     })
-    this.user_data = false;
+    this.user_data = true;
     this.form_login.reset();
   }
 
