@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-
+import { VerifyTokenService } from '../../service/user/verify-token.service';
 
 export interface groupElement {
   name: "text",
@@ -33,6 +33,7 @@ export class ListGroupComponent implements OnInit {
   enable_save_all = false
   form_updateGroup: any;
   replace_with_input = false;
+  authorized:boolean;
   // end
 
 
@@ -57,7 +58,8 @@ export class ListGroupComponent implements OnInit {
     private service_deleteGroup: DeleteGroupService,
     private service_updateGroup: UpdateGroupService,
     private _snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service_verifyToken: VerifyTokenService
 
   ) { }
 
@@ -194,10 +196,22 @@ export class ListGroupComponent implements OnInit {
   
   }
 
+    
+  check_authorization(){
+    this.service_verifyToken.verify_token().then(res => {
+      this.authorized=true;
+    }).catch((err) => {
+      if (err.status === 401) {
+        this.authorized=false;
+      }
+    })
+  }
+
 
   ngOnInit(): void {
     // get the data table on init.
     this.get_group_list(false);
+    this.check_authorization();
 
     
     // end

@@ -1,4 +1,5 @@
-<div class="container mt-6 w-80">
+<p *ngIf="!authorized;" >'You are not authorized to visit this route.  No data is displayed.'</p>
+<div  *ngIf="authorized;" class="container mt-6 w-80">
     <h1>Add Sensor</h1>
     <form class="example-form" [formGroup]="form_AddSensor">
 

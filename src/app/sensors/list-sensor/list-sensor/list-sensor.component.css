@@ -2,7 +2,6 @@
     overflow-x: scroll;
     max-width: 99%;
   }
-  
   .mat-cell,
   .mat-header-cell {
     word-wrap: initial;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AddSensorService } from '../../../service/sensor/add-sensor.service'
-
+import { AddSensorService } from '../../../service/sensor/add-sensor.service';
+import { VerifyTokenService } from '../../../service/user/verify-token.service';
 
 @Component({
   selector: 'app-add-sensor',
@@ -13,11 +13,13 @@ export class AddSensorComponent implements OnInit {
 
   // form vars.
   form_AddSensor: any;
+  authorized=false;
   // end
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private service_addSensor: AddSensorService
+    private service_addSensor: AddSensorService,
+    private service_verifyToken: VerifyTokenService
 
   ) { }
   init_form() {
@@ -203,8 +205,20 @@ export class AddSensorComponent implements OnInit {
     this._snackBar.open(message, action);
   }
 
+   
+  check_authorization(){
+    this.service_verifyToken.verify_token().then(res => {
+      this.authorized=true;
+    }).catch((err) => {
+      if (err.status === 401) {
+        this.authorized=false;
+      }
+    })
+  }
+
   ngOnInit(): void {
     // init_form on page load
+    this.check_authorization();
     this.init_form();
   }
 

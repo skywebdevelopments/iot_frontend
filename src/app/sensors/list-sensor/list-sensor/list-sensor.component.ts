@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ListSensorService } from '../../../service/sensor/list-sensor.service';
 import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
 import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
+import { VerifyTokenService } from '../../../service/user/verify-token.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -55,6 +56,7 @@ export class ListSensorComponent implements OnInit {
   enable_save_all = false
   form_updateSensor: any;
   replace_with_input = false;
+  authorized=false;
   // end
   displayedColumns: string[] =
     ['select',
@@ -100,6 +102,7 @@ export class ListSensorComponent implements OnInit {
     private service_listSensor: ListSensorService,
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
+    private service_verifyToken: VerifyTokenService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -326,9 +329,21 @@ export class ListSensorComponent implements OnInit {
     }
   }
 
+    
+  check_authorization(){
+    this.service_verifyToken.verify_token().then(res => {
+      this.authorized=true;
+    }).catch((err) => {
+      if (err.status === 401) {
+        this.authorized=false;
+      }
+    })
+  }
+
 
   ngOnInit(): void {
     // get the data table on init.
+    this.check_authorization();
     this.get_sensor_list(false);
     // end
   }
