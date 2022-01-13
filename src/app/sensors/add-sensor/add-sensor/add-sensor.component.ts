@@ -29,9 +29,7 @@ export class AddSensorComponent implements OnInit {
     // required.
     this.form_AddSensor = this.formBuilder.group({
       mac_address: ['', Validators.compose([
-        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
         Validators.required
-
       ])],
       // validators 
       // Min length 4 
@@ -47,8 +45,7 @@ export class AddSensorComponent implements OnInit {
       // Min length 4  
       // required.
       ota_password: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(4)
       ])],
       // validators 
       // Min length 4  
@@ -61,42 +58,41 @@ export class AddSensorComponent implements OnInit {
       // pattern 
       // required.
       static_ip: ['', Validators.compose([
-        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
-        Validators.required,
+        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
       ])],
       // validators 
       // Min length 4  
       // required.
       dns1: ['', Validators.compose([
-        Validators.required,
+      
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       dns2: ['', Validators.compose([
-        Validators.required,
+       
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       gateway: ['', Validators.compose([
-        Validators.required,
+       
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       subnet: ['', Validators.compose([
-        Validators.required,
+     
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       serial_number: ['', Validators.compose([
-        Validators.required,
+     
         Validators.minLength(4),
       ])],
       // validators 
@@ -111,21 +107,21 @@ export class AddSensorComponent implements OnInit {
       // Min length 4  
       // required.
       ap_name: ['', Validators.compose([
-        Validators.required,
+       
         Validators.minLength(4),
       ])],
       // validators 
       // pattern  
       // required.
       ap_ip: ['', Validators.compose([
-        Validators.required,
+      
         Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
       ])],
       // validators 
       // Min length 4  
       // required.
       ap_password: ['', Validators.compose([
-        Validators.required,
+      
         Validators.minLength(4),
       ])],
       // validators 
@@ -140,7 +136,7 @@ export class AddSensorComponent implements OnInit {
       // pattern  
       // required.
       host_ip: ['', Validators.compose([
-        Validators.required,
+       
         Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
       ])],
       // validators 
@@ -158,14 +154,13 @@ export class AddSensorComponent implements OnInit {
       // Min length 4  
       // required.
       sim_serial: ['', Validators.compose([
-        Validators.required,
         Validators.minLength(4),
       ])],
       // validators 
       // pattern  
       // required.
       sim_msidm: ['', Validators.compose([
-        Validators.required,
+      
         Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
       ])],
       // validators 
