@@ -1,1 +1,19 @@
  /*css */ 
+ .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+  
+  .full-name-inputs,
+  .validation-checkboxes {
+    display: flex;
+    padding-bottom:0.4cm;
+    margin: 0 -0.5rem;
+  }
+  
+.example-full-width{
+  margin-left: 2cm;
+}

@@ -15,7 +15,7 @@ export interface sensorElement {
   mac_address: "text",
   client_id: "text",
   active: "boolean",
-  ota_password: "text",
+  // ota_password: "text",
   sensor_type: "text",
   static_ip: "text",
   dns1: "text",
@@ -26,7 +26,7 @@ export interface sensorElement {
   sleep_time: "number",
   ap_name: "text",
   ap_ip: "text",
-  ap_password: "text",
+  // ap_password: "text",
   node_profile: "number",
   host_ip: "text",
   board_name: "text",
@@ -63,7 +63,6 @@ export class ListSensorComponent implements OnInit {
       'mac_address',
       'client_id',
       'active',
-      'ota_password',
       'sensor_type',
       'static_ip',
       'dns1',
@@ -74,7 +73,6 @@ export class ListSensorComponent implements OnInit {
       'sleep_time',
       'ap_name',
       'ap_ip',
-      'ap_password',
       'node_profile',
       'host_ip',
       'board_name',
@@ -215,10 +213,6 @@ export class ListSensorComponent implements OnInit {
           Validators.required,
           Validators.minLength(4),
         ])],
-        ota_password: [item.ota_password, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
         sensor_type: [item.sensor_type, Validators.compose([
           Validators.required,
           Validators.minLength(4),
@@ -259,10 +253,7 @@ export class ListSensorComponent implements OnInit {
           Validators.required,
           Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
         ])],
-        ap_password: [item.ap_password, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
+      
         node_profile: [item.node_profile, Validators.compose([
           Validators.required,
           Validators.minLength(3),
