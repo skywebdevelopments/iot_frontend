@@ -15,12 +15,12 @@ export class AddSensorComponent implements OnInit {
   // form vars.
   form_AddSensor: any;
   authorized = false;
-  isLinear = false;
+  isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   formData: any;
-  mqtt:any;
+  mqtt: any;
   // end
   constructor(
     private formBuilder: FormBuilder,
@@ -197,6 +197,7 @@ export class AddSensorComponent implements OnInit {
 
     })
   }
+
   save_sensor() {
     // check the form is valid 
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {

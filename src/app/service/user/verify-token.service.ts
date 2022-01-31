@@ -14,12 +14,13 @@ export class VerifyTokenService {
       let apiURL = `${environment.backend.api_url}/users/VerifyToken`;
       var header = {
         headers: new HttpHeaders()
-          .set('Authorization',  localStorage.getItem("token"))
+          .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
       }
       this.http.get(apiURL,header)
         .toPromise()
         .then(
           res => { // Success
+
             resolve(res);
           }
         ).catch((err)=> {

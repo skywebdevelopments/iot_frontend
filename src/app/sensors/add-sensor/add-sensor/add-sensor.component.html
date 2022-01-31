@@ -60,7 +60,7 @@
     <!--End First form group------------------------------------>
 
     <!--Second form group------------------------------------>
-    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+    <mat-step [stepControl]="secondFormGroup" label="Netwrork details">
       <form [formGroup]="secondFormGroup">
 
 
@@ -167,9 +167,6 @@
           <!-- end -->
         </div>
 
-
-
-
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -250,17 +247,16 @@
 
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext (click)="save_sensor()">Next</button>
+          <button mat-button matStepperNext (click)='save_sensor()'>Next</button>
         </div>
       </form>
     </mat-step>
     <!--Third form group------------------------------------>
     <mat-step>
-      <ng-template matStepLabel>Form Submitted Successfully</ng-template>
-      <p>You are now done.</p>
+      <ng-template matStepLabel>Sensor Created Successfully</ng-template>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <!-- <button mat-button matStepperPrevious>Back</button> -->
+        <button mat-button (click)="stepper.reset()">Create new sensor</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

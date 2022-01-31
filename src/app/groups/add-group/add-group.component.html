@@ -1,30 +1,51 @@
-    <p *ngIf="!authorized;" >'You are not authorized to visit this route.  No data is displayed.'</p>
-    <div  *ngIf="authorized;" class="container mt-4 w-50">
-        <h1>Add Group</h1>
-        <form class="example-form" [formGroup]="form_AddGroup">
-            
-            <div class="row">
-                <!-- group name -->
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Group name</mat-label>
-                    <input type="text" matInput formControlName="name" placeholder="Enter a group name">
-                </mat-form-field>
-                <!-- end -->
-            </div>
-            
-            <div class="row">
-                <!-- checkbox: is enabled -->
-                <mat-checkbox formControlName="active" class="example-margin">
-                    Active Group
-                </mat-checkbox>
-                <!-- end -->
-            </div>
-        </form>
-        <!-- submit -->
-        <button [disabled]="!form_AddGroup.valid" (click)="save_group();" mat-raised-button color="primary">Save</button>
-        
-        
-        <!-- snack bar -->
-        
-        <!-- end -->
-    </div>
+<p *ngIf="!authorized;">'You are not authorized to visit this route. No data is displayed.'</p>
+<div *ngIf="authorized;" class="container mt-4 w-100">
+    <h1>Add Group</h1>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+        <!--First form group------------------------------------>
+        <mat-step [stepControl]="form_AddGroup">
+            <form [formGroup]="form_AddGroup">
+                <ng-template matStepLabel>Add Group Details</ng-template>
+                <div class="row">
+                    <!-- group name -->
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Group name</mat-label>
+                        <input type="text" matInput formControlName="name" placeholder="Enter a group name">
+                    </mat-form-field>
+                    <!-- end -->
+                </div>
+
+                <div class="row">
+                    <!-- checkbox: is enabled -->
+                    <mat-checkbox formControlName="active" class="example-margin">
+                        Active Group
+                    </mat-checkbox>
+                    <!-- end -->
+                </div>
+
+                <div>
+                    <button mat-button matStepperNext (click)="save_group();">Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+
+        <mat-step label="Assign sensor to group">
+            <app-list-sensors></app-list-sensors>
+            <button mat-button matStepperNext>Next</button>
+        </mat-step>
+
+        <mat-step >
+            <ng-template matStepLabel>Group Created Successfully</ng-template>
+            <!-- submit -->
+            <button mat-button (click)="stepper.reset()">Create new group</button>
+        </mat-step>
+
+
+
+    </mat-horizontal-stepper>
+    <!-- snack bar -->
+
+    <!-- end -->
+</div>

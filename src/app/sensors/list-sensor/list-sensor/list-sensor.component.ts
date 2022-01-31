@@ -15,7 +15,6 @@ export interface sensorElement {
   mac_address: "text",
   client_id: "text",
   active: "boolean",
-  // ota_password: "text",
   sensor_type: "text",
   static_ip: "text",
   dns1: "text",
@@ -26,7 +25,7 @@ export interface sensorElement {
   sleep_time: "number",
   ap_name: "text",
   ap_ip: "text",
-  // ap_password: "text",
+
   node_profile: "number",
   host_ip: "text",
   board_name: "text",
