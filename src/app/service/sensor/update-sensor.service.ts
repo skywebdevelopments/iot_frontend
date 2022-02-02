@@ -18,14 +18,16 @@ export class UpdateSensorService {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.put(apiURL, header, formData)
+      this.http.put(apiURL, formData, header)
         .toPromise()
         .then(
           res => { // Success
 
             resolve(res);
           }
-        );
+        ).catch((err)=> {
+          reject(err);
+      });
     });
     return promise;
 

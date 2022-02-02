@@ -17,14 +17,17 @@ export class DeleteGroupService {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.post(apiURL,header, formData)
+  
+      this.http.post(apiURL, formData,header)
         .toPromise()
         .then(
           res => { // Success
 
             resolve(res);
           }
-        );
+        ).catch((err)=> {
+          reject(err);
+      });
     });
     return promise;
 

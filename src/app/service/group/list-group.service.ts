@@ -25,7 +25,9 @@ export class ListGroupService {
 
             resolve(res);
           }
-        );
+        ).catch((err)=> {
+          reject(err);
+      });
     });
     return promise;
 

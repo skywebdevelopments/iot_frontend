@@ -21,7 +21,9 @@ export class ListSensorService {
           res => { // Success
             resolve(res);
           }
-        );
+        ).catch((err)=> {
+          reject(err);
+      });
     });
     return promise;
 

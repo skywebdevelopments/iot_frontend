@@ -13,18 +13,21 @@ export class DeleteSensorService {
 
     let promise = new Promise((resolve, reject) => {
       let apiURL = `${environment.backend.api_url}/api/v1/sensor/delete`;
-      var header = {
+      var headers = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.post(apiURL, header, formData)
+      
+      this.http.post(apiURL, formData,headers)
         .toPromise()
         .then(
           res => { // Success
 
             resolve(res);
           }
-        );
+        ).catch((err)=> {
+          reject(err);
+      });
     });
     return promise;
 

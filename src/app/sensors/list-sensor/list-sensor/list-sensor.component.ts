@@ -79,8 +79,7 @@ export class ListSensorComponent implements OnInit {
       'sim_msidm',
       'flags',
       'mqttUserId',
-      'isEdit',
-      'isDelete'];
+      'isEdit'];
 
   dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensorElement>(true, []);
@@ -104,9 +103,15 @@ export class ListSensorComponent implements OnInit {
   ) { }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+
+    if (this.dataSource.data) {
+      const numSelected = this.selection.selected.length;
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+    {
+      this.openSnackBar("list is empty!", "Ok", 4000);
+    }
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -152,6 +157,8 @@ export class ListSensorComponent implements OnInit {
         this.openSnackBar("list is updated", "Ok", 4000);
       }
 
+    }).catch(err => {
+      this.openSnackBar(`list is empty! ${err}`, "Ok", 4000);
     });
   };
 
@@ -305,6 +312,7 @@ export class ListSensorComponent implements OnInit {
 
   // delete sensor
   delete_sensor_onerec(e: any) {
+
     if (e['isDelete'] !== undefined && e['isDelete'] == true) {
       // 1. delete the flag
       delete e['isDelete']
