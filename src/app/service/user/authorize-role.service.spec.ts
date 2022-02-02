@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VerifyTokenService } from './verify-token.service';
+import { AuthorizeRoleService } from './authorize-role.service';
 
-describe('VerifyTokenService', () => {
-  let service: VerifyTokenService;
+describe('AuthorizeRoleService', () => {
+  let service: AuthorizeRoleService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(VerifyTokenService);
+    service = TestBed.inject(AuthorizeRoleService);
   });
 
   it('should be created', () => {

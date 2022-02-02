@@ -1,7 +1,7 @@
-<p *ngIf="!authorized;" >'You are not authorized to visit this route.  No data is displayed.'</p>
-<div   *ngIf="authorized;" class="row" >
+<div class="row" >
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-auto">
                                 <h3>Are you sure you want to delete the below record(s)?</h3>
-    
+
                                 <ol>
                                     <li *ngFor="let item of selection.selected">
                                         {{item.name}}
@@ -24,14 +24,15 @@
                                 </ol>
                             </div>
                         </div>
-    
-    
-    
+
+
+
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="delete_group()" data-dismiss="modal" class="btn btn-danger">yes, Delete</button>
+                    <button type="button" (click)="delete_group()" data-dismiss="modal" class="btn btn-danger">yes,
+                        Delete</button>
                 </div>
             </div>
         </div>
@@ -45,7 +46,8 @@
 
 
                     <!-- delete -->
-                    <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal" (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                    <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
+                        (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
                         aria-label="Example icon button with a home icon">
                         <mat-icon>delete</mat-icon>
                     </button>
@@ -193,5 +195,3 @@
 
 
 <!-- Button trigger modal -->
-
-

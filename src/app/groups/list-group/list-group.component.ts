@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { VerifyTokenService } from '../../service/user/verify-token.service';
+import { AuthorizeRoleService } from '../../service/user/authorize-role.service';
 
 export interface groupElement {
   name: "text",
@@ -33,7 +33,7 @@ export class ListGroupComponent implements OnInit {
   enable_save_all = false
   form_updateGroup: any;
   replace_with_input = false;
-  authorized:boolean;
+  authorized: boolean;
   // end
 
 
@@ -59,9 +59,10 @@ export class ListGroupComponent implements OnInit {
     private service_updateGroup: UpdateGroupService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
-    private service_verifyToken: VerifyTokenService
+    private service_authorize: AuthorizeRoleService
 
-  ) { }
+  ) {
+  }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -98,8 +99,7 @@ export class ListGroupComponent implements OnInit {
 
   // get group list
   get_group_list(showSnackBar: boolean) {
-    
-    
+
     this.service_listGroup.service_list_group().then(res => {
       // add data to the table (data source)
       this.dataSource.data = res['data']
@@ -177,43 +177,31 @@ export class ListGroupComponent implements OnInit {
     });
   };
 
-  
+
 
   submit_all() {
     // flag the 
     this.dataSource.data.forEach(item => {
       if (item['isEdit'] !== undefined && item['isEdit'] == true) {
-          // 1. delete the flag
+        // 1. delete the flag
         delete item['isEdit']
         // 2. post to the update API
-        this.service_updateGroup.service_update_group(item).then(res=>{
-          this.openSnackBar(`Saved successfully`,'',2000)
+        this.service_updateGroup.service_update_group(item).then(res => {
+          this.openSnackBar(`Saved successfully`, '', 2000)
         })
-        
+
       }
       this.enable_save_all = false;
     })
-  
+
   }
 
-    
-  check_authorization(){
-    this.service_verifyToken.verify_token().then(res => {
-      this.authorized=true;
-    }).catch((err) => {
-      if (err.status === 401) {
-        this.authorized=false;
-      }
-    })
-  }
 
 
   ngOnInit(): void {
     // get the data table on init.
     this.get_group_list(false);
-    this.check_authorization();
 
-    
     // end
   };
 

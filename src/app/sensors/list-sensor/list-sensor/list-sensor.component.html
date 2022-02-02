@@ -1,6 +1,4 @@
-
-<p *ngIf="!authorized;" >'You are not authorized to visit this route.  No data is displayed.'</p>
-<div *ngIf="authorized;"  class="row" >
+<div class="row">
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -17,7 +15,8 @@
                     <div class="m-5">
                         <div class="row">
                             <div class="col-auto">
-                                <h3>Are you sure you want to delete the below record(s) with the following Mac address ?</h3>
+                                <h3>Are you sure you want to delete the below record(s) with the following Mac address ?
+                                </h3>
 
                                 <ol>
                                     <li *ngFor="let item of selection.selected">
@@ -36,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="col-auto  w-100" >
+    <div class="col-auto  w-100">
         <!-- end -->
         <div class="container-fluid mt-1">
             <!-- table control  -->
@@ -75,15 +74,17 @@
             </div>
 
 
-        
+
             <!-- filter control -->
             <mat-form-field appearance="standard" style="width: 25%;">
-                
-                <mat-label ><mat-icon >search</mat-icon>  Search</mat-label>
+
+                <mat-label>
+                    <mat-icon>search</mat-icon> Search
+                </mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
             </mat-form-field>
             <!-- end -->
-            
+
             <!-- table -->
             <div class="mat-elevation-z8">
                 <table class="w-100" mat-table [dataSource]="dataSource" matSort>
@@ -149,7 +150,7 @@
 
 
                                 <!-- edit mode -->
-                                
+
                                 <div *ngIf="element.isEdit">
                                     <!-- done -->
                                     <div class="btn-edit" *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
@@ -157,12 +158,12 @@
                                     </div>
 
                                     <!-- col with edit -->
-                                  
-                                    <ng-template #dataField >
+
+                                    <ng-template #dataField>
                                         <!-- input text -->
                                         <mat-form-field *ngIf="!isBool(element[col])">
                                             <mat-label>{{col}}</mat-label>
-                                            <input [type]="dataSchema[col]"  matInput [(ngModel)]="element[col]">
+                                            <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
                                         </mat-form-field>
 
 
@@ -172,7 +173,7 @@
                                         </mat-slide-toggle>
 
                                     </ng-template>
-                             
+
                                 </div>
 
                                 <!-- delete mode -->
@@ -204,7 +205,7 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
-            
+
             </div>
         </div>
 

@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ListSensorService } from '../../../service/sensor/list-sensor.service';
 import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
 import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
-import { VerifyTokenService } from '../../../service/user/verify-token.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -91,7 +90,6 @@ export class ListSensorsComponent implements OnInit {
     private service_listSensor: ListSensorService,
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
-    private service_verifyToken: VerifyTokenService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog

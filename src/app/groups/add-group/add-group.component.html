@@ -1,5 +1,4 @@
-<p *ngIf="!authorized;">'You are not authorized to visit this route. No data is displayed.'</p>
-<div *ngIf="authorized;" class="container mt-4 w-100">
+<div class="container mt-4 w-100">
     <h1>Add Group</h1>
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
@@ -36,7 +35,7 @@
             <button mat-button matStepperNext>Next</button>
         </mat-step>
 
-        <mat-step >
+        <mat-step>
             <ng-template matStepLabel>Group Created Successfully</ng-template>
             <!-- submit -->
             <button mat-button (click)="stepper.reset()">Create new group</button>
