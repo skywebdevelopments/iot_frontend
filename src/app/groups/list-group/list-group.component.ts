@@ -17,7 +17,8 @@ export interface groupElement {
 }
 
 const TABLE_SCHEMA = {
-  "isEdit": "isEdit"
+  "isEdit": "isEdit",
+  "isDelete": "isDelete"
 }
 // to be filled from the service
 const ELEMENT_DATA: groupElement[] = [];
@@ -37,7 +38,7 @@ export class ListGroupComponent implements OnInit {
   // end
 
 
-  displayedColumns: string[] = ['select', 'name', 'active', 'isEdit'];
+  displayedColumns: string[] = ['select', 'name', 'active', 'isEdit','isDelete'];
   dataSource = new MatTableDataSource<groupElement>(ELEMENT_DATA);
   selection = new SelectionModel<groupElement>(true, []);
 
@@ -196,7 +197,20 @@ export class ListGroupComponent implements OnInit {
 
   }
 
+  // delete group
+  delete_group_onerec(e: any) {
 
+    if (e['isDelete'] !== undefined && e['isDelete'] == true) {
+      // 1. delete the flag
+      delete e['isDelete']
+      this.service_deleteGroup.service_delete_group(e).then(res => {
+        console.log(res);
+        this.openSnackBar(res['data']['message'], '', 4000);
+        // recall refresh
+        this.get_group_list(true);
+      })
+    }
+  }
 
   ngOnInit(): void {
     // get the data table on init.

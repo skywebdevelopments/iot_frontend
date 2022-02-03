@@ -64,14 +64,14 @@
                             aria-label="Example icon button with a home icon"
                             matTooltip="Click to Delete Selected Sensors">
                             <mat-icon>delete</mat-icon>
-                            <span>Delete {{selection.selected.length}}</span>
+                             <!-- <span>Delete {{selection.selected.length}}</span>-->
                         </button>
 
                         <!-- refresh -->
                         <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
                             aria-label="Example icon button with a home icon" matTooltip="Click to Refresh Data">
                             <mat-icon>refresh</mat-icon>
-                            <span>Refresh Data</span>
+                             <!-- <span>Refresh Data</span> -->
                         </button>
 
 
@@ -113,14 +113,14 @@
 
                             <!-- table header -->
                             <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                                <span *ngIf="col !== 'isEdit'  ">
+                                <span *ngIf="col !== 'isEdit' && col!== 'isDelete' ">
                                     {{col}}
                                 </span>
                             </th>
 
                             <!-- table cell -->
                             <td mat-cell *matCellDef="let element">
-                                <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+                                <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit && !element.isDelete">
 
                                     <!-- edit button -->
                                     <div class="btn-edit" *ngSwitchCase="'isEdit'">

@@ -79,7 +79,8 @@ export class ListSensorComponent implements OnInit {
       'sim_msidm',
       'flags',
       'mqttUserId',
-      'isEdit'];
+      'isEdit',
+      'isDelete'];
 
   dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensorElement>(true, []);
