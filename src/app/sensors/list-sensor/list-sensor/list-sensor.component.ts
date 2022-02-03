@@ -9,7 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-
+import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 export interface sensorElement {
   mac_address: "text",
   client_id: "text",
@@ -98,6 +98,7 @@ export class ListSensorComponent implements OnInit {
     private service_listSensor: ListSensorService,
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
+    private service_authorize:AuthorizeRoleService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -147,7 +148,9 @@ export class ListSensorComponent implements OnInit {
     this.service_listSensor.service_list_sensor().then(res => {
       // add data to the table (data source)
       this.dataSource.data = res['data']
-      // control the sort
+      console.log(res['data'].length)
+      if (this.dataSource.data ){
+          // control the sort
       // TODO: switch to an input
       this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
       this.dataSource.sort = this.sort;
@@ -157,6 +160,11 @@ export class ListSensorComponent implements OnInit {
 
         this.openSnackBar("list is updated", "Ok", 4000);
       }
+      }else{
+        this.dataSource.data=[]
+        this.openSnackBar("list is empty", "Ok", 4000);
+      }
+    
 
     }).catch(err => {
       this.openSnackBar(`list is empty! ${err}`, "Ok", 4000);
@@ -326,7 +334,9 @@ export class ListSensorComponent implements OnInit {
     }
   }
 
-
+  authorize(role) {
+    return this.service_authorize.service_authorize_user(role);
+  }
 
   ngOnInit(): void {
     // get the data table on init.

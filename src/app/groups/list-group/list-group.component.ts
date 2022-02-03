@@ -10,6 +10,7 @@ import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthorizeRoleService } from '../../service/user/authorize-role.service';
 
+
 export interface groupElement {
   name: "text",
   active: "boolean",
@@ -38,7 +39,7 @@ export class ListGroupComponent implements OnInit {
   // end
 
 
-  displayedColumns: string[] = ['select', 'name', 'active', 'isEdit','isDelete'];
+  displayedColumns: string[] = ['select', 'name', 'active', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<groupElement>(ELEMENT_DATA);
   selection = new SelectionModel<groupElement>(true, []);
 
@@ -58,6 +59,7 @@ export class ListGroupComponent implements OnInit {
     private service_listGroup: ListGroupService,
     private service_deleteGroup: DeleteGroupService,
     private service_updateGroup: UpdateGroupService,
+
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private service_authorize: AuthorizeRoleService
@@ -212,11 +214,14 @@ export class ListGroupComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
     // get the data table on init.
     this.get_group_list(false);
 
     // end
   };
-
+  authorize(role) {
+    return this.service_authorize.service_authorize_user(role);
+  }
 }

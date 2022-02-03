@@ -43,7 +43,7 @@
         <!-- end -->
         <div class="container-fluid mt-1">
             <!-- table control  -->
-            <div >
+            <div>
                 <div class="col-auto">
                     <!-- save div -->
                     <div class="col-auto">
@@ -60,14 +60,16 @@
                             <mat-icon>more_horizontal</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
-                            <!-- delete -->
-                            <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
-                                (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
-                                aria-label="Example icon button with a home icon"
-                                matTooltip="Click to Delete Selected Groups">
-                                <mat-icon>delete</mat-icon>
-                                <!-- <span>Delete {{selection.selected.length}}</span>-->
-                            </button>
+
+                            <div *ngIf='authorize(["group:delete"])'>
+                                <!-- delete -->
+                                <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
+                                    (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                                    aria-label="Example icon button with a home icon"
+                                    matTooltip="Click to Delete Selected Groups">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
 
                             <!-- refresh -->
                             <button (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
@@ -127,20 +129,25 @@
                                                 <mat-icon>more_vert</mat-icon>
                                             </button>
                                             <mat-menu #menu="matMenu">
-                                                <!-- edit -->
-                                                <button
-                                                    (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
-                                                    mat-menu-item>
-                                                    <mat-icon>edit</mat-icon>
-                                                    <span>edit {{element.name}}</span>
-                                                </button>
+                                                <div *ngIf='authorize(["group:update"])'>
+                                                    <!-- edit -->
+                                                    <button
+                                                        (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                                        mat-menu-item>
+                                                        <mat-icon>edit</mat-icon>
+                                                        <span>edit {{element.name}}</span>
+                                                    </button>
+                                                </div>
                                                 <!-- delete -->
-                                                <button
-                                                    (click)="enable_save_all = true ;element.isDelete = !element.isDelete; delete_group_onerec(element)"
-                                                    mat-menu-item>
-                                                    <mat-icon>delete</mat-icon>
-                                                    <span>delete {{element.name}}</span>
-                                                </button>
+
+                                                <div *ngIf='authorize(["group:delete"])'>
+                                                    <button
+                                                        (click)="enable_save_all = true ;element.isDelete = !element.isDelete; delete_group_onerec(element)"
+                                                        mat-menu-item>
+                                                        <mat-icon>delete</mat-icon>
+                                                        <span>delete {{element.name}}</span>
+                                                    </button>
+                                                </div>
 
                                             </mat-menu>
 
