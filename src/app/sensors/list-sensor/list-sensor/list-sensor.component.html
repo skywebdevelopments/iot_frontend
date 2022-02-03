@@ -59,19 +59,22 @@
                     </button>
                     <mat-menu #menu="matMenu">
                         <!-- delete -->
-                        <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
+
+                        <div *ngIf='authorize(["sensor:delete"])'>
+                        <button data-toggle="modal" *ngIf="selection.hasValue()  " data-target="#exampleModal"
                             (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
                             aria-label="Example icon button with a home icon"
                             matTooltip="Click to Delete Selected Sensors">
                             <mat-icon>delete</mat-icon>
-                             <!-- <span>Delete {{selection.selected.length}}</span>-->
+                            <!-- <span>Delete {{selection.selected.length}}</span>-->
                         </button>
-
+                    </div>
+                    
                         <!-- refresh -->
                         <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
                             aria-label="Example icon button with a home icon" matTooltip="Click to Refresh Data">
                             <mat-icon>refresh</mat-icon>
-                             <!-- <span>Refresh Data</span> -->
+                            <!-- <span>Refresh Data</span> -->
                         </button>
 
 
@@ -131,20 +134,24 @@
                                         </button>
                                         <mat-menu #menu="matMenu">
                                             <!-- edit -->
+                                            <div *ngIf='authorize(["sensor:update"])'>
+                                                <!-- delete -->
+                                                <button
+                                                    (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                                    mat-menu-item>
+                                                    <mat-icon>edit</mat-icon>
+                                                    <span>edit {{element.name}}</span>
+                                                </button>
+                                            </div>
 
-                                            <!-- delete -->
-                                            <button (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
-                                                mat-menu-item>
-                                                <mat-icon>edit</mat-icon>
-                                                <span>edit {{element.name}}</span>
-                                            </button>
-
-                                            <button
-                                                (click)="enable_save_all = true ;element.isDelete = !element.isDelete; delete_sensor_onerec(element)"
-                                                mat-menu-item>
-                                                <mat-icon>delete</mat-icon>
-                                                <span>delete {{element.name}}</span>
-                                            </button>
+                                            <div *ngIf='authorize(["sensor:delete"])'>
+                                                <button
+                                                    (click)="enable_save_all = true ;element.isDelete = !element.isDelete; delete_sensor_onerec(element)"
+                                                    mat-menu-item>
+                                                    <mat-icon>delete</mat-icon>
+                                                    <span>delete {{element.name}}</span>
+                                                </button>
+                                            </div>
 
                                         </mat-menu>
 
@@ -162,7 +169,7 @@
                                             {{element[col]}} Sec
                                         </label>
                                         <!-- slide type cell -->
-                                        <mat-slide-toggle disabled="true"  [checked]="element[col]"
+                                        <mat-slide-toggle disabled="true" [checked]="element[col]"
                                             *ngIf="isBool(element[col])">
                                         </mat-slide-toggle>
 
