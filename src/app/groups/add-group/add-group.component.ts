@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit,Input } from '@angular/core';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGroupService } from '../../service/group/add-group.service'
-import { ListSensorsComponent } from './list-sensors/list-sensors.component'
+
 
 @Component({
   selector: 'app-add-group',
@@ -11,7 +11,9 @@ import { ListSensorsComponent } from './list-sensors/list-sensors.component'
 })
 export class AddGroupComponent implements OnInit {
   // form vars.
-  form_AddGroup: any;
+  @Input() Sensors_selected:any; 
+  form_AddGroup: FormGroup;
+  id:any;
   message: String;
   authorized: boolean;
   isLinear = false;
@@ -42,8 +44,9 @@ export class AddGroupComponent implements OnInit {
     if (this.form_AddGroup.valid) {
       // submit the form
       this.service_addGroup.service_add_group(this.form_AddGroup.value).then(res => {
+        this.id=res['data']['rec_id'];
         this.openSnackBar(res['status']['message'], "Ok", 4000);
-        this.form_AddGroup.reset();
+        //this.form_AddGroup.reset();
 
       })
     }
@@ -55,6 +58,7 @@ export class AddGroupComponent implements OnInit {
     this._snackBar.open(message, action);
   }
 
+  
   ngOnInit(): void {
     // init_form on page load
     this.init_form();

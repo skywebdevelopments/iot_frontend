@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListSensorService } from '../../../service/sensor/list-sensor.service';
 import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
 import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
+import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 export interface sensorElement {
@@ -49,7 +50,9 @@ const ELEMENT_DATA: sensorElement[] = [];
   styleUrls: ['./list-sensors.component.css']
 })
 export class ListSensorsComponent implements OnInit {
- 
+  @Input() Group: FormGroup;
+  @Input() id: any;
+  formData={};
   displayedColumns: string[] =
     ['select',
       'mac_address',
@@ -90,6 +93,7 @@ export class ListSensorsComponent implements OnInit {
     private service_listSensor: ListSensorService,
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
+    private service_mapSensor: MapGroupSensorService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -159,9 +163,21 @@ export class ListSensorsComponent implements OnInit {
     }, interval);
   }
 
+  assign_sensors() {
+    this.dataSource.data.forEach(Sensor_data => {
+      this.formData["sensorId"] = Sensor_data['id'];
+      this.formData["group_rec_id"] = this.id;
+      this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
+        this.openSnackBar("success", "Ok", 2000);
+      }).catch((err) => {
+        this.openSnackBar(err, "Ok", 2000);
+      })
+    })
+  }
 
   ngOnInit(): void {
     // get the data table on init.
+
     this.get_sensor_list(false);
     // end
   }

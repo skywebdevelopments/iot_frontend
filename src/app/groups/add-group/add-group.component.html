@@ -31,7 +31,7 @@
 
 
         <mat-step label="Assign sensor to group">
-            <app-list-sensors></app-list-sensors>
+            <app-list-sensors [Group]="form_AddGroup" [id]="id"></app-list-sensors>
             <button mat-button matStepperNext>Next</button>
         </mat-step>
 
