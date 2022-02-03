@@ -64,6 +64,9 @@ import { LoginComponent } from './login/login/login.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ListSensorsComponent } from './groups/add-group/list-sensors/list-sensors.component';
 
+import {EncrDecrService} from './service/encr-decr.service';
+
+
 
 @NgModule({
   declarations: [
@@ -141,7 +144,7 @@ import { ListSensorsComponent } from './groups/add-group/list-sensors/list-senso
 
 
   ],
-  providers: [],
+  providers: [EncrDecrService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
