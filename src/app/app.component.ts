@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthorizeRoleService } from '../app/service/user/authorize-role.service'
+import { CookieService } from 'ngx-cookie-service'
 
 export interface PeriodicElement {
   name: string;
@@ -17,18 +18,22 @@ export interface PeriodicElement {
 export class AppComponent {
   title = 'ProjectX';
 
-  constructor(private service_authorize: AuthorizeRoleService) { }
+  constructor(private service_authorize: AuthorizeRoleService, public cookieService: CookieService) { }
 
   ngOnInit() {
+
+    if (this.cookieService.get('token')) {
+      localStorage.setItem('token', this.cookieService.get('token'))
+    }
 
   }
   logout() {
     localStorage.removeItem("token");
+    this.cookieService.deleteAll();
   }
 
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);
   }
-
 
 }
