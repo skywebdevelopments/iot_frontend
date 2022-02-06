@@ -43,7 +43,7 @@
         <!-- end -->
         <div class="container-fluid mt-1">
             <!-- table control  -->
-            <div>
+            <div class="row justify-content-end">
                 <div class="col-auto">
                     <!-- save div -->
                     <div class="col-auto">
@@ -105,8 +105,8 @@
                 <!-- end -->
 
                 <!-- table -->
-                <div class="mat-elevation-z8">
-                    <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+                <div class="mat-elevation-z8 w-100">
+                    <table mat-table [dataSource]="dataSource" matSort>
                         <!-- Checkbox Column -->
                         <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
                             <div *ngIf="col !=='select' ">
@@ -141,8 +141,7 @@
                                                 <!-- delete -->
 
                                                 <div *ngIf='authorize(["group:delete"])'>
-                                                    <button
-                                                        (click)="enable_save_all = true ;element.isDelete = !element.isDelete; delete_group_onerec(element)"
+                                                    <button (click)=" element.isDelete = !element.isDelete; delete_group_onerec(element)"
                                                         mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>
@@ -175,7 +174,7 @@
                                     <!-- edit mode -->
                                     <div *ngIf="element.isEdit">
                                         <!-- done -->
-                                        <div class="btn-edit" *ngIf="col === 'isEdit'; else dataField">
+                                        <div class="btn-edit" *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
 
 
                                         </div>

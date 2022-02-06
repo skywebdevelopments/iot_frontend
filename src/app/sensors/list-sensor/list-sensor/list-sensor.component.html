@@ -140,16 +140,16 @@
                                                     (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
                                                     mat-menu-item>
                                                     <mat-icon>edit</mat-icon>
-                                                    <span>edit {{element.name}}</span>
+                                                    <span>edit {{element.mac_address}}</span>
                                                 </button>
                                             </div>
 
                                             <div *ngIf='authorize(["sensor:delete"])'>
                                                 <button
-                                                    (click)="enable_save_all = true ;element.isDelete = !element.isDelete; delete_sensor_onerec(element)"
+                                                    (click)=" element.isDelete = !element.isDelete; delete_sensor_onerec(element)"
                                                     mat-menu-item>
                                                     <mat-icon>delete</mat-icon>
-                                                    <span>delete {{element.name}}</span>
+                                                    <span>delete {{element.mac_address}}</span>
                                                 </button>
                                             </div>
 
@@ -182,7 +182,7 @@
                                 <!-- edit mode -->
                                 <div *ngIf="element.isEdit">
                                     <!-- done -->
-                                    <div class="btn-edit" *ngIf="col === 'isEdit'; else dataField">
+                                    <div class="btn-edit" *ngIf="col === 'isEdit' || col === 'isDelete'; else dataField">
 
 
                                     </div>

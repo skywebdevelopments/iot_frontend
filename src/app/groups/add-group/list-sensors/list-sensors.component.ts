@@ -50,7 +50,6 @@ const ELEMENT_DATA: sensorElement[] = [];
   styleUrls: ['./list-sensors.component.css']
 })
 export class ListSensorsComponent implements OnInit {
-  @Input() Group: FormGroup;
   @Input() id: any;
   formData={};
   displayedColumns: string[] =
@@ -145,7 +144,7 @@ export class ListSensorsComponent implements OnInit {
       // display a notification
       if (showSnackBar) {
 
-        this.openSnackBar("list is updated", "Ok", 4000);
+        this.openSnackBar("list is updated", "Ok", 2000);
       }
 
     });
@@ -164,11 +163,11 @@ export class ListSensorsComponent implements OnInit {
   }
 
   assign_sensors() {
-    this.dataSource.data.forEach(Sensor_data => {
+    this.selection.selected.forEach(Sensor_data => {
       this.formData["sensorId"] = Sensor_data['id'];
       this.formData["group_rec_id"] = this.id;
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
-        this.openSnackBar("success", "Ok", 2000);
+        this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);
       }).catch((err) => {
         this.openSnackBar(err, "Ok", 2000);
       })
@@ -177,7 +176,6 @@ export class ListSensorsComponent implements OnInit {
 
   ngOnInit(): void {
     // get the data table on init.
-
     this.get_sensor_list(false);
     // end
   }
