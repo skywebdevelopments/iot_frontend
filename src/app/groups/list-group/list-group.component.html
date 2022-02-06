@@ -59,6 +59,7 @@
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                             <mat-icon>more_horizontal</mat-icon>
                         </button>
+
                         <mat-menu #menu="matMenu">
 
                             <div *ngIf='authorize(["group:delete"])'>
@@ -80,13 +81,16 @@
 
 
                             <!-- Create Group button -->
-                            <button [routerLink]="['/addGroup']" routerLinkActive="router-link-active" mat-fab
-                                class="mb-4 mr-1 right" color="primary"
-                                aria-label="Example icon button with a home icon" matTooltip="Click to Create Group">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                            <!-- end -->
-
+                            <div *ngIf='authorize(["group:create"])'>
+                                <button [routerLink]="['/addGroup']" routerLinkActive="router-link-active" mat-fab
+                                    class="mb-4 mr-1 right" color="primary"
+                                    aria-label="Example icon button with a home icon"
+                                    matTooltip="Click to Create Group">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                                <!-- end -->
+                            
                             <!-- save -->
 
                         </mat-menu>
@@ -124,11 +128,13 @@
                                         <!-- edit button -->
                                         <div class="btn-edit" *ngSwitchCase="'isEdit'">
 
-                                            <button mat-icon-button [matMenuTriggerFor]="menu"
-                                                aria-label="Example icon-button with a menu">
-                                                <mat-icon>more_vert</mat-icon>
-                                            </button>
-                                            <mat-menu #menu="matMenu">
+                                            <div *ngIf='authorize(["group:delete"]) || authorize(["group:update"])'>
+                                                <button mat-icon-button [matMenuTriggerFor]="menuu"
+                                                    aria-label="Example icon-button with a menu">
+                                                    <mat-icon>more_vert</mat-icon>
+                                                </button>
+                                            </div>
+                                            <mat-menu #menuu="matMenu">
                                                 <div *ngIf='authorize(["group:update"])'>
                                                     <!-- edit -->
                                                     <button
@@ -141,15 +147,14 @@
                                                 <!-- delete -->
 
                                                 <div *ngIf='authorize(["group:delete"])'>
-                                                    <button (click)=" element.isDelete = !element.isDelete; delete_group_onerec(element)"
+                                                    <button
+                                                        (click)=" element.isDelete = !element.isDelete; delete_dialog(element)"
                                                         mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>
                                                     </button>
                                                 </div>
-
                                             </mat-menu>
-
 
                                         </div>
 
@@ -174,7 +179,8 @@
                                     <!-- edit mode -->
                                     <div *ngIf="element.isEdit">
                                         <!-- done -->
-                                        <div class="btn-edit" *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
+                                        <div class="btn-edit"
+                                            *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
 
 
                                         </div>

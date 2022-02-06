@@ -61,15 +61,15 @@
                         <!-- delete -->
 
                         <div *ngIf='authorize(["sensor:delete"])'>
-                        <button data-toggle="modal" *ngIf="selection.hasValue()  " data-target="#exampleModal"
-                            (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
-                            aria-label="Example icon button with a home icon"
-                            matTooltip="Click to Delete Selected Sensors">
-                            <mat-icon>delete</mat-icon>
-                            <!-- <span>Delete {{selection.selected.length}}</span>-->
-                        </button>
-                    </div>
-                    
+                            <button data-toggle="modal" *ngIf="selection.hasValue()  " data-target="#exampleModal"
+                                (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
+                                aria-label="Example icon button with a home icon"
+                                matTooltip="Click to Delete Selected Sensors">
+                                <mat-icon>delete</mat-icon>
+                                <!-- <span>Delete {{selection.selected.length}}</span>-->
+                            </button>
+                        </div>
+
                         <!-- refresh -->
                         <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
                             aria-label="Example icon button with a home icon" matTooltip="Click to Refresh Data">
@@ -79,11 +79,13 @@
 
 
                         <!-- Create sensor button -->
+                        <div *ngIf='authorize(["sensor:create"])'>
                         <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-fab
                             class="mb-4 mr-1 right" color="primary" aria-label="Example icon button with a home icon"
                             matTooltip="Click to Create Sensor">
                             <mat-icon>add</mat-icon>
                         </button>
+                    </div>
                         <!-- end -->
 
                         <!-- save -->
@@ -128,11 +130,14 @@
                                     <!-- edit button -->
                                     <div class="btn-edit" *ngSwitchCase="'isEdit'">
 
-                                        <button mat-icon-button [matMenuTriggerFor]="menu"
-                                            aria-label="Example icon-button with a menu">
-                                            <mat-icon>more_vert</mat-icon>
-                                        </button>
-                                        <mat-menu #menu="matMenu">
+                                        <div *ngIf='authorize(["sensor:delete"]) || authorize(["sensor:update"])'>
+                                            <button mat-icon-button [matMenuTriggerFor]="menuu"
+                                                aria-label="Example icon-button with a menu">
+                                                <mat-icon>more_vert</mat-icon>
+                                            </button>
+                                        </div>
+
+                                        <mat-menu #menuu="matMenu">
                                             <!-- edit -->
                                             <div *ngIf='authorize(["sensor:update"])'>
                                                 <!-- delete -->
@@ -146,7 +151,7 @@
 
                                             <div *ngIf='authorize(["sensor:delete"])'>
                                                 <button
-                                                    (click)=" element.isDelete = !element.isDelete; delete_sensor_onerec(element)"
+                                                    (click)=" element.isDelete = !element.isDelete; delete_dialog(element)"
                                                     mat-menu-item>
                                                     <mat-icon>delete</mat-icon>
                                                     <span>delete {{element.mac_address}}</span>
@@ -182,7 +187,8 @@
                                 <!-- edit mode -->
                                 <div *ngIf="element.isEdit">
                                     <!-- done -->
-                                    <div class="btn-edit" *ngIf="col === 'isEdit' || col === 'isDelete'; else dataField">
+                                    <div class="btn-edit"
+                                        *ngIf="col === 'isEdit' || col === 'isDelete'; else dataField">
 
 
                                     </div>

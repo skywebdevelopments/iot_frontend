@@ -10,6 +10,7 @@ import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
+import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 export interface sensorElement {
   mac_address: "text",
   client_id: "text",
@@ -336,6 +337,15 @@ export class ListSensorComponent implements OnInit {
 
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);
+  }
+  delete_dialog(e:any) {
+    let dialogRef = this.dialog.open(DeleteDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
+      if (result == 'confirm') {
+        this.delete_sensor_onerec(e);
+      }
+    })
   }
 
   ngOnInit(): void {

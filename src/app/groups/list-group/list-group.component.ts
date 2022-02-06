@@ -9,7 +9,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthorizeRoleService } from '../../service/user/authorize-role.service';
-
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface groupElement {
   name: "text",
@@ -62,8 +63,9 @@ export class ListGroupComponent implements OnInit {
 
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
-    private service_authorize: AuthorizeRoleService
+    private service_authorize: AuthorizeRoleService,
 
+    private dialog: MatDialog,
   ) {
   }
 
@@ -212,6 +214,16 @@ export class ListGroupComponent implements OnInit {
         this.get_group_list(true);
       })
     }
+  }
+
+  delete_dialog(e:any) {
+    let dialogRef = this.dialog.open(DeleteDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
+      if (result == 'confirm') {
+        this.delete_group_onerec(e);
+      }
+    })
   }
 
 

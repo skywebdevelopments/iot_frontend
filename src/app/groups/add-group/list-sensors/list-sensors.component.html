@@ -38,12 +38,18 @@
                                     <!-- row: view mode -->
                                     <span *ngSwitchDefault>
                                         <!-- text cell -->
-                                        <label for="" *ngIf="!isBool(element[col]) && col!=='sleep_time'">
+                                        <label for=""
+                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user'">
                                             {{element[col]}}
                                         </label>
                                         <label *ngIf="col==='sleep_time'">
                                             {{element[col]}} Sec
                                         </label>
+                                        <div *ngIf="col==='mqtt_user'" >
+                                            <label  >
+                                             {{ element[col]['username']}}
+                                            </label>
+                                        </div>
                                         <!-- slide type cell -->
                                         <mat-slide-toggle disabled="true" [checked]="element[col]"
                                             *ngIf="isBool(element[col])">
@@ -84,4 +90,3 @@
         </div>
     </div>
 </div>
-

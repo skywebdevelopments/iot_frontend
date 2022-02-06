@@ -5,11 +5,13 @@ import { ListSensorService } from '../../../service/sensor/list-sensor.service';
 import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
 import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
 import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
+import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ListSensorComponent } from 'src/app/sensors/list-sensor/list-sensor/list-sensor.component';
 
 export interface sensorElement {
   mac_address: "text",
@@ -51,7 +53,8 @@ const ELEMENT_DATA: sensorElement[] = [];
 })
 export class ListSensorsComponent implements OnInit {
   @Input() id: any;
-  formData={};
+  name: any
+  formData = {};
   displayedColumns: string[] =
     ['select',
       'mac_address',
@@ -74,7 +77,7 @@ export class ListSensorsComponent implements OnInit {
       'sim_serial',
       'sim_msidm',
       'flags',
-      'mqttUserId'];
+      'mqtt_user'];
 
   dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensorElement>(true, []);
@@ -93,6 +96,7 @@ export class ListSensorsComponent implements OnInit {
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
     private service_mapSensor: MapGroupSensorService,
+    private service_ListMqtt_User: ListMqqtUserService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -173,10 +177,14 @@ export class ListSensorsComponent implements OnInit {
       })
     })
   }
+  
+
+
 
   ngOnInit(): void {
     // get the data table on init.
     this.get_sensor_list(false);
+    
     // end
   }
 

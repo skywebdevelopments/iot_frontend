@@ -65,6 +65,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ListSensorsComponent } from './groups/add-group/list-sensors/list-sensors.component';
 
 import {EncrDecrService} from './service/encr-decr.service';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 
 
@@ -85,6 +86,8 @@ import {EncrDecrService} from './service/encr-decr.service';
     LoginDialogComponent,
 
     ListSensorsComponent,
+
+    DeleteDialogComponent,
 
   ],
   imports: [
