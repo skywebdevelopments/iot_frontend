@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import jwt_decode from "jwt-decode";
 import {EncrDecrService} from '../encr-decr.service'
+import {environment} from '../../../environments/environment.prod'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthorizeRoleService {
       return false;
     }
 
-    let token = this.service_enc_dec.get(localStorage.getItem('token'),'cyshield_secret@123');
+    let token = this.service_enc_dec.get(localStorage.getItem('token'),environment.backend.t_secret);
     let user = jwt_decode(token);
 
     let user_role = user['roles'];

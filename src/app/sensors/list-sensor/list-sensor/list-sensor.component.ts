@@ -11,6 +11,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
+import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
 export interface sensorElement {
   mac_address: "text",
   client_id: "text",
@@ -25,7 +26,6 @@ export interface sensorElement {
   sleep_time: "number",
   ap_name: "text",
   ap_ip: "text",
-
   node_profile: "number",
   host_ip: "text",
   board_name: "text",
@@ -35,7 +35,6 @@ export interface sensorElement {
   flags: "text",
   mqttUserId: "number",
   rec_id: "text"
-
 }
 
 const TABLE_SCHEMA = {
@@ -56,6 +55,7 @@ export class ListSensorComponent implements OnInit {
   form_updateSensor: any;
   replace_with_input = false;
   authorized = false;
+  mqtt: any;
   // end
   displayedColumns: string[] =
     ['select',
@@ -79,7 +79,7 @@ export class ListSensorComponent implements OnInit {
       'sim_serial',
       'sim_msidm',
       'flags',
-      'mqttUserId',
+      'mqtt_user',
       'isEdit',
       'isDelete'];
 
@@ -99,22 +99,20 @@ export class ListSensorComponent implements OnInit {
     private service_listSensor: ListSensorService,
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
-    private service_authorize:AuthorizeRoleService,
+    private service_authorize: AuthorizeRoleService,
+    private service_ListMqtt_User: ListMqqtUserService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
   ) { }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-
+    const numSelected = this.selection.selected.length;
     if (this.dataSource.data) {
-      const numSelected = this.selection.selected.length;
       const numRows = this.dataSource.data.length;
       return numSelected === numRows;
     }
-    {
-      this.openSnackBar("list is empty!", "Ok", 4000);
-    }
+    return 0;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -147,28 +145,28 @@ export class ListSensorComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
-      // add data to the table (data source)
-      this.dataSource.data = res['data']
-      console.log(res['data'].length)
-      if (this.dataSource.data ){
-          // control the sort
-      // TODO: switch to an input
-      this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
-      this.dataSource.sort = this.sort;
-      // end
-      // display a notification
-      if (showSnackBar) {
+      //check if list is not empty
+      if (res['data']) {
+        // add data to the table (data source)
+        this.dataSource.data = res['data']
+        // control the sort
+        // TODO: switch to an input
+        this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
+        this.dataSource.sort = this.sort;
+        // end
+        // display a notification
+        if (showSnackBar) {
 
-        this.openSnackBar("list is updated", "Ok", 4000);
+          this.openSnackBar("list is updated", "Ok", 4000);
+        }
+      } else {
+        this.dataSource.data = []
+        this.openSnackBar("list is empty", "Ok", 2000);
       }
-      }else{
-        this.dataSource.data=[]
-        this.openSnackBar("list is empty", "Ok", 4000);
-      }
-    
+
 
     }).catch(err => {
-      this.openSnackBar(`list is empty! ${err}`, "Ok", 4000);
+      this.openSnackBar(err, "Ok", 4000);
     });
   };
 
@@ -312,6 +310,7 @@ export class ListSensorComponent implements OnInit {
         // 2. post to the update API
         this.service_updateSensor.service_update_sensor(item).then(res => {
           this.openSnackBar(`Saved successfully`, '', 2000)
+          this.get_sensor_list(true);
         })
 
       }
@@ -322,7 +321,6 @@ export class ListSensorComponent implements OnInit {
 
   // delete sensor
   delete_sensor_onerec(e: any) {
-
     if (e['isDelete'] !== undefined && e['isDelete'] == true) {
       // 1. delete the flag
       delete e['isDelete']
@@ -338,19 +336,31 @@ export class ListSensorComponent implements OnInit {
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);
   }
-  delete_dialog(e:any) {
+  delete_dialog(e: any) {
     let dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
+        e['isDelete'] = !e['isDelete'];
         this.delete_sensor_onerec(e);
       }
     })
   }
 
+  Get_mqqtuser() {
+    var mqtt_User = []
+    this.service_ListMqtt_User.service_list_mqttUser().then(res => {
+      res['data'].forEach(function (mqtt_user) {
+        mqtt_User.push(mqtt_user)
+      });
+    });
+    return mqtt_User;
+  }
+
   ngOnInit(): void {
     // get the data table on init.
     this.get_sensor_list(false);
+    this.mqtt = this.Get_mqqtuser();
     // end
   }
 
