@@ -80,12 +80,12 @@
 
                         <!-- Create sensor button -->
                         <div *ngIf='authorize(["sensor:create"])'>
-                        <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-fab
-                            class="mb-4 mr-1 right" color="primary" aria-label="Example icon button with a home icon"
-                            matTooltip="Click to Create Sensor">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
+                            <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-fab
+                                class="mb-4 mr-1 right" color="primary"
+                                aria-label="Example icon button with a home icon" matTooltip="Click to Create Sensor">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
                         <!-- end -->
 
                         <!-- save -->
@@ -150,9 +150,7 @@
                                             </div>
 
                                             <div *ngIf='authorize(["sensor:delete"])'>
-                                                <button
-                                                    (click)="delete_dialog(element)"
-                                                    mat-menu-item>
+                                                <button (click)="delete_dialog(element)" mat-menu-item>
                                                     <mat-icon>delete</mat-icon>
                                                     <span>delete {{element.mac_address}}</span>
                                                 </button>
@@ -167,12 +165,18 @@
                                     <!-- row: view mode -->
                                     <span *ngSwitchDefault>
                                         <!-- text cell -->
-                                        <label for="" *ngIf="!isBool(element[col]) && col!=='sleep_time'">
+                                        <label for=""
+                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user'">
                                             {{element[col]}}
                                         </label>
                                         <label *ngIf="col==='sleep_time'">
                                             {{element[col]}} Sec
                                         </label>
+                                        <div *ngIf="col==='mqtt_user'">
+                                            <label>
+                                                {{ element[col]['username']}}
+                                            </label>
+                                        </div>
                                         <!-- slide type cell -->
                                         <mat-slide-toggle disabled="true" [checked]="element[col]"
                                             *ngIf="isBool(element[col])">
@@ -196,11 +200,19 @@
                                     <!-- col with edit -->
                                     <ng-template #dataField>
                                         <!-- input text -->
-                                        <mat-form-field *ngIf="!isBool(element[col])">
+                                        <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user'">
                                             <mat-label>{{col}}</mat-label>
                                             <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
                                         </mat-form-field>
 
+                                        <!-- mqttUserId -->
+                                        <mat-form-field *ngIf="col==='mqtt_user'">
+                                            <mat-select placeholder="MQTT user name" [(ngModel)]="element['mqttUserId']">
+                                                <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id">
+                                                    {{mqtt_user.username}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <!-- end -->
 
                                         <!-- slide type cell -->
                                         <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"

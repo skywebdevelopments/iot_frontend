@@ -235,8 +235,6 @@
         <div class="row">
           <!-- mqttUserId -->
           <mat-form-field class="example-full-width" appearance="fill">
-            <!-- <mat-label>MqttUserId </mat-label> -->
-            <!-- <input type="number" matInput formControlName="mqttUserId" placeholder="Enter a MqttUserId"> -->
             <mat-select placeholder="MQTT user name" formControlName="mqttUserId">
               <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id"> {{mqtt_user.username}}</mat-option>
             </mat-select>
