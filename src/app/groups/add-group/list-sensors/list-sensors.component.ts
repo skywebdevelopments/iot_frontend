@@ -12,6 +12,7 @@ import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ListSensorComponent } from 'src/app/sensors/list-sensor/list-sensor/list-sensor.component';
+import { AuthorizeRoleService } from 'src/app/service/user/authorize-role.service';
 
 export interface sensorElement {
   mac_address: "text",
@@ -55,6 +56,7 @@ export class ListSensorsComponent implements OnInit {
   @Input() id: any;
   name: any
   formData = {};
+  isEmpty = true;
   displayedColumns: string[] =
     ['select',
       'mac_address',
@@ -97,6 +99,7 @@ export class ListSensorsComponent implements OnInit {
     private service_deleteSensor: DeleteSensorService,
     private service_mapSensor: MapGroupSensorService,
     private service_ListMqtt_User: ListMqqtUserService,
+    private service_authorize: AuthorizeRoleService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -104,8 +107,11 @@ export class ListSensorsComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    if (this.dataSource.data) {
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+    return 0;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -138,17 +144,21 @@ export class ListSensorsComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
-      // add data to the table (data source)
-      this.dataSource.data = res['data']
-      // control the sort
-      // TODO: switch to an input
-      this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
-      this.dataSource.sort = this.sort;
-      // end
-      // display a notification
-      if (showSnackBar) {
-
-        this.openSnackBar("list is updated", "Ok", 2000);
+      //check if list is not empty
+      if (res['data']) {
+        // add data to the table (data source)
+        this.dataSource.data = res['data']
+        this.isEmpty = false;
+        // control the sort
+        // TODO: switch to an input
+        this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
+        this.dataSource.sort = this.sort;
+        // end
+      }
+      else {
+        this.dataSource.data = [];
+        this.isEmpty = true;
+        this.openSnackBar("No sensors available", "Ok", 2000);
       }
 
     });
@@ -177,14 +187,15 @@ export class ListSensorsComponent implements OnInit {
       })
     })
   }
-  
 
-
+  authorize(role) {
+    return this.service_authorize.service_authorize_user(role);
+  }
 
   ngOnInit(): void {
     // get the data table on init.
-    this.get_sensor_list(false);
-    
+   // this.get_sensor_list(false);
+
     // end
   }
 

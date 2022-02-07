@@ -72,8 +72,11 @@ export class ListGroupComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    if (this.dataSource.data) {
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+    return 0;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -106,21 +109,27 @@ export class ListGroupComponent implements OnInit {
   get_group_list(showSnackBar: boolean) {
 
     this.service_listGroup.service_list_group().then(res => {
-      // add data to the table (data source)
-      this.dataSource.data = res['data']
 
-      // control the sort
-      // TODO: switch to an input
-      this.sort.sort({ id: 'name', start: 'asc' } as MatSortable)
-      this.dataSource.sort = this.sort;
-      // end
-      // display a notification
+      if (res['data']) {
+        // add data to the table (data source)
+        this.dataSource.data = res['data']
 
-      if (showSnackBar) {
+        // control the sort
+        // TODO: switch to an input
+        this.sort.sort({ id: 'name', start: 'asc' } as MatSortable)
+        this.dataSource.sort = this.sort;
+        // end
+        // display a notification
+        if (showSnackBar) {
 
-        this.openSnackBar("list is updated", "Ok", 4000);
+          this.openSnackBar("list is updated", "Ok", 4000);
+        }
       }
+      else {
+        this.dataSource.data = [];
+        this.openSnackBar("list is Empty!", "Ok", 2000);
 
+      }
     });
   };
 
@@ -216,7 +225,7 @@ export class ListGroupComponent implements OnInit {
     }
   }
 
-  delete_dialog(e:any) {
+  delete_dialog(e: any) {
     let dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog

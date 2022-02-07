@@ -11,7 +11,14 @@
                     <mat-icon>search</mat-icon> Search
                 </mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+
             </mat-form-field>
+            <!-- end -->
+
+            <!-- create sensor button -->
+            <div class="row"  *ngIf='authorize(["sensor"]) && isEmpty'>
+                <button mat-button [routerLink]="['/addSensor']">Create new sensor</button>
+            </div>
             <!-- end -->
 
             <!-- table -->
@@ -45,9 +52,9 @@
                                         <label *ngIf="col==='sleep_time'">
                                             {{element[col]}} Sec
                                         </label>
-                                        <div *ngIf="col==='mqtt_user'" >
-                                            <label  >
-                                             {{ element[col]['username']}}
+                                        <div *ngIf="col==='mqtt_user'">
+                                            <label>
+                                                {{ element[col]['username']}}
                                             </label>
                                         </div>
                                         <!-- slide type cell -->

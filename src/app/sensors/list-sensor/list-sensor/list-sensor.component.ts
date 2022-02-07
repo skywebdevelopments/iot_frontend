@@ -107,15 +107,12 @@ export class ListSensorComponent implements OnInit {
   ) { }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-
+    const numSelected = this.selection.selected.length;
     if (this.dataSource.data) {
-      const numSelected = this.selection.selected.length;
       const numRows = this.dataSource.data.length;
       return numSelected === numRows;
     }
-    {
-      this.openSnackBar("list is empty!", "Ok", 4000);
-    }
+    return 0;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -148,27 +145,28 @@ export class ListSensorComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
-      // add data to the table (data source)
-      this.dataSource.data = res['data']
-      if (this.dataSource.data ){
-          // control the sort
-      // TODO: switch to an input
-      this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
-      this.dataSource.sort = this.sort;
-      // end
-      // display a notification
-      if (showSnackBar) {
+      //check if list is not empty
+      if (res['data']) {
+        // add data to the table (data source)
+        this.dataSource.data = res['data']
+        // control the sort
+        // TODO: switch to an input
+        this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
+        this.dataSource.sort = this.sort;
+        // end
+        // display a notification
+        if (showSnackBar) {
 
-        this.openSnackBar("list is updated", "Ok", 4000);
+          this.openSnackBar("list is updated", "Ok", 4000);
+        }
+      } else {
+        this.dataSource.data = []
+        this.openSnackBar("list is empty", "Ok", 2000);
       }
-      }else{
-        this.dataSource.data=[]
-        this.openSnackBar("list is empty", "Ok", 4000);
-      }
-    
+
 
     }).catch(err => {
-      this.openSnackBar(`list is empty! ${err}`, "Ok", 4000);
+      this.openSnackBar(err, "Ok", 4000);
     });
   };
 
@@ -337,7 +335,7 @@ export class ListSensorComponent implements OnInit {
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);
   }
-  delete_dialog(e:any) {
+  delete_dialog(e: any) {
     let dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
