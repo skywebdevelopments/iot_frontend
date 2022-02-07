@@ -17,13 +17,13 @@ export class AddGroupComponent implements OnInit {
   // form vars.
   message: String;
   authorized: boolean;
-  isLinear = false;
+  isLinear = true;
   // end
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private service_addGroup: AddGroupService,
-  
+
   ) { }
 
   init_form() {
@@ -47,8 +47,8 @@ export class AddGroupComponent implements OnInit {
       // submit the form
       this.service_addGroup.service_add_group(this.form_AddGroup.value).then(res => {
         this.id = res['data']['rec_id'];
-        this.openSnackBar(res['status']['message'], "Ok", 2000);
-        //this.form_AddGroup.reset();
+        this.openSnackBar(res['status']['message'], "Ok", 1000);
+        this.form_AddGroup.reset();
 
       })
     }
@@ -59,11 +59,15 @@ export class AddGroupComponent implements OnInit {
   openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
   }
+
+  get_sensors() {
+    this.child.get_sensor_list(true);
+  }
   ngAfterViewInit() {
     this.child.assign_sensors();
   }
 
- 
+
   ngOnInit(): void {
     // init_form on page load
     this.init_form();
