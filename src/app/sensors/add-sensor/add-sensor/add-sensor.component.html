@@ -23,16 +23,13 @@
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row  full-name-inputs">
           <!-- serial_number -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Serial Number</mat-label>
             <input type="text" matInput formControlName="serial_number" placeholder="Enter a Serial Number">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-        <div class="row">
           <!-- sensor_type -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Sensor Type</mat-label>
@@ -41,16 +38,16 @@
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row"  style=" margin-left:1.8cm" >
           <!-- checkbox: is enabled -->
-          <mat-checkbox formControlName="active" class="example-margin">
+          <mat-checkbox formControlName="active" class="example-margin" >
             Active Sensor
           </mat-checkbox>
           <!-- end -->
         </div>
 
 
-        <div>
+        <div style=" margin-left:26cm" >
           <button mat-button matStepperNext>Next</button>
         </div>
 
@@ -65,23 +62,21 @@
 
         <div class="row">
           <!-- static_ip -->
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
             <mat-label>Static Ip</mat-label>
-            <input type="text" matInput formControlName="static_ip" placeholder="Enter a Static IP">
+            <input type="text" matInput formControlName="static_ip" placeholder="Enter a Static IP"  >
           </mat-form-field>
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row full-name-inputs">
           <!-- dns1 -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Dns1</mat-label>
             <input type="text" matInput formControlName="dns1" placeholder="Enter a Dns1">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-        <div class="row">
+        
           <!-- dns2 -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Dns2</mat-label>
@@ -90,16 +85,14 @@
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row full-name-inputs">
           <!-- gateway -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Gateway</mat-label>
             <input type="text" matInput formControlName="gateway" placeholder="Enter a Gateway">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-        <div class="row">
+     
           <!-- subnet -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Subnet</mat-label>
@@ -109,18 +102,14 @@
         </div>
 
 
-        <div class="row">
+        <div class="row full-name-inputs">
           <!-- sleep_time -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>sleep Time</mat-label>
             <input type="number" matInput formControlName="sleep_time" placeholder="Enter a Sleep Time">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-
-
-        <div class="row">
+      
           <!-- host_ip -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Host IP</mat-label>
@@ -130,16 +119,14 @@
         </div>
 
 
-        <div class="row">
+        <div class="row  full-name-inputs">
           <!-- sim_serial -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Sim Serial </mat-label>
             <input type="text" matInput formControlName="sim_serial" placeholder="Enter a Sim Serial">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-        <div class="row">
+        
           <!-- sim_msidm -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Sim Msidm </mat-label>
@@ -148,16 +135,14 @@
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row  full-name-inputs">
           <!-- Ota_password -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Ota Password</mat-label>
             <input type="password" matInput formControlName="ota_password" placeholder="Enter a Ota Password">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-        <div class="row">
+        
           <!-- flags -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Flags </mat-label>
@@ -166,7 +151,7 @@
           <!-- end -->
         </div>
 
-        <div>
+        <div style=" margin-left:24cm" >
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -178,16 +163,14 @@
     <mat-step [stepControl]="thirdFormGroup" label="Access point details">
       <form [formGroup]="thirdFormGroup">
 
-        <div class="row">
+        <div class="row  full-name-inputs">
           <!-- ap_name -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Access Point Name</mat-label>
             <input type="text" matInput formControlName="ap_name" placeholder="Enter a Access Point Name">
           </mat-form-field>
           <!-- end -->
-        </div>
 
-        <div class="row">
           <!-- ap_ip -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Access Point IP</mat-label>
@@ -196,16 +179,13 @@
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row  full-name-inputs">
           <!-- ap_password -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Access Point Password</mat-label>
             <input type="password" matInput formControlName="ap_password" placeholder="Enter a Access Point Password">
           </mat-form-field>
-          <!-- end -->
-        </div>
-
-        <div class="row">
+       
           <!-- node_profile -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Node Profile</mat-label>
@@ -214,16 +194,14 @@
           <!-- end -->
         </div>
 
-        <div class="row">
+        <div class="row  full-name-inputs">
           <!-- board_name -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Board Name</mat-label>
             <input type="text" matInput formControlName="board_name" placeholder="Enter a Board Name">
           </mat-form-field>
           <!-- end -->
-        </div>
-
-        <div class="row">
+       
           <!-- board_model -->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Board Model </mat-label>
@@ -234,7 +212,7 @@
 
         <div class="row">
           <!-- mqttUserId -->
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
             <!-- <mat-label>MqttUserId </mat-label> -->
             <!-- <input type="number" matInput formControlName="mqttUserId" placeholder="Enter a MqttUserId"> -->
             <mat-select placeholder="MQTT user name" formControlName="mqttUserId">
@@ -244,7 +222,7 @@
           <!-- end -->
         </div>
 
-        <div>
+        <div style=" margin-left:24cm" >
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext (click)='save_sensor()'>Next</button>
         </div>
@@ -253,7 +231,7 @@
     <!--Third form group------------------------------------>
     <mat-step>
       <ng-template matStepLabel>Sensor Created Successfully</ng-template>
-      <div>
+      <div style=" margin-left:24cm" >
         <!-- <button mat-button matStepperPrevious>Back</button> -->
         <button mat-button (click)="stepper.reset()">Create new sensor</button>
       </div>
