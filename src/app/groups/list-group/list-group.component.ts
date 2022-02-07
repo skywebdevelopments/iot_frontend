@@ -230,6 +230,7 @@ export class ListGroupComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
+       e['isDelete']= !e['isDelete'];
         this.delete_group_onerec(e);
       }
     })

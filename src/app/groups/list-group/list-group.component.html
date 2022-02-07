@@ -148,7 +148,7 @@
 
                                                 <div *ngIf='authorize(["group:delete"])'>
                                                     <button
-                                                        (click)=" element.isDelete = !element.isDelete; delete_dialog(element)"
+                                                        (click)="delete_dialog(element)"
                                                         mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>

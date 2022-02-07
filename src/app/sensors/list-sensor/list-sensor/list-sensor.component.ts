@@ -319,7 +319,6 @@ export class ListSensorComponent implements OnInit {
 
   // delete sensor
   delete_sensor_onerec(e: any) {
-
     if (e['isDelete'] !== undefined && e['isDelete'] == true) {
       // 1. delete the flag
       delete e['isDelete']
@@ -340,6 +339,7 @@ export class ListSensorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
+      e['isDelete']= !e['isDelete'];
         this.delete_sensor_onerec(e);
       }
     })
