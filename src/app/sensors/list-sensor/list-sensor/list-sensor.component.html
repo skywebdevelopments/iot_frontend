@@ -151,7 +151,7 @@
 
                                             <div *ngIf='authorize(["sensor:delete"])'>
                                                 <button
-                                                    (click)=" element.isDelete = !element.isDelete; delete_dialog(element)"
+                                                    (click)="delete_dialog(element)"
                                                     mat-menu-item>
                                                     <mat-icon>delete</mat-icon>
                                                     <span>delete {{element.mac_address}}</span>
