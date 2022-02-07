@@ -99,7 +99,7 @@ export class ListSensorComponent implements OnInit {
     private service_listSensor: ListSensorService,
     private service_updateSensor: UpdateSensorService,
     private service_deleteSensor: DeleteSensorService,
-    private service_authorize:AuthorizeRoleService,
+    private service_authorize: AuthorizeRoleService,
     private service_ListMqtt_User: ListMqqtUserService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
@@ -310,6 +310,7 @@ export class ListSensorComponent implements OnInit {
         // 2. post to the update API
         this.service_updateSensor.service_update_sensor(item).then(res => {
           this.openSnackBar(`Saved successfully`, '', 2000)
+          this.get_sensor_list(true);
         })
 
       }
@@ -340,7 +341,7 @@ export class ListSensorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
-      e['isDelete']= !e['isDelete'];
+        e['isDelete'] = !e['isDelete'];
         this.delete_sensor_onerec(e);
       }
     })
