@@ -3,6 +3,7 @@ import { GenerateTokenService } from '../../service/user/generate-token.service'
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../../login-dialog/login-dialog.component'
+import {Router}from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service_generateToken: GenerateTokenService,
     private dialog: MatDialog,
+    private router :Router
   ) { }
   init_form() {
     // validators 
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
         this.user_data = true;
+        this.router.navigateByUrl('/')
         this.form_login.reset();
 
       }).catch((err) => {

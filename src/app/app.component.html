@@ -1,4 +1,5 @@
-<nav mat-tab-nav-bar>
+<!-- 
+ <nav mat-tab-nav-bar>
     <a mat-tab-link [routerLink]="['/Login']" routerLinkActive #rla5="routerLinkActive"
         [active]="rla5.isActive">Login</a>
 
@@ -21,5 +22,58 @@
         </button>
 
 </nav>
+-->
 
-<router-outlet></router-outlet>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light">Cyshield IOT</div>
+        <div class="list-group list-group-flush">
+
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" *ngIf='isloggedin()'
+                href="#!">Dashboard</a>
+
+            <div *ngIf='authorize(["sensor"])'>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    *ngIf='authorize(["sensor:create"])' routerLink='/addSensor'>Create Sensor</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    *ngIf='authorize(["sensor:list"])' routerLink='/listSensor'>List Sensor</a>
+            </div>
+
+            <div *ngIf='authorize(["group"])'>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    *ngIf='authorize(["group:create"])' routerLink='/addGroup'>Create Group</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    *ngIf='authorize(["group:list"])' routerLink='/listGroup'>List
+                    Group</a>
+            </div>
+
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" *ngIf='!isloggedin()'
+                routerLink='/Login'>Login</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" *ngIf='isloggedin()'
+                (click)=" logout()" routerLink='/Login'>Logout</a>
+        </div>
+    </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="#!">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" *ngIf='authorize(["sensor:list"])'
+                                routerLink='/listSensor'>Sensors</a></li>
+                        <li class="nav-item"><a class="nav-link" *ngIf='authorize(["group:list"])'
+                                routerLink='/listGroup'>Groups</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid" style="align-items: center; justify-content: center;">
+            <router-outlet></router-outlet>
+
+        </div>
+    </div>
+</div>
