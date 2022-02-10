@@ -36,4 +36,14 @@ export class AppComponent {
     return this.service_authorize.service_authorize_user(role);
   }
 
+  isloggedin() {
+    if (localStorage.getItem('token')) {
+      return true
+    }
+    else{
+      return false
+    }
+
+  }
+
 }
