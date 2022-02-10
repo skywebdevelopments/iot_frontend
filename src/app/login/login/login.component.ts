@@ -25,17 +25,29 @@ export class LoginComponent implements OnInit {
     // name min length 
     // required.
     this.form_login = this.formBuilder.group({
-      email: ['', Validators.compose([
+      email: ['ahmed.shalaby@cyshield.com', Validators.compose([
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
       ])],
-      password: ['', Validators.compose([
+      password: ['1234', Validators.compose([
         Validators.required
       ])]
     })
   }
 
+checkToken(){
+  let token_key= localStorage.getItem('token');
 
+  if (token_key){
+    this.router.navigateByUrl('/dashboard')
+    
+  }
+  else{
+    this.router.navigateByUrl('/')
+
+  }
+ 
+}
   onsubmit() {
     // check the form is valid 
 
@@ -43,7 +55,7 @@ export class LoginComponent implements OnInit {
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
         this.user_data = true;
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/dashboard')
         this.form_login.reset();
 
       }).catch((err) => {
@@ -66,6 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.checkToken();
     this.init_form();
   }
 

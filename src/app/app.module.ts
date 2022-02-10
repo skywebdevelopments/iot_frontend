@@ -67,6 +67,10 @@ import { ListSensorsComponent } from './groups/add-group/list-sensors/list-senso
 import {EncrDecrService} from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { TopNavBarComponent } from './shared/top-nav-bar/top-nav-bar.component';
+import { BottomNavBarComponent } from './shared/bottom-nav-bar/bottom-nav-bar.component';
+import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -91,6 +95,14 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     DeleteDialogComponent,
 
     SidenavComponent,
+
+    TopNavBarComponent,
+
+    BottomNavBarComponent,
+
+    SideNavBarComponent,
+
+    DashboardComponent,
 
   ],
   imports: [

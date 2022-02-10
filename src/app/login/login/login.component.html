@@ -1,35 +1,39 @@
 <div class="w-26 row justify-content-center" style="margin-top: 3%;">
-    <div class="card card-container" style="width: 25%;">
-        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+    <div class="card shadow card-container" style="width: 25%;">
+        <h2 class="text-center">IoT Platform</h2>
+        <hr>
         <!--Form Login-->
         <form class="example-form" [formGroup]="form_login">
             <!--Email Field-->
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
-                <label for="email">Email</label>
-                <input class="form-group" type="email" matInput formControlName="email">
-            </mat-form-field>
+                    <label for="email">Email</label>
+                    <input class="form-group" type="email" matInput formControlName="email">
+                </mat-form-field>
             </div>
             <!--End Email Field-->
+
             <!--Password Field-->
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
-                <label for="password">Password</label>
-                <input  #eye_password type="password" matInput formControlName="password">
-                <mat-icon  class="field-icon" (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
-                </mat-icon>
-            </mat-form-field>
+                    <label for="password">Password</label>
+                    <input  #eye_password type="password" matInput formControlName="password">
+                    <mat-icon class="field-icon"
+                        (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
+                    </mat-icon>
+                </mat-form-field>
             </div>
             <!--End Password Field-->
             <div>
                 <!--Login button -->
-                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid" (click)="user_data==true ?onsubmit() :Invalid_login()">Login
+                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid"
+                    (click)="user_data==true ?onsubmit() :Invalid_login()">Login
                 </button>
-                
+
                 <!--Google button-->
                 <div class="col s12 m6 offset-m3 center-align">
                     <a href="http://localhost:3000/auth/google" class="oauth-container btn darken-4 white black-text"
-                        style="text-transform:none"  >
+                        style="text-transform:none">
                         <img width="20px" style="margin-top:px; margin-right:5px" alt="Google sign-in"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                         Sign in with Google

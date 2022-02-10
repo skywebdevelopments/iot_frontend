@@ -8,18 +8,23 @@ import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.c
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
 import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppComponent } from './app.component';
 
 
 const routes: Routes = [
+  { path: "login",  component: LoginComponent },
+  { path: "", component: LoginComponent },
   { path: "addGroup", component: AddGroupComponent },
-  { path: "listGroup", component: ListGroupComponent },
-  { path: "addGroup", component: AddGroupComponent },
-  { path: "test", component: TestComponentComponent },
-  { path: "addSensor", component: AddSensorComponent },
+  { path: "listGroup",  component: ListGroupComponent },
+  { path: "addGroup",  component: AddGroupComponent },
+  { path: "test",  component: TestComponentComponent },
+  { path: "addSensor",  component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
-  { path: "Login", component: LoginComponent },
-  { path: "nav", component: SidenavComponent },
+  { path: "dashboard", component: DashboardComponent },
+  { path: "nav",  component: SidenavComponent },
 ]
+
 
 @NgModule({
   declarations: [],
