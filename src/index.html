@@ -11,5 +11,17 @@
 </head>
 <body class="mat-typography bg-light">
   <app-root></app-root>
+
+  <script>
+    /* global bootstrap: false */
+      (function () {
+        'use strict'
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+      })()
+
+  </script>
 </body>
 </html>

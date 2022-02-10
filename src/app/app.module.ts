@@ -54,7 +54,7 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
-import { } from './app-routing.module';
+
 import { TestComponentComponent } from './test-component/test-component.component';
 
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
@@ -66,6 +66,7 @@ import { ListSensorsComponent } from './groups/add-group/list-sensors/list-senso
 
 import {EncrDecrService} from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 
@@ -88,6 +89,8 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     ListSensorsComponent,
 
     DeleteDialogComponent,
+
+    SidenavComponent,
 
   ],
   imports: [
