@@ -24,7 +24,7 @@
                 </div>
 
                 <div>
-                    <button mat-button matStepperNext (click)="save_group();get_sensors();">Next</button>
+                    <button mat-button (click)="save_group();get_sensors();">Next</button>
                 </div>
             </form>
         </mat-step>
@@ -32,7 +32,7 @@
 
         <mat-step label="Assign sensor to group">
             <app-list-sensors [id]="id"></app-list-sensors>
-            <button mat-button matStepperNext (click)="ngAfterViewInit()">Next</button>
+            <button mat-button  (click)="ngAfterViewInit()">Next</button>
         </mat-step>
 
         <mat-step>

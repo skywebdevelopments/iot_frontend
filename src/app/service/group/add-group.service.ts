@@ -21,7 +21,6 @@ export class AddGroupService {
         .toPromise()
         .then(
           res => { // Success
-            
             resolve(res);
           }
         ).catch((err)=> {

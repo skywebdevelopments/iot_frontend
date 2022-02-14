@@ -217,7 +217,7 @@ export class ListSensorComponent implements OnInit {
 
       this.form_updateSensor = this.fb.group({
         mac_address: [item.mac_address, Validators.compose([
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
+          Validators.pattern('(^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$'),
           Validators.required
         ])],
 
@@ -288,7 +288,7 @@ export class ListSensorComponent implements OnInit {
         ])],
         sim_msidm: [item.sim_msidm, Validators.compose([
           Validators.required,
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+          Validators.pattern('[0-9]{11}')
         ])],
         flags: [item.flags, Validators.compose([
           Validators.required,

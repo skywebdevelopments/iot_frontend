@@ -35,7 +35,8 @@ export class AddSensorComponent implements OnInit {
 
     this.firstFormGroup = this._formBuilder.group({
       mac_address: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern('^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$')
       ])],
       // validators 
       // Min length 4 
