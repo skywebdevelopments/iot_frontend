@@ -8,6 +8,7 @@ import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.c
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
 import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "listSensor", component: ListSensorComponent },
   { path: "Login", component: LoginComponent },
   { path: "nav", component: SidenavComponent },
+  { path: "signup", component: SignupComponent },
 ]
 
 @NgModule({

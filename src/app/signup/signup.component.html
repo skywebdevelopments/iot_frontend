@@ -1,0 +1,55 @@
+<div class="w-26 row justify-content-center" style="margin-top: 3%;">
+    <div class="card card-container" style="width: 25%;">
+        <!--Form signup-->
+        <form class="example-form" [formGroup]="form_signup">
+
+             <!--username Field-->
+             <div class="container mt-4">
+                <mat-form-field class="example-full-width">
+                <label for="email">Username</label>
+                <input class="form-group" type="text" matInput formControlName="username">
+            </mat-form-field>
+            </div>
+            <!--End username Field-->
+
+            <!--Email Field-->
+            <div class="container mt-4">
+                <mat-form-field class="example-full-width">
+                <label for="email">Email</label>
+                <input class="form-group" type="email" matInput formControlName="email">
+            </mat-form-field>
+            </div>
+            <!--End Email Field-->
+
+            <!--Password Field-->
+            <div class="container mt-4">
+                <mat-form-field class="example-full-width">
+                <label for="password">Password</label>
+                <input  #eye_password type="password" matInput formControlName="password">
+                <mat-icon  class="field-icon" (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
+                </mat-icon>
+            </mat-form-field>
+            </div>
+            <!--End Password Field-->
+
+             <!--Password Field-->
+             <div class="container mt-4">
+                <mat-form-field class="example-full-width">
+                <label for="password"> Confirm Password</label>
+                <input  #eye_passwordd type="password" matInput formControlName="Confirm_password">
+                <mat-icon  class="field-icon" (click)="eye_passwordd.type=eye_passwordd.type=='password'?'text':'password'">remove_red_eye
+                </mat-icon>
+            </mat-form-field>
+            </div>
+            <!--End Password Field-->
+
+
+            <div>
+                <!--Signup button -->
+                <button class="btn btn-primary btn-block" [disabled]="!form_signup.valid"  (click)="onsubmit() ">signup
+                </button>
+            </div>
+        </form>
+        <!--End Form Signup-->
+    </div>
+</div>

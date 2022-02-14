@@ -37,11 +37,11 @@ export class AppComponent {
   }
 
   isloggedin() {
-    if (localStorage.getItem('token')) {
-      return true
+    if (localStorage.getItem('token') === null || localStorage.getItem('token') === undefined) {
+      return false
     }
     else{
-      return false
+      return true
     }
 
   }

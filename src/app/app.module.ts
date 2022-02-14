@@ -67,6 +67,8 @@ import { ListSensorsComponent } from './groups/add-group/list-sensors/list-senso
 import {EncrDecrService} from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { SignupComponent } from './signup/signup.component';
+import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 
 
 
@@ -91,6 +93,10 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     DeleteDialogComponent,
 
     SidenavComponent,
+
+    SignupComponent,
+
+    SignupDialogComponent,
 
   ],
   imports: [

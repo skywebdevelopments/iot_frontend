@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import jwt_decode from "jwt-decode";
-import {EncrDecrService} from '../encr-decr.service'
-import {environment} from '../../../environments/environment.prod'
+import { EncrDecrService } from '../encr-decr.service'
+import { environment } from '../../../environments/environment.prod'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizeRoleService {
 
-  constructor(private service_enc_dec:EncrDecrService) { }
+  constructor(private service_enc_dec: EncrDecrService) { }
   service_authorize_user(view_role): boolean {
 
-    if (localStorage.getItem('token') === null) {
+    if (localStorage.getItem('token') === null || localStorage.getItem('token') === undefined) {
       return false;
     }
 
-    let token = this.service_enc_dec.get(localStorage.getItem('token'),environment.backend.t_secret);
+    let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
     let user = jwt_decode(token);
 
     let user_role = user['roles'];
