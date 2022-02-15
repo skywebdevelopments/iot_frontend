@@ -11,7 +11,7 @@ export class AuthorizeRoleService {
   constructor(private service_enc_dec: EncrDecrService) { }
   service_authorize_user(view_role): boolean {
 
-    if (localStorage.getItem('token') === null || localStorage.getItem('token') === undefined) {
+    if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === null || !localStorage.getItem('token') ) {
       return false;
     }
 

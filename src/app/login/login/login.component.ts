@@ -4,8 +4,7 @@ import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../../login-dialog/login-dialog.component'
 import { Router } from '@angular/router'
-import * as CryptoJS from 'crypto-js';
-import { environment } from '../../../environments/environment.prod'
+
 
 @Component({
   selector: 'app-login',
@@ -44,41 +43,40 @@ export class LoginComponent implements OnInit {
 
     if (this.form_login.valid) {
 
-      // Hash password
-      var hash = CryptoJS.HmacSHA256(this.form_login.get('password').value, environment.backend.hash_secret);
-      var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
-      this.form_login.controls['password'].setValue(hashInBase64);
+      
 
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
         // this.user_data = true;
         if (res['code'] === 404) {
+
           this.Invalid_login()
+
         }
         else {
           this.router.navigateByUrl('/')
           this.form_login.reset();
         }
       }).catch((err) => {
-
+        console.log(err)
       })
     }
   }
 
 
   Invalid_login() {
+
     let dialogRef = this.dialog.open(LoginDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
-
       if (result === 'confirm') {
         this.router.navigateByUrl('/signup')
       }
       else {
-        window.location.reload();
+        this.form_login.reset();
       }
+
     })
-    //   this.user_data = true;
+
     this.form_login.reset();
   }
 
