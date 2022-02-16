@@ -20,6 +20,8 @@ export class AddSensorComponent implements OnInit {
   thirdFormGroup: FormGroup;
   formData: any;
   mqtt: any;
+  selectedFile: File;
+  file_input: any;
   // end
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +38,7 @@ export class AddSensorComponent implements OnInit {
     this.firstFormGroup = this._formBuilder.group({
       mac_address: ['', Validators.compose([
         Validators.required,
-        Validators.pattern('^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$')
+        Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$')
       ])],
       // validators 
       // Min length 4 
@@ -90,14 +92,12 @@ export class AddSensorComponent implements OnInit {
       // Min length 4  
       // required.
       gateway: ['', Validators.compose([
-
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       subnet: ['', Validators.compose([
-
         Validators.minLength(4),
       ])],
 
@@ -230,6 +230,24 @@ export class AddSensorComponent implements OnInit {
     return mqtt_User;
   }
 
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsText(this.selectedFile, "UTF-8");
+    fileReader.onload = () => {
+      this.file_input = JSON.parse(fileReader.result as string);
+      for (var key in this.file_input) {
+      var each_sensor = this.file_input[key];
+      this.service_addSensor.service_add_sensor(each_sensor).then(res => {
+      this.openSnackBar("File Uploaded Successfully","OK", 4000);
+      })
+      }
+    }
+    fileReader.onerror = (error) => {
+      console.log(error);
+    }
+  }
   ngOnInit(): void {
     // init_form on page load
     this.init_form();

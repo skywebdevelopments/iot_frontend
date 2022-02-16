@@ -61,38 +61,39 @@
                         </button>
 
                         <mat-menu #menu="matMenu">
-
-                            <div *ngIf='authorize(["group:delete"])'>
-                                <!-- delete -->
-                                <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
-                                    (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
-                                    aria-label="Example icon button with a home icon"
-                                    matTooltip="Click to Delete Selected Groups">
-                                    <mat-icon>delete</mat-icon>
-                                </button>
+                            <div class="container">
+                                <div class="row">
+                                    <!-- refresh -->
+                                    <div class="col-4">
+                                        <button (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right"
+                                            color="primary" aria-label="Example icon button with a home icon"
+                                            matTooltip="Click to Refresh Data">
+                                            <mat-icon>refresh</mat-icon>
+                                            <!-- <span>Refresh Data</span> -->
+                                        </button>
+                                    </div>
+                                    <!-- Create Group button -->
+                                    <div class="col-4" *ngIf='authorize(["group:create"])'>
+                                        <button [routerLink]="['/addGroup']" routerLinkActive="router-link-active"
+                                            mat-fab class="mb-4 mr-1 right" color="primary"
+                                            aria-label="Example icon button with a home icon"
+                                            matTooltip="Click to Create Group">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-- end -->
+                                    <!-- delete -->
+                                    <div class="col-auto" *ngIf='authorize(["group:delete"])'>
+                                        <button data-toggle="modal" *ngIf="selection.hasValue()"
+                                            data-target="#exampleModal" (click)="get_group_list(true)" mat-fab
+                                            class="mb-4 mr-1 right" color="primary"
+                                            aria-label="Example icon button with a home icon"
+                                            matTooltip="Click to Delete Selected Groups">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-
-                            <!-- refresh -->
-                            <button (click)="get_group_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
-                                aria-label="Example icon button with a home icon" matTooltip="Click to Refresh Data">
-                                <mat-icon>refresh</mat-icon>
-                                <!-- <span>Refresh Data</span> -->
-                            </button>
-
-
-                            <!-- Create Group button -->
-                            <div *ngIf='authorize(["group:create"])'>
-                                <button [routerLink]="['/addGroup']" routerLinkActive="router-link-active" mat-fab
-                                    class="mb-4 mr-1 right" color="primary"
-                                    aria-label="Example icon button with a home icon"
-                                    matTooltip="Click to Create Group">
-                                    <mat-icon>add</mat-icon>
-                                </button>
-                            </div>
-                                <!-- end -->
-                            
-                            <!-- save -->
-
                         </mat-menu>
                     </div>
 
@@ -147,9 +148,7 @@
                                                 <!-- delete -->
 
                                                 <div *ngIf='authorize(["group:delete"])'>
-                                                    <button
-                                                        (click)="delete_dialog(element)"
-                                                        mat-menu-item>
+                                                    <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>
                                                     </button>

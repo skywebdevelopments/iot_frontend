@@ -217,8 +217,8 @@ export class ListSensorComponent implements OnInit {
 
       this.form_updateSensor = this.fb.group({
         mac_address: [item.mac_address, Validators.compose([
-          Validators.pattern('(^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$'),
-          Validators.required
+          Validators.required,
+          Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$')
         ])],
 
         client_id: [item.client_id, Validators.compose([
