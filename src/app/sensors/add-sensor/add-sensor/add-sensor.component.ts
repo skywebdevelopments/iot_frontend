@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { data } from 'jquery';
 import { AddSensorService } from '../../../service/sensor/add-sensor.service';
 import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
 
@@ -22,6 +23,7 @@ export class AddSensorComponent implements OnInit {
   mqtt: any;
   selectedFile: File;
   file_input: any;
+  fault_input = {};
   // end
   constructor(
     private formBuilder: FormBuilder,
@@ -238,11 +240,25 @@ export class AddSensorComponent implements OnInit {
     fileReader.onload = () => {
       this.file_input = JSON.parse(fileReader.result as string);
       for (var key in this.file_input) {
-      var each_sensor = this.file_input[key];
-      this.service_addSensor.service_add_sensor(each_sensor).then(res => {
-      this.openSnackBar("File Uploaded Successfully","OK", 4000);
-      })
+        var each_sensor = this.file_input[key];
+        this.service_addSensor.service_add_sensor(each_sensor).then(res => {
+          if (res['code'] === 2102) {
+
+
+            this.fault_input[res['client_id']] = res['data'];
+            //this.openSnackBar(res["status"], "OK", 4000);
+
+          }
+          else {
+            this.openSnackBar("File Uploaded Successfully", "OK", 4000);
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }
+      
+      console.log(this.fault_input)
+
     }
     fileReader.onerror = (error) => {
       console.log(error);
