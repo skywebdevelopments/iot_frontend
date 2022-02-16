@@ -32,14 +32,14 @@
 
         <mat-step label="Assign sensor to group">
             <app-list-sensors [id]="id"></app-list-sensors>
-            <button mat-button  (click)="ngAfterViewInit()">Next</button>
+            <button mat-button  (click)="ngAfterViewInit()">Assign sensor</button>
         </mat-step>
 
-        <mat-step>
+        <!-- <mat-step>
             <ng-template matStepLabel>Group Created Successfully</ng-template>
-            <!-- submit -->
+           
             <button mat-button (click)="stepper.reset()">Create new group</button>
-        </mat-step>
+        </mat-step> -->
 
 
 

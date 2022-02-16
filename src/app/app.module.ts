@@ -70,6 +70,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
+import { IndexComponent } from './index/index.component';
 
 
 
@@ -100,6 +101,8 @@ import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.compon
     SignupDialogComponent,
 
     ErrorDialogComponent,
+
+    IndexComponent,
 
   ],
   imports: [

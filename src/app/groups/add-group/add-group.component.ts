@@ -19,7 +19,7 @@ export class AddGroupComponent implements OnInit {
   // form vars.
   message: String;
   authorized: boolean;
-  isLinear = false;
+  isLinear = true;
   // end
   constructor(
     private formBuilder: FormBuilder,

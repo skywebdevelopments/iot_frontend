@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
         }
         else {
-          this.router.navigateByUrl('/')
+          this.router.navigate([{ outlets: { first: [ 'index' ] }}]); 
           this.form_login.reset();
         }
       }).catch((err) => {
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     let dialogRef = this.dialog.open(LoginDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
-        this.router.navigateByUrl('/signup')
+        this.router.navigate([{ outlets: { first: [ 'signup' ] }}]); 
       }
       else {
         this.form_login.reset();

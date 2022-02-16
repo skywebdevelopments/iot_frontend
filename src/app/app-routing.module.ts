@@ -9,18 +9,25 @@ import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sens
 import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
+import { IndexComponent } from './index/index.component';
 
 
 const routes: Routes = [
-  { path: "addGroup", component: AddGroupComponent },
-  { path: "listGroup", component: ListGroupComponent },
-  { path: "addGroup", component: AddGroupComponent },
-  { path: "test", component: TestComponentComponent },
-  { path: "addSensor", component: AddSensorComponent },
-  { path: "listSensor", component: ListSensorComponent },
-  { path: "Login", component: LoginComponent },
-  { path: "nav", component: SidenavComponent },
-  { path: "signup", component: SignupComponent },
+  { path: "Login", component: LoginComponent, outlet: "first" },
+  { path: "", component: LoginComponent, outlet: "first" },
+  { path: "signup", component: SignupComponent, outlet: "first" },
+  {
+    path: "index", component: IndexComponent, children: [
+      { path: "addGroup", component: AddGroupComponent, outlet: "second" },
+      { path: "listGroup", component: ListGroupComponent, outlet: "second" },
+      { path: "addGroup", component: AddGroupComponent, outlet: "second" },
+      { path: "test", component: TestComponentComponent, outlet: "second" },
+      { path: "addSensor", component: AddSensorComponent, outlet: "second" },
+      { path: "listSensor", component: ListSensorComponent, outlet: "second" },
+      { path: "nav", component: SidenavComponent, outlet: "second" },
+
+    ], outlet: "first"
+  }
 ]
 
 @NgModule({

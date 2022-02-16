@@ -27,23 +27,16 @@ export class AppComponent {
     }
 
   }
-  logout() {
-    localStorage.removeItem("token");
-    this.cookieService.deleteAll();
-  }
-
-  authorize(role) {
-    return this.service_authorize.service_authorize_user(role);
-  }
-
   isloggedin() {
     if (localStorage.getItem('token') === null || localStorage.getItem('token') === undefined) {
+      console.log(localStorage.getItem('token'))
       return false
     }
-    else{
+    else {
       return true
     }
 
   }
+
 
 }
