@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { data } from 'jquery';
+import { MatDialog } from '@angular/material/dialog';
 import { AddSensorService } from '../../../service/sensor/add-sensor.service';
 import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
+import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
 
 @Component({
   selector: 'app-add-sensor',
@@ -30,7 +31,8 @@ export class AddSensorComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private service_addSensor: AddSensorService,
     private service_ListMqtt_User: ListMqqtUserService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dialog: MatDialog
 
   ) {
 
@@ -236,9 +238,16 @@ export class AddSensorComponent implements OnInit {
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
     const fileReader = new FileReader();
+
     fileReader.readAsText(this.selectedFile, "UTF-8");
     fileReader.onload = () => {
-      this.file_input = JSON.parse(fileReader.result as string);
+
+      try {
+        this.file_input = JSON.parse(fileReader.result as string);
+      } catch {
+        alert("Invalid Json file formate");
+      }
+
       for (var key in this.file_input) {
         var each_sensor = this.file_input[key];
         this.service_addSensor.service_add_sensor(each_sensor).then(res => {
@@ -246,23 +255,31 @@ export class AddSensorComponent implements OnInit {
 
 
             this.fault_input[res['client_id']] = res['data'];
-            //this.openSnackBar(res["status"], "OK", 4000);
+            this.openDialog(this.fault_input)
 
           }
           else {
-            this.openSnackBar("File Uploaded Successfully", "OK", 4000);
+            this.openSnackBar('Sensor(s) are added', "OK", 4000);
           }
         }).catch(err => {
           console.log(err)
         })
       }
-      
-      console.log(this.fault_input)
 
     }
     fileReader.onerror = (error) => {
       console.log(error);
     }
+  }
+
+  openDialog(fault_input) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: {
+        fault_input
+      },
+    }).afterClosed().subscribe(res => {
+      window.location.reload();
+    });
   }
   ngOnInit(): void {
     // init_form on page load

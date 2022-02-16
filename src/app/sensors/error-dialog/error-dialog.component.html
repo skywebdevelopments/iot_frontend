@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Invalid Sensor data Uploaded</h1>
+<div mat-dialog-content>
+    <ul>
+        <li *ngFor="let id of data.fault_input | keyvalue">
+            Error adding sensor with client id " {{id.key}} " check :
+            <ol>
+                <li *ngFor="let faults of id.value">
+                    {{faults}}
+                </li>
+            </ol>
+        </li>
+    </ul>
+    <button mat-button matDialogClose="cancel" color="primary">OK</button>
+</div>

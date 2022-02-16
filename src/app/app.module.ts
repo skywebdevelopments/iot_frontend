@@ -69,6 +69,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
+import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
 
 
 
@@ -97,6 +98,8 @@ import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
     SignupComponent,
 
     SignupDialogComponent,
+
+    ErrorDialogComponent,
 
   ],
   imports: [
