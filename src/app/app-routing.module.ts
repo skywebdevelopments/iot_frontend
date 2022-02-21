@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
+import { LogsComponent } from './logs/logs.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: "addSensor", component: AddSensorComponent, outlet: "second" },
       { path: "listSensor", component: ListSensorComponent, outlet: "second" },
       { path: "nav", component: SidenavComponent, outlet: "second" },
+      { path: "logs", component: LogsComponent, outlet: "second" }
 
     ], outlet: "first"
   }
