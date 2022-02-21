@@ -1,19 +1,15 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListGroupService } from '../../app/service/group/list-group.service';
 import { LogService } from '../../app/service/log.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 import { MatSort, MatSortable } from '@angular/material/sort';
-import { FormBuilder } from '@angular/forms';
 import { AuthorizeRoleService } from '../../app/service/user/authorize-role.service';
 
-import { MatDialog } from '@angular/material/dialog';
 
 
-export interface groupElement {
+export interface logElement {
   operation: "text",
   log_Message: "text",
   log_Level: "text",
@@ -23,7 +19,7 @@ export interface groupElement {
 }
 
 // to be filled from the service
-const ELEMENT_DATA: groupElement[] = [];
+const ELEMENT_DATA: logElement[] = [];
 
 @Component({
   selector: 'app-logs',
@@ -32,15 +28,12 @@ const ELEMENT_DATA: groupElement[] = [];
 })
 export class LogsComponent implements OnInit {
    // form controls.
-   enable_save_all = false
-   form_updateGroup: any;
-   replace_with_input = false;
    authorized: boolean;
    // end
  
  
    displayedColumns: string[] = ['operation', 'log_message', 'log_level', 'user_id','createdAt','updatedAt'];
-   dataSource = new MatTableDataSource<groupElement>(ELEMENT_DATA);
+   dataSource = new MatTableDataSource<logElement>(ELEMENT_DATA);
    
  
    @ViewChild(MatSort) sort: MatSort;
