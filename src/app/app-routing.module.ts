@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
+import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "signup", component: SignupComponent, outlet: "first" },
   {
     path: "index", component: IndexComponent, children: [
+      { path: "rolesUser", component: RolesComponent, outlet: "second" },
       { path: "addGroup", component: AddGroupComponent, outlet: "second" },
       { path: "listGroup", component: ListGroupComponent, outlet: "second" },
       { path: "addGroup", component: AddGroupComponent, outlet: "second" },

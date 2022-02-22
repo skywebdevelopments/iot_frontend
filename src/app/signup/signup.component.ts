@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit {
           this.Invalid_signup()
         }
         else {
-          this.router.navigate([{ outlets: { first: [ 'Login' ] }}]); 
+          this.router.navigate([{ outlets: { first: [ 'Login' ] }}])
           this.form_signup.reset();
         }
       })
@@ -79,7 +79,7 @@ export class SignupComponent implements OnInit {
     let dialogRef = this.dialog.open(SignupDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'confirm') {
-        this.router.navigate([{ outlets: { first: [ 'Login' ] }}]); 
+        this.router.navigate([{ outlets: { first: [ 'Login' ] }}])
       }
       else{
         window.location.reload();

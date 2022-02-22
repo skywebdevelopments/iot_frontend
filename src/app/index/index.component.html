@@ -7,6 +7,11 @@
             <a class="list-group-item list-group-item-action list-group-item-light p-3" *ngIf='isloggedin()'
                 href="#!">Dashboard</a>
 
+            <div *ngIf='authorize(["admin"])'>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                [routerLink]='[{ outlets: { second: ["rolesUser"] } }]'>User Permissions</a>
+            </div>
+
             <div *ngIf='authorize(["sensor"])'>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3"
                     *ngIf='authorize(["sensor:create"])' [routerLink]='[{ outlets: { second: ["addSensor"] } }]'>Create
@@ -27,6 +32,8 @@
             <a class="list-group-item list-group-item-action list-group-item-light p-3"
                 [routerLink]='[{ outlets: { second: ["logs"] } }]'>Logs</a>
 
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" (click)=" logout()"
+                href="#!">Logout</a>
             <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" (click)=" logout()"
                 href="#!">Logout</a> -->
         </div>

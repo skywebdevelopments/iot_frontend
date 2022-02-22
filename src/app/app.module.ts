@@ -71,6 +71,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
 import { IndexComponent } from './index/index.component';
+import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 
 
@@ -105,6 +106,7 @@ import { LogsComponent } from './logs/logs.component';
 
     IndexComponent,
 
+    RolesComponent,
     LogsComponent,
 
   ],

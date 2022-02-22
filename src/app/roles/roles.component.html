@@ -1,0 +1,35 @@
+<div class="row justify-content-center" style="margin-top: 6%">
+    <div class="card card-container" style="width: 50%;">
+        <form class="example-form" [formGroup]="form_roles">
+            <!--username Field-->
+            <div class="container mb-2">
+                    <h2 class="card-header text-center text-white bg-primary">Assign Permissions to Users</h2>
+                    <div class="row">
+                        <mat-form-field class=" col-12" appearance="fill">
+                            <label for="username">Users</label>
+                            <mat-select placeholder="Choose User" formControlName="userid">
+                                <mat-option *ngFor="let usernames of Users" [value]="usernames.id">
+                                    Name: {{usernames.username}} -
+                                    Email: {{usernames.email}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class=" col-12" appearance="fill">
+                            <label>Permissions</label>
+                            <mat-select placeholder="Choose Permissions" formControlName="permissions" multiple>
+                                <mat-option *ngFor="let permission of permissions" [value]="permission">
+                                    {{permission}}
+                                </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                <!--Save button -->
+                <button class="btn btn-primary btn-block" [disabled]="!form_roles.valid" (click)="onsubmit()">Save
+                </button>
+            </div>
+            <!--End username Field-->
+        </form>
+    </div>
+</div>
