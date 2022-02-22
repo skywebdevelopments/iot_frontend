@@ -26,9 +26,16 @@
                             <!-- table cell -->
                             <td mat-cell *matCellDef="let element">
                                 <span>
-                                    <label>
-                                        {{element[col]}}
+                                    <label for="" *ngIf=" col!=='createdAt' && col!=='updatedAt' ">
+                                        {{element[col] }}
                                     </label>
+                                    <label *ngIf="col==='createdAt'">
+                                        {{element[col] |date :'short' }}
+                                    </label>
+                                    <label *ngIf="col==='updatedAt'">
+                                        {{element[col] |date :'short' }}
+                                    </label>
+
                                 </span>
                             </td>
                         </ng-container>
