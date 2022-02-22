@@ -3,13 +3,23 @@ import { Validators, FormBuilder, FormArray, FormControl, ValidatorFn } from '@a
 import { ListUsernameUsersService } from '../service/user/list-username-users.service';
 import { UpdateUserRolesService } from '../service/user/update-user-roles.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+
+export interface UserElement {
+  email: "text",
+  username: "boolean",
+  roles: "text"
+}
+const ELEMENT_DATA: UserElement[] = []
+
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.css']
 })
+
 export class RolesComponent implements OnInit {
-  Users: any;
   User_ID: any;
   User_Roles:any;
   Updated_values:any;
@@ -26,7 +36,14 @@ export class RolesComponent implements OnInit {
     "sensor",
     "admin"
   ];
+  displayedColumns: string[] = ["email", "username", "roles"];
+  dataSource = new MatTableDataSource<UserElement>(ELEMENT_DATA);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+  
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -34,16 +51,6 @@ export class RolesComponent implements OnInit {
     private service_Updateroles_User: UpdateUserRolesService
   ) { }
 
-
-  Get_users() {
-    var Users = []
-    this.service_ListUsername_User.service_list_usernames().then(res => {
-      for (let user of res['data']) {
-        Users.push(user);
-      };
-    });
-    return Users;
-  }
 
   onCheckboxChange(event: any,value,index) {
     if (event.target.checked) {
@@ -62,6 +69,7 @@ export class RolesComponent implements OnInit {
       this.service_Updateroles_User.service_update_user_premissions(this.Updated_values).then(res => {
         this.openSnackBar(`Permissions Updated Successfully`, '', 2000)
       })
+      window.location.reload()
   }
 
   check_value(array, item) {
@@ -72,6 +80,27 @@ export class RolesComponent implements OnInit {
     return false
   }
 
+  get_users_list(showSnackBar: boolean) {
+    this.service_ListUsername_User.service_list_usernames().then(res => {
+      if (res['data']) {
+        // add data to the table (data source)
+        this.dataSource.data = res['data']
+        if (showSnackBar) {
+          this.openSnackBar("list is updated", "Ok", 4000);
+        }
+      }
+      else {
+        this.dataSource.data = [];
+        this.openSnackBar("list is Empty!", "Ok", 2000);
+      }
+    });
+  };
+
+  applyFilter(event: any) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  }
   openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
 
@@ -81,7 +110,6 @@ export class RolesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.Users = this.Get_users();
+    this.get_users_list(false);
   }
-
 }

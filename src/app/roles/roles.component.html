@@ -1,19 +1,49 @@
 <div class="row justify-content-center" style="margin-top: 6%">
-    <div class="card card-container" style="width: 50%;">
+    <div class="card card-container" style="width: 70%;">
         <div class="container mb-2">
             <h2 class="card-header text-center text-white bg-primary">Assign Permissions to Users</h2>
-            <mat-accordion>
-                <mat-expansion-panel *ngFor="let value of Users">
-                    <mat-expansion-panel-header>
-                        {{value.email}}
-                    </mat-expansion-panel-header>
-                    <p *ngFor="let item of permissions;let i=index">
-                        <input type="checkbox" [checked]="check_value(value.roles,item)"
-                            (change)="onCheckboxChange($event,value,i)" > {{ item }}
-                    </p>
-                    <button class="btn btn-primary btn-block" (click)="onsubmit()">Save</button>
-                </mat-expansion-panel>
-            </mat-accordion>
+            <!-- filter control -->
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+            </mat-form-field>
+            <!--Table-->
+            <div class="mat-elevation-z8 w-100">
+            <table mat-table [dataSource]="dataSource">
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef> User Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                </ng-container>
+
+                <!-- Roles Column -->
+                <ng-container matColumnDef="roles">
+                    <th mat-header-cell *matHeaderCellDef> Roles </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                            </mat-expansion-panel-header>
+                            <p *ngFor="let item of permissions;let i=index">
+                                <input type="checkbox" [checked]="check_value(element.roles,item)"
+                                    (change)="onCheckboxChange($event,element,i)"> {{ item }}
+                            </p>
+                            <button class="btn btn-primary btn-block" *ngIf="User_Roles!==undefined" (click)="onsubmit()">Save</button>
+                        </mat-expansion-panel>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
         </div>
     </div>
 </div>
