@@ -49,6 +49,7 @@ export class AddGroupComponent implements OnInit {
     if (this.form_AddGroup.valid) {
       // submit the form
       this.form_AddGroup.get('name').value;
+      console.log(this.form_AddGroup.value);
       this.service_addGroup.service_add_group(this.form_AddGroup.value).then(res => {
      if(res['status']===3100){
       this.openSnackBar("Group Name is already exist", "Ok", 2000);
