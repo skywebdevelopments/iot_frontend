@@ -2,8 +2,9 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGroupService } from '../../service/group/add-group.service'
-
+import { ListGroupService } from '../../service/group/list-group.service';
 import { ListSensorsComponent } from './list-sensors/list-sensors.component';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-add-group',
@@ -12,6 +13,7 @@ import { ListSensorsComponent } from './list-sensors/list-sensors.component';
 })
 export class AddGroupComponent implements OnInit {
   @ViewChild(ListSensorsComponent) child;
+  @ViewChild('stepper') private myStepper: MatStepper;
   form_AddGroup: FormGroup;
   id: any;
   // form vars.
@@ -22,6 +24,7 @@ export class AddGroupComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
+    private service_listGroup: ListGroupService,
     private service_addGroup: AddGroupService,
 
   ) { }
@@ -45,11 +48,18 @@ export class AddGroupComponent implements OnInit {
     // check the form is valid 
     if (this.form_AddGroup.valid) {
       // submit the form
+      this.form_AddGroup.get('name').value;
+      console.log(this.form_AddGroup.value);
       this.service_addGroup.service_add_group(this.form_AddGroup.value).then(res => {
+     if(res['status']===3100){
+      this.openSnackBar("Group Name is already exist", "Ok", 2000);
+     }
+     else{
         this.id = res['data']['rec_id'];
         this.openSnackBar(res['status']['message'], "Ok", 1000);
+        this.myStepper.next();
         this.form_AddGroup.reset();
-
+     }
       })
     }
     else {
@@ -65,6 +75,7 @@ export class AddGroupComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.child.assign_sensors();
+    this.myStepper.next();
   }
 
 

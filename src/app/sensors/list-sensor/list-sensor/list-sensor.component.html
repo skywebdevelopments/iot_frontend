@@ -61,37 +61,41 @@
                     </button>
                     <mat-menu #menu="matMenu">
                         <!-- delete -->
+                        <div class="container">
+                            <div class="row">
+                                <!-- refresh -->
+                                <div class="col-4">
+                                    <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right"
+                                        color="primary" aria-label="Example icon button with a home icon"
+                                        matTooltip="Click to Refresh Data">
+                                        <mat-icon>refresh</mat-icon>
+                                        <!-- <span>Refresh Data</span> -->
+                                    </button>
+                                </div>
 
-                        <div *ngIf='authorize(["sensor:delete"])'>
-                            <button data-toggle="modal" *ngIf="selection.hasValue()  " data-target="#exampleModal"
-                                (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
-                                aria-label="Example icon button with a home icon"
-                                matTooltip="Click to Delete Selected Sensors">
-                                <mat-icon>delete</mat-icon>
-                                <!-- <span>Delete {{selection.selected.length}}</span>-->
-                            </button>
+                                <!-- Create sensor button -->
+                                <div class="col-4" *ngIf='authorize(["sensor:create"])'>
+                                    <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-fab
+                                        class="mb-4 mr-1 right" color="primary"
+                                        aria-label="Example icon button with a home icon"
+                                        matTooltip="Click to Create Sensor">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+                                <!-- end -->
+                                <div class="col-auto" *ngIf='authorize(["sensor:delete"])'>
+                                    <button data-toggle="modal" *ngIf="selection.hasValue()  "
+                                        data-target="#exampleModal" (click)="get_sensor_list(true)" mat-fab
+                                        class="mb-4 mr-1 right" color="primary"
+                                        aria-label="Example icon button with a home icon"
+                                        matTooltip="Click to Delete Selected Sensors">
+                                        <mat-icon>delete</mat-icon>
+                                        <!-- <span>Delete {{selection.selected.length}}</span>-->
+                                    </button>
+                                </div>
+                                <!-- save -->
+                            </div>
                         </div>
-
-                        <!-- refresh -->
-                        <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right" color="primary"
-                            aria-label="Example icon button with a home icon" matTooltip="Click to Refresh Data">
-                            <mat-icon>refresh</mat-icon>
-                            <!-- <span>Refresh Data</span> -->
-                        </button>
-
-
-                        <!-- Create sensor button -->
-                        <div *ngIf='authorize(["sensor:create"])'>
-                            <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-fab
-                                class="mb-4 mr-1 right" color="primary"
-                                aria-label="Example icon button with a home icon" matTooltip="Click to Create Sensor">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </div>
-                        <!-- end -->
-
-                        <!-- save -->
-
                     </mat-menu>
                 </div>
 
@@ -108,7 +112,7 @@
             <!-- end -->
 
             <!-- table -->
-            <div class="mat-elevation-z8 col-md-12" style = "overflow-x: scroll;">
+            <div class="mat-elevation-z8 col-md-12" style="overflow-x: scroll;">
                 <table class="w-100" mat-table [dataSource]="dataSource" matSort>
 
                     <!-- Checkbox Column -->
@@ -209,7 +213,7 @@
 
                                         <!-- mqttUserId -->
                                         <mat-form-field *ngIf="col==='mqtt_user'">
-                                            <mat-select  [(ngModel)]="element['mqttUserId']">
+                                            <mat-select [(ngModel)]="element['mqttUserId']">
                                                 <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id">
                                                     {{mqtt_user.username}}</mat-option>
                                             </mat-select>

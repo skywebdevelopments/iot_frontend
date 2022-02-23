@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { environment } from '../../../environments/environment.prod'
+import { HttpClient, HttpHeaders} from '@angular/common/http'
+import { environment } from '../../environments/environment.prod'
+
 @Injectable({
   providedIn: 'root'
 })
-export class AddGroupService {
+export class LogService {
 
   constructor(private http: HttpClient) { }
-
-  // add group function.
-  service_add_group(formData: any) {
-
+  //get all mqtt_users
+  service_list_logs() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/group/create`;
+      let apiURL = `${environment.backend.api_url}/api/v1/logs/log`;
       var header = {
         headers: new HttpHeaders()
-          .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
+          .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.post(apiURL, formData, header)
+      this.http.get(apiURL,header)
         .toPromise()
         .then(
           res => { // Success
@@ -30,5 +29,4 @@ export class AddGroupService {
     return promise;
 
   };
-
 }

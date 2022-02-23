@@ -177,8 +177,6 @@ export class ListGroupComponent implements OnInit {
 
   }
   edit_group(e: any) {
-
-
     let rec_id = e.rec_id
     this.dataSource.data.forEach(item => {
 
@@ -197,15 +195,21 @@ export class ListGroupComponent implements OnInit {
     // flag the 
     this.dataSource.data.forEach(item => {
       if (item['isEdit'] !== undefined && item['isEdit'] == true) {
-        // 1. delete the flag
-        delete item['isEdit']
         // 2. post to the update API
         this.service_updateGroup.service_update_group(item).then(res => {
-          this.openSnackBar(`Saved successfully`, '', 2000)
+          if (res['status'] === 3100) {
+            //console.log(this.form_updateGroup.form.controls['name'].value);
+            this.openSnackBar("Group Name is already exist", "Ok", 2000);
+          }
+          else {
+            // 1. delete the flag
+            delete item['isEdit']
+            this.openSnackBar(`Saved successfully`, '', 2000)
+            this.enable_save_all = false;
+          }
         })
-
       }
-      this.enable_save_all = false;
+      //this.enable_save_all = false;
     })
 
   }
@@ -230,7 +234,7 @@ export class ListGroupComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
-       e['isDelete']= !e['isDelete'];
+        e['isDelete'] = !e['isDelete'];
         this.delete_group_onerec(e);
       }
     })

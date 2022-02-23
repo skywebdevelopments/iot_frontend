@@ -3,7 +3,8 @@ import { GenerateTokenService } from '../../service/user/generate-token.service'
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../../login-dialog/login-dialog.component'
-import {Router}from '@angular/router'
+import { Router } from '@angular/router'
+
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,14 @@ import {Router}from '@angular/router'
 })
 export class LoginComponent implements OnInit {
   form_login: any;
-  user_data = true
+  //  user_data = true
 
   constructor(
     private formBuilder: FormBuilder,
     private service_generateToken: GenerateTokenService,
     private dialog: MatDialog,
-    private router :Router
+    private router: Router,
+
   ) { }
   init_form() {
     // validators 
@@ -52,28 +54,47 @@ checkToken(){
     // check the form is valid 
 
     if (this.form_login.valid) {
+
+      
+
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
+<<<<<<< HEAD
         this.user_data = true;
         this.router.navigateByUrl('/dashboard')
         this.form_login.reset();
+=======
+        // this.user_data = true;
+        if (res['code'] === 404) {
 
+          this.Invalid_login()
+>>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
+
+        }
+        else {
+          this.router.navigate([{ outlets: { first: [ 'index' ] }}]); 
+          this.form_login.reset();
+        }
       }).catch((err) => {
-        this.user_data = false;
+        console.log(err)
       })
     }
   }
 
 
   Invalid_login() {
+
     let dialogRef = this.dialog.open(LoginDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
-      if (result == 'confirm') {
-        console.log('Invalid login');
+      if (result === 'confirm') {
+        this.router.navigate([{ outlets: { first: [ 'signup' ] }}]); 
       }
+      else {
+        this.form_login.reset();
+      }
+
     })
-    this.user_data = true;
+
     this.form_login.reset();
   }
 

@@ -217,8 +217,8 @@ export class ListSensorComponent implements OnInit {
 
       this.form_updateSensor = this.fb.group({
         mac_address: [item.mac_address, Validators.compose([
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
-          Validators.required
+          Validators.required,
+          Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$')
         ])],
 
         client_id: [item.client_id, Validators.compose([
@@ -288,7 +288,7 @@ export class ListSensorComponent implements OnInit {
         ])],
         sim_msidm: [item.sim_msidm, Validators.compose([
           Validators.required,
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+          Validators.pattern('[0-9]{11}')
         ])],
         flags: [item.flags, Validators.compose([
           Validators.required,
@@ -361,6 +361,7 @@ export class ListSensorComponent implements OnInit {
     // get the data table on init.
     this.get_sensor_list(false);
     this.mqtt = this.Get_mqqtuser();
+  
     // end
   }
 

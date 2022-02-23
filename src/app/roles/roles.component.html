@@ -1,0 +1,43 @@
+<h2 class=" text-center text-white bg-primary">Assign Permissions to Users</h2>
+<!-- filter control -->
+<mat-form-field appearance="standard" class="w-100">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+</mat-form-field>
+<!--Table-->
+<div class="mat-elevation-z8 ">
+    <table class="w-100" mat-table [dataSource]="dataSource">
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef> User Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+
+        <!-- Roles Column -->
+        <ng-container matColumnDef="roles">
+            <th mat-header-cell *matHeaderCellDef> Permissions </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                    </mat-expansion-panel-header>
+                    <p *ngFor="let item of permissions;let i=index">
+                        <input type="checkbox" [checked]="check_value(element.roles,item)"
+                            (change)="onCheckboxChange($event,element,i)"> {{ item }}
+                    </p>
+                    <button class="btn btn-primary btn-block" *ngIf="User_Roles!==undefined"
+                    (click)="onsubmit()">Save</button>
+                </mat-expansion-panel>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>

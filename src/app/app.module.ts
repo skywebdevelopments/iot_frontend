@@ -67,10 +67,20 @@ import { ListSensorsComponent } from './groups/add-group/list-sensors/list-senso
 import {EncrDecrService} from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+<<<<<<< HEAD
 import { TopNavBarComponent } from './shared/top-nav-bar/top-nav-bar.component';
 import { BottomNavBarComponent } from './shared/bottom-nav-bar/bottom-nav-bar.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+=======
+import { SignupComponent } from './signup/signup.component';
+import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
+import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
+import { IndexComponent } from './index/index.component';
+import { RolesComponent } from './roles/roles.component';
+import { LogsComponent } from './logs/logs.component';
+import { GroupSensorComponent } from './group-sensor/group-sensor.component';
+>>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
 
 
 
@@ -96,6 +106,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
     SidenavComponent,
 
+<<<<<<< HEAD
     TopNavBarComponent,
 
     BottomNavBarComponent,
@@ -103,6 +114,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SideNavBarComponent,
 
     DashboardComponent,
+=======
+    SignupComponent,
+
+    SignupDialogComponent,
+
+    ErrorDialogComponent,
+
+    IndexComponent,
+
+    RolesComponent,
+    LogsComponent,
+    GroupSensorComponent,
+>>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
 
   ],
   imports: [

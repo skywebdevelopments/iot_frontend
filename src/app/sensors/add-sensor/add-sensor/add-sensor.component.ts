@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { AddSensorService } from '../../../service/sensor/add-sensor.service';
 import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
+import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
 
 @Component({
   selector: 'app-add-sensor',
@@ -20,13 +22,17 @@ export class AddSensorComponent implements OnInit {
   thirdFormGroup: FormGroup;
   formData: any;
   mqtt: any;
+  selectedFile: File;
+  file_input: any;
+  fault_input = {};
   // end
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private service_addSensor: AddSensorService,
     private service_ListMqtt_User: ListMqqtUserService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private dialog: MatDialog
 
   ) {
 
@@ -35,7 +41,8 @@ export class AddSensorComponent implements OnInit {
 
     this.firstFormGroup = this._formBuilder.group({
       mac_address: ['', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$')
       ])],
       // validators 
       // Min length 4 
@@ -89,14 +96,12 @@ export class AddSensorComponent implements OnInit {
       // Min length 4  
       // required.
       gateway: ['', Validators.compose([
-
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       subnet: ['', Validators.compose([
-
         Validators.minLength(4),
       ])],
 
@@ -229,6 +234,53 @@ export class AddSensorComponent implements OnInit {
     return mqtt_User;
   }
 
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.readAsText(this.selectedFile, "UTF-8");
+    fileReader.onload = () => {
+
+      try {
+        this.file_input = JSON.parse(fileReader.result as string);
+      } catch {
+        alert("Invalid Json file formate");
+      }
+
+      for (var key in this.file_input) {
+        var each_sensor = this.file_input[key];
+        this.service_addSensor.service_add_sensor(each_sensor).then(res => {
+          if (res['code'] === 2102) {
+
+
+            this.fault_input[res['client_id']] = res['data'];
+            this.openDialog(this.fault_input)
+
+          }
+          else {
+            this.openSnackBar('Sensor(s) are added', "OK", 4000);
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+
+    }
+    fileReader.onerror = (error) => {
+      console.log(error);
+    }
+  }
+
+  openDialog(fault_input) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: {
+        fault_input
+      },
+    }).afterClosed().subscribe(res => {
+      window.location.reload();
+    });
+  }
   ngOnInit(): void {
     // init_form on page load
     this.init_form();
