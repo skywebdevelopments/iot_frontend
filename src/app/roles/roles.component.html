@@ -30,6 +30,8 @@
                         <input type="checkbox" [checked]="check_value(element.roles,item)"
                             (change)="onCheckboxChange($event,element,i)"> {{ item }}
                     </p>
+                    <button class="btn btn-primary btn-block" *ngIf="User_Roles!==undefined"
+                    (click)="onsubmit()">Save</button>
                 </mat-expansion-panel>
             </td>
         </ng-container>
