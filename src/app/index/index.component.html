@@ -28,12 +28,16 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3"
                     *ngIf='authorize(["group:list"])' [routerLink]='[{ outlets: { second: ["listGroup"] } }]'>List
                     Group</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3"  *ngIf='authorize(["group:list"])'
+                    [routerLink]='[{ outlets: { second: ["sensor-group"] } }]'>Group-sensor</a>
+    
             </div>
             <a class="list-group-item list-group-item-action list-group-item-light p-3"
                 [routerLink]='[{ outlets: { second: ["logs"] } }]'>Logs</a>
 
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" (click)=" logout()"
-                href="#!">Logout</a>
+             
+
+            
             <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" (click)=" logout()"
                 href="#!">Logout</a> -->
         </div>

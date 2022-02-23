@@ -12,6 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
 import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
+import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
       { path: "addSensor", component: AddSensorComponent, outlet: "second" },
       { path: "listSensor", component: ListSensorComponent, outlet: "second" },
       { path: "nav", component: SidenavComponent, outlet: "second" },
-      { path: "logs", component: LogsComponent, outlet: "second" }
+      { path: "logs", component: LogsComponent, outlet: "second" },
+      { path: "sensor-group", component: GroupSensorComponent, outlet: "second" }
 
     ], outlet: "first"
   }

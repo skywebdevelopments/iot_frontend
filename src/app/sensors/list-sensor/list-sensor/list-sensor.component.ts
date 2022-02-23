@@ -361,6 +361,7 @@ export class ListSensorComponent implements OnInit {
     // get the data table on init.
     this.get_sensor_list(false);
     this.mqtt = this.Get_mqqtuser();
+  
     // end
   }
 

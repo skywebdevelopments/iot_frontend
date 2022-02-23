@@ -73,6 +73,7 @@ import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.compon
 import { IndexComponent } from './index/index.component';
 import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
+import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 
 
 
@@ -108,6 +109,7 @@ import { LogsComponent } from './logs/logs.component';
 
     RolesComponent,
     LogsComponent,
+    GroupSensorComponent,
 
   ],
   imports: [
