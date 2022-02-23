@@ -20,8 +20,6 @@ const ELEMENT_DATA: UserElement[] = []
 })
 
 export class RolesComponent implements OnInit {
-  User_ID: any;
-  User_Roles:any;
   Updated_values:any;
   permissions = [
     "sensor:delete",
@@ -60,16 +58,10 @@ export class RolesComponent implements OnInit {
       const index_element=value.roles.indexOf(this.permissions[index])
       value.roles.splice(index_element, 1); 
     }
-    this.User_ID=value.id;
-    this.User_Roles=value.roles;
-  }
- 
-  onsubmit() {
-    this.Updated_values={userid:this.User_ID,permissions:this.User_Roles}
+    this.Updated_values={userid:value.id,permissions:value.roles}
       this.service_Updateroles_User.service_update_user_premissions(this.Updated_values).then(res => {
         this.openSnackBar(`Permissions Updated Successfully`, '', 2000)
       })
-      window.location.reload()
   }
 
   check_value(array, item) {
