@@ -84,27 +84,11 @@ export class GroupSensorComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  Get_Groups() {
-    this.service_listGroup.service_list_group().then(res => {
-      console.log(res['data'])
-      this.group = res['data']
-    });
 
-  }
-
-  get_Sensor_group_list(groupid: any) {
+  get_Sensor_group_list() {
     this.service_listGroup_sensor.service_list_group_sensor().then(res => {
-
       if (res['data']) {
-        for (let group of res['data']) {
-          if (groupid === group['id']) {
-            this.dataSource.data = group['sensor']
-            console.log(this.dataSource.data)
-            break;
-          }
-        };
-        // console.log(res['data'][0]['sensor'])
-        // this.dataSource.data = res['data'][0]['sensor']
+        this.group = res['data']
       }
     });
   };
@@ -118,12 +102,9 @@ export class GroupSensorComponent implements OnInit {
     });
     return mqtt_User;
   }
-  log() {
-    console.log('enjyyyyyyyy')
-  }
-
+  
   ngOnInit(): void {
-    this.Get_Groups();
+    this.get_Sensor_group_list()
     //  this.mqtt = this.Get_mqqtuser();
 
 
