@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders} from '@angular/common/http'
 import { environment } from '../../../environments/environment.prod'
 
 @Injectable({
   providedIn: 'root'
 })
-export class AddSensorService {
+export class SensorTypeService {
 
   constructor(private http: HttpClient) { }
-  service_add_sensor(formData: any) {
-    console.log(formData)
+  service_list_sensor_type() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/sensor/create`;
+      let apiURL = `${environment.backend.api_url}/api/v1/sensor/sensortype`;
       var header = {
         headers: new HttpHeaders()
-          .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
+          .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.post(apiURL, formData, header)
+      this.http.get(apiURL,header)
         .toPromise()
         .then(
           res => { // Success
@@ -29,7 +28,4 @@ export class AddSensorService {
     return promise;
 
   };
-
 }
-
-

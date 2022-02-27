@@ -17,11 +17,13 @@ export interface PeriodicElement {
 
 export class AppComponent {
   title = 'ProjectX';
+  showLogin = true;
 
   constructor(private service_authorize: AuthorizeRoleService, public cookieService: CookieService) { }
 
   ngOnInit() {
-
+    this.isloggedin();
+    
     if (this.cookieService.get('token')) {
       localStorage.setItem('token', this.cookieService.get('token'))
     }
@@ -29,7 +31,7 @@ export class AppComponent {
   }
   isloggedin() {
     if (localStorage.getItem('token') === null || localStorage.getItem('token') === undefined) {
-      console.log(localStorage.getItem('token'))
+     
       return false
     }
     else {

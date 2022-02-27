@@ -1,3 +1,5 @@
+
+
 <div class="row">
 
 
@@ -170,7 +172,7 @@
                                     <span *ngSwitchDefault>
                                         <!-- text cell -->
                                         <label for=""
-                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user'">
+                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensortype'">
                                             {{element[col]}}
                                         </label>
                                         <label *ngIf="col==='sleep_time'">
@@ -179,6 +181,11 @@
                                         <div *ngIf="col==='mqtt_user'">
                                             <label>
                                                 {{ element[col]['username']}}
+                                            </label>
+                                        </div>
+                                        <div *ngIf="col==='sensortype'">
+                                            <label>
+                                                {{ element[col]['type']}}
                                             </label>
                                         </div>
                                         <!-- slide type cell -->
@@ -204,7 +211,7 @@
                                     <!-- col with edit -->
                                     <ng-template #dataField>
                                         <!-- input text -->
-                                        <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user'">
+                                        <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user' && col!=='sensortype'">
                                             <mat-label>{{col}}</mat-label>
                                             <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
                                         </mat-form-field>
@@ -214,6 +221,15 @@
                                             <mat-select [(ngModel)]="element['mqttUserId']">
                                                 <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id">
                                                     {{mqtt_user.username}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <!-- end -->
+
+                                          <!-- sensortype -->
+                                          <mat-form-field *ngIf="col==='sensortype'">
+                                            <mat-select [(ngModel)]="element['sensortypeId']">
+                                                <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id">
+                                                    {{typee.type}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                         <!-- end -->

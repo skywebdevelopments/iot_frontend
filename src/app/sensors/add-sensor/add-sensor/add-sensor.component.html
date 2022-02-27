@@ -1,3 +1,5 @@
+
+
 <div class="container mt-6 w-80">
   <h1>Add Sensor</h1>
 <div style="display: flex;justify-content: flex-end;">
@@ -41,9 +43,10 @@
           </mat-form-field>
           <!-- end -->
           <!-- sensor_type -->
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Sensor Type</mat-label>
-            <input type="text" matInput formControlName="sensor_type" placeholder="Enter a Sensor Type">
+          <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
+            <mat-select placeholder="Sensor Type" formControlName="sensortypeId">
+              <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id"> {{typee.type}}</mat-option>
+            </mat-select>
           </mat-form-field>
           <!-- end -->
         </div>
