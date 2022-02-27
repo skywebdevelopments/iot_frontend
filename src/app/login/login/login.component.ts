@@ -37,7 +37,19 @@ export class LoginComponent implements OnInit {
     })
   }
 
+checkToken(){
+  let token_key= localStorage.getItem('token');
 
+  if (token_key){
+    this.router.navigateByUrl('/dashboard')
+    
+  }
+  else{
+    this.router.navigateByUrl('/')
+
+  }
+ 
+}
   onsubmit() {
     // check the form is valid 
 
@@ -81,6 +93,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.checkToken();
     this.init_form();
   }
 
