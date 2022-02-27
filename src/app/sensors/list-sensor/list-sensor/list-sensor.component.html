@@ -73,7 +73,7 @@
 
                                 <!-- Create sensor button -->
                                 <div class="col-4" *ngIf='authorize(["sensor:create"])'>
-                                    <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-fab
+                                    <button [routerLink]='[{ outlets: { second: ["addSensor"] } }]'routerLinkActive="router-link-active" mat-fab
                                         class="mb-4 mr-1 right" color="primary"
                                         aria-label="Example icon button with a home icon"
                                         matTooltip="Click to Create Sensor">

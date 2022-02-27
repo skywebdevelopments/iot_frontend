@@ -169,8 +169,10 @@ export class ListSensorsComponent implements OnInit {
   // end
 
   openSnackBar(message: string, action: string, interval: number) {
-    this._snackBar.open(message, action);
-
+    let snackBarRef=this._snackBar.open(message, action);
+    snackBarRef.onAction().subscribe(() => {
+      window.location.reload()
+    });
     setTimeout(() => {
       this._snackBar.dismiss()
     }, interval);
