@@ -5,7 +5,7 @@ import { ListSensorService } from '../../../service/sensor/list-sensor.service';
 import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
 import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
 import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
-import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
+import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';

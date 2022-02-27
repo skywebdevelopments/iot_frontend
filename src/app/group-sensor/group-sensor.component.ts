@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListGroupService } from '../service/group/list-group.service';
 import { GroupSensorService } from '../service/group-sensor/group-sensor.service';
-import { ListMqqtUserService } from '../service/user/list-mqqt-user.service';
+import { ListMqqtUserService } from '../service/sensor/list-mqqt-user.service';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';

@@ -3,7 +3,7 @@ import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSensorService } from '../../../service/sensor/add-sensor.service';
-import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
+import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
 import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
 import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
 

@@ -13,7 +13,7 @@ export class SignupService {
   service_signup(formData: any) {
     
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/users/signup`;
+      let apiURL = `${environment.backend.api_url}/api/v1/users/create`;
       this.http.post(apiURL,formData)
         .toPromise()
         .then(

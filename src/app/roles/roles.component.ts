@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { ListUsernameUsersService } from '../service/user/list-username-users.service';
+import { ListUserGroupsService } from '../service/user/list-user-groups.service';
 import { UpdateUserRolesService } from '../service/user/update-user-roles.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,20 +23,9 @@ const ELEMENT_DATA: UserElement[] = []
 export class RolesComponent implements OnInit {
   Updated_values:any;
   User_ID: any;
-  User_Roles:any;
-  permissions = [
-    "sensor:delete",
-    "sensor:create",
-    "sensor:list",
-    "sensor:update",
-    "group:list",
-    "group:update",
-    "group:delete",
-    "group:create",
-    "group",
-    "sensor",
-    "admin"
-  ];
+  assigned_roles:any;
+  delete_roles:any;
+  permissions = [];
   displayedColumns: string[] = ["email", "username", "roles"];
   dataSource = new MatTableDataSource<UserElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,33 +38,32 @@ export class RolesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private service_ListUsername_User: ListUsernameUsersService,
+    private service_List_UserGroups:ListUserGroupsService,
     private service_Updateroles_User: UpdateUserRolesService
   ) { }
 
 
-  onCheckboxChange(event: any,value,index) {
+  onCheckboxChange(event: any,user,index) {
     if (event.target.checked) {
-      value.roles.push(this.permissions[index]);
+      this.assigned_roles.push(this.permissions[index]);
     } 
     else {
-      const index_element=value.roles.indexOf(this.permissions[index])
-      value.roles.splice(index_element, 1); 
+      this.delete_roles.push(this.permissions[index]);
     }
-    this.User_ID=value.id;
-    this.User_Roles=value.roles;
+    this.User_ID=user.id;
   }
 
   onsubmit() {
-    this.Updated_values={userid:this.User_ID,permissions:this.User_Roles}
-      this.service_Updateroles_User.service_update_user_premissions(this.Updated_values).then(res => {
+    this.Updated_values={userid:this.User_ID,new_assign:this.assigned_roles,delete_assigned:this.delete_roles}
+      this.service_Updateroles_User.service_update_user_roles(this.Updated_values).then(res => {
         this.openSnackBar(`Permissions Updated Successfully`, '', 2000)
       })
       window.location.reload()
   }
 
-  check_value(array, item) {
-    for (let index of array) {
-      if (index === item)
+  check_value(user_assined_groups, user_group_id) {
+    for (let group of user_assined_groups) {
+      if (group['id'] === user_group_id)
         return true;
     }
     return false
@@ -96,6 +85,14 @@ export class RolesComponent implements OnInit {
     });
   };
 
+  get_usergroups_list() {
+    this.service_List_UserGroups.service_list_usergroups().then(res => {
+      for( var usergroup of res['data'] ){
+        this.permissions.push(usergroup);
+      }
+    });
+  };
+
   applyFilter(event: any) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -111,5 +108,6 @@ export class RolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.get_users_list(false);
+    this.get_usergroups_list();
   }
 }
