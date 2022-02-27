@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSensorService } from '../../../service/sensor/add-sensor.service';
 import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
+import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
 import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
 
 @Component({
@@ -22,6 +23,7 @@ export class AddSensorComponent implements OnInit {
   thirdFormGroup: FormGroup;
   formData: any;
   mqtt: any;
+  sensor_typee: any;
   selectedFile: File;
   file_input: any;
   fault_input = {};
@@ -31,6 +33,7 @@ export class AddSensorComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private service_addSensor: AddSensorService,
     private service_ListMqtt_User: ListMqqtUserService,
+    private service_sensor_type: SensorTypeService,
     private _formBuilder: FormBuilder,
     private dialog: MatDialog
 
@@ -58,15 +61,15 @@ export class AddSensorComponent implements OnInit {
       // validators 
       // Min length 4  
       // required.
-      sensor_type: ['', Validators.compose([
+      sensortypeId: [null, Validators.compose([
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(1),
       ])],
       // validators 
       // Min length 4  
       // required.
       serial_number: ['', Validators.compose([
-
+        Validators.required,
         Validators.minLength(4),
       ])],
 
@@ -76,20 +79,21 @@ export class AddSensorComponent implements OnInit {
       // pattern 
       // required.
       static_ip: ['', Validators.compose([
-        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
+        Validators.required,
       ])],
       // validators 
       // Min length 4  
       // required.
       dns1: ['', Validators.compose([
-
+        Validators.required,
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       dns2: ['', Validators.compose([
-
+        Validators.required,
         Validators.minLength(4),
       ])],
       // validators 
@@ -97,12 +101,14 @@ export class AddSensorComponent implements OnInit {
       // required.
       gateway: ['', Validators.compose([
         Validators.minLength(4),
+        Validators.required,
       ])],
       // validators 
       // Min length 4  
       // required.
       subnet: ['', Validators.compose([
         Validators.minLength(4),
+        Validators.required,
       ])],
 
       // validators 
@@ -117,25 +123,28 @@ export class AddSensorComponent implements OnInit {
       // pattern  
       // required.
       host_ip: ['', Validators.compose([
-
+        Validators.required,
         Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
       ])],
       // validators 
       // Min length 4  
       // required.
       sim_serial: ['', Validators.compose([
+        Validators.required,
         Validators.minLength(4),
       ])],
       // validators 
       // Min length 4  
       // required.
       ota_password: ['', Validators.compose([
+        Validators.required,
         Validators.minLength(4)
       ])],
       // validators 
       // pattern  
       // required.
       sim_msidm: ['', Validators.compose([
+        Validators.required,
 
         Validators.pattern('[0-9]{11}')
       ])],
@@ -153,21 +162,21 @@ export class AddSensorComponent implements OnInit {
       // Min length 4  
       // required.
       ap_name: ['', Validators.compose([
-
+        Validators.required,
         Validators.minLength(4),
       ])],
       // validators 
       // pattern  
       // required.
       ap_ip: ['', Validators.compose([
-
+        Validators.required,
         Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
       ])],
       // validators 
       // Min length 4  
       // required.
       ap_password: ['', Validators.compose([
-
+        Validators.required,
         Validators.minLength(4),
       ])],
       // validators 
@@ -209,7 +218,9 @@ export class AddSensorComponent implements OnInit {
         this.secondFormGroup.value,
         this.thirdFormGroup.value)
 
+      //  console.log(this.formData)
       this.service_addSensor.service_add_sensor(this.formData).then(res => {
+        //  console.log(this.formData)
         this.openSnackBar(res['status']['message'], "Ok", 4000);
         this.firstFormGroup.reset();
         this.secondFormGroup.reset();
@@ -232,6 +243,16 @@ export class AddSensorComponent implements OnInit {
       });
     });
     return mqtt_User;
+  }
+
+  Get_sensorType() {
+    var sensorType = []
+    this.service_sensor_type.service_list_sensor_type().then(res => {
+      res['data'].forEach(function (sensor_type) {
+        sensorType.push(sensor_type)
+      });
+    });
+    return sensorType;
   }
 
 
@@ -285,6 +306,8 @@ export class AddSensorComponent implements OnInit {
     // init_form on page load
     this.init_form();
     this.mqtt = this.Get_mqqtuser();
+    this.sensor_typee = this.Get_sensorType();
+    console.log(this.sensor_typee)
   }
 
 }

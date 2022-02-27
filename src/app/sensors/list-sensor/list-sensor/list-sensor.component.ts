@@ -12,11 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 import { ListMqqtUserService } from '../../../service/user/list-mqqt-user.service';
+
+import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
+
 export interface sensorElement {
   mac_address: "text",
   client_id: "text",
   active: "boolean",
-  sensor_type: "text",
   static_ip: "text",
   dns1: "text",
   dns2: "text",
@@ -34,6 +36,7 @@ export interface sensorElement {
   sim_msidm: "text",
   flags: "text",
   mqttUserId: "number",
+  sensortypeId: "number",
   rec_id: "text"
 }
 
@@ -56,13 +59,13 @@ export class ListSensorComponent implements OnInit {
   replace_with_input = false;
   authorized = false;
   mqtt: any;
+  sensor_typee: any;
   // end
   displayedColumns: string[] =
     ['select',
       'mac_address',
       'client_id',
       'active',
-      'sensor_type',
       'static_ip',
       'dns1',
       'dns2',
@@ -80,6 +83,7 @@ export class ListSensorComponent implements OnInit {
       'sim_msidm',
       'flags',
       'mqtt_user',
+      'sensortype',
       'isEdit',
       'isDelete'];
 
@@ -101,6 +105,7 @@ export class ListSensorComponent implements OnInit {
     private service_deleteSensor: DeleteSensorService,
     private service_authorize: AuthorizeRoleService,
     private service_ListMqtt_User: ListMqqtUserService,
+    private service_sensor_type: SensorTypeService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog
@@ -145,6 +150,7 @@ export class ListSensorComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
+      console.log(res['data'])
       //check if list is not empty
       if (res['data']) {
         // add data to the table (data source)
@@ -225,9 +231,9 @@ export class ListSensorComponent implements OnInit {
           Validators.required,
           Validators.minLength(4),
         ])],
-        sensor_type: [item.sensor_type, Validators.compose([
+        sensortypeId: [item.sensortypeId, Validators.compose([
           Validators.required,
-          Validators.minLength(4),
+          Validators.minLength(1),
         ])],
         static_ip: [item.static_ip, Validators.compose([
           Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
@@ -357,11 +363,21 @@ export class ListSensorComponent implements OnInit {
     return mqtt_User;
   }
 
+  Get_sensorType() {
+    var sensorType = []
+    this.service_sensor_type.service_list_sensor_type().then(res => {
+      res['data'].forEach(function (sensor_type) {
+        sensorType.push(sensor_type)
+      });
+    });
+    return sensorType;
+  }
+
   ngOnInit(): void {
     // get the data table on init.
     this.get_sensor_list(false);
     this.mqtt = this.Get_mqqtuser();
-  
+    this.sensor_typee = this.Get_sensorType();
     // end
   }
 
