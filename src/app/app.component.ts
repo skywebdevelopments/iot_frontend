@@ -30,19 +30,8 @@ export class AppComponent {
 
   }
   isloggedin() {
-<<<<<<< HEAD
-    if (localStorage.getItem('token')) {
-      this.showLogin = false;
-
-      return true
-    }
-    else{
-      
-      this.showLogin = true;
-=======
     if (localStorage.getItem('token') === null || localStorage.getItem('token') === undefined) {
-      console.log(localStorage.getItem('token'))
->>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
+     
       return false
     }
     else {

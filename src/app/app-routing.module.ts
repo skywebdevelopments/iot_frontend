@@ -8,23 +8,6 @@ import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.c
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
 import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-<<<<<<< HEAD
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AppComponent } from './app.component';
-
-
-const routes: Routes = [
-  { path: "login",  component: LoginComponent },
-  { path: "", component: LoginComponent },
-  { path: "addGroup", component: AddGroupComponent },
-  { path: "listGroup",  component: ListGroupComponent },
-  { path: "addGroup",  component: AddGroupComponent },
-  { path: "test",  component: TestComponentComponent },
-  { path: "addSensor",  component: AddSensorComponent },
-  { path: "listSensor", component: ListSensorComponent },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "nav",  component: SidenavComponent },
-=======
 import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
 import { RolesComponent } from './roles/roles.component';
@@ -51,7 +34,6 @@ const routes: Routes = [
 
     ], outlet: "first"
   }
->>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
 ]
 
 

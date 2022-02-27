@@ -1,14 +1,8 @@
 <div class="w-26 row justify-content-center" style="margin-top: 3%;">
-<<<<<<< HEAD
-    <div class="card shadow card-container" style="width: 25%;">
-        <h2 class="text-center">IoT Platform</h2>
-        <hr>
-=======
     <div class="card card-container" style="width: 25%;">
         <!-- <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" /> -->
         <h2>Welcome To Cyshield IOT</h2>
         <h4>please enter your username and password</h4>
->>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
         <!--Form Login-->
         <form class="example-form" [formGroup]="form_login">
             <!--Email Field-->
@@ -24,11 +18,7 @@
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                     <label for="password">Password</label>
-<<<<<<< HEAD
-                    <input  #eye_password type="password" matInput formControlName="password">
-=======
                     <input #eye_password type="password" matInput formControlName="password">
->>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
                     <mat-icon class="field-icon"
                         (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
                     </mat-icon>
@@ -37,12 +27,6 @@
             <!--End Password Field-->
             <div>
                 <!--Login button -->
-<<<<<<< HEAD
-                <button class="btn btn-primary btn-block" [disabled]="!form_login.valid"
-                    (click)="user_data==true ?onsubmit() :Invalid_login()">Login
-                </button>
-
-=======
                 <button class="btn btn-primary btn-block" [disabled]="!form_login.valid" (click)="onsubmit()">Login
                 </button>
 
@@ -50,7 +34,6 @@
                 <button class="btn btn-primary btn-block" [routerLink]='[{ outlets: { first: ["signup"] } }]'>Signup
                 </button>
 
->>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
                 <!--Google button-->
                 <div class="col s12 m6 offset-m3 center-align">
                     <a href="http://localhost:3000/auth/google" class="oauth-container btn darken-4 white black-text"

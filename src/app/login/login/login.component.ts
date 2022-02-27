@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
     // name min length 
     // required.
     this.form_login = this.formBuilder.group({
-      email: ['ahmed.shalaby@cyshield.com', Validators.compose([
+      email: ['', Validators.compose([
         Validators.required,
         Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
       ])],
-      password: ['1234', Validators.compose([
+      password: ['', Validators.compose([
         Validators.required
       ])]
     })
@@ -59,16 +59,10 @@ checkToken(){
 
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
-<<<<<<< HEAD
-        this.user_data = true;
-        this.router.navigateByUrl('/dashboard')
-        this.form_login.reset();
-=======
         // this.user_data = true;
         if (res['code'] === 404) {
 
           this.Invalid_login()
->>>>>>> d0dbf1d3c83555d3b78acf362cfdcb5c39a3511b
 
         }
         else {
