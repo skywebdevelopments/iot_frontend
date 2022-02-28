@@ -309,5 +309,4 @@ export class AddSensorComponent implements OnInit {
     this.sensor_typee = this.Get_sensorType();
     console.log(this.sensor_typee)
   }
-
 }

@@ -13,6 +13,8 @@ import { IndexComponent } from './index/index.component';
 import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
+import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
+import { AddSensorTypeComponent } from './sensor-type/add-sensor-type/add-sensor-type.component';
 
 
 const routes: Routes = [
@@ -30,7 +32,9 @@ const routes: Routes = [
       { path: "listSensor", component: ListSensorComponent, outlet: "second" },
       { path: "nav", component: SidenavComponent, outlet: "second" },
       { path: "logs", component: LogsComponent, outlet: "second" },
-      { path: "sensor-group", component: GroupSensorComponent, outlet: "second" }
+      { path: "sensor-group", component: GroupSensorComponent, outlet: "second" },
+      { path: "sensor-group-tree", component: GroupSensorTreeComponent, outlet: "second" },
+      { path: "create-sensor-type", component: AddSensorTypeComponent, outlet: "second" }
 
     ], outlet: "first"
   }
