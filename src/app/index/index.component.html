@@ -30,6 +30,12 @@
                     Group</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3"  *ngIf='authorize(["group:list"])'
                     [routerLink]='[{ outlets: { second: ["sensor-group"] } }]'>Group-sensor</a>
+
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                    [routerLink]='[{ outlets: { second: ["sensor-group-tree"] } }]'>Group-sensor-tree</a>
+                    
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                    [routerLink]='[{ outlets: { second: ["create-sensor-type"] } }]'>Create-sensor-type</a>
     
             </div>
             <a class="list-group-item list-group-item-action list-group-item-light p-3"

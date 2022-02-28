@@ -78,6 +78,9 @@ import { IndexComponent } from './index/index.component';
 import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
+import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
+
+import { AddSensorTypeComponent } from './sensor-type/add-sensor-type/add-sensor-type.component';
 
 
 
@@ -121,6 +124,8 @@ import { GroupSensorComponent } from './group-sensor/group-sensor.component';
     RolesComponent,
     LogsComponent,
     GroupSensorComponent,
+    GroupSensorTreeComponent,
+    AddSensorTypeComponent,
 
   ],
   imports: [
