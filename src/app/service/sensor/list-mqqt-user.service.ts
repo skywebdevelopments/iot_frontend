@@ -10,7 +10,7 @@ export class ListMqqtUserService {
   //get all mqtt_users
   service_list_mqttUser() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/sensor/mqtt_user`;
+      let apiURL = `${environment.backend.api_url}/api/v1/sensor/mqttuser`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)

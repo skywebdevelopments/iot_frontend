@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GroupSensorService } from '../service/group-sensor/group-sensor.service';
 
-
-
 @Component({
   selector: 'app-group-sensor',
   templateUrl: './group-sensor.component.html',

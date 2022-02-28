@@ -12,7 +12,7 @@ export class AddGroupService {
   service_add_group(formData: any) {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/group/create`;
+      let apiURL = `${environment.backend.api_url}/api/v1/s_group/create`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
