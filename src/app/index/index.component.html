@@ -21,14 +21,14 @@
                     Sensor</a>
             </div>
 
-            <div *ngIf='authorize(["group"])'>
+            <div *ngIf='authorize(["s_group"])'>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    *ngIf='authorize(["group:create"])' [routerLink]='[{ outlets: { second: ["addGroup"] } }]'>Create
+                    *ngIf='authorize(["s_group:create"])' [routerLink]='[{ outlets: { second: ["addGroup"] } }]'>Create
                     Group</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3"
-                    *ngIf='authorize(["group:list"])' [routerLink]='[{ outlets: { second: ["listGroup"] } }]'>List
+                    *ngIf='authorize(["s_group:list"])' [routerLink]='[{ outlets: { second: ["listGroup"] } }]'>List
                     Group</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3"  *ngIf='authorize(["group:list"])'
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3"  *ngIf='authorize(["s_group:list"])'
                     [routerLink]='[{ outlets: { second: ["sensor-group"] } }]'>Group-sensor</a>
 
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" 
@@ -58,7 +58,7 @@
                         <!-- <li class="nav-item active"><a class="nav-link" href="#!">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" *ngIf='authorize(["sensor:list"])'
                                 routerLink='/listSensor'>Sensors</a></li>
-                        <li class="nav-item"><a class="nav-link" *ngIf='authorize(["group:list"])'
+                        <li class="nav-item"><a class="nav-link" *ngIf='authorize(["s_group:list"])'
                                 routerLink='/listGroup'>Groups</a></li> -->
                         <li class="nav-item"><a class="nav-link" (click)=" logout()" href="#!">Logout</a></li>
 

@@ -23,9 +23,23 @@ const ELEMENT_DATA: UserElement[] = []
 export class RolesComponent implements OnInit {
   Updated_values:any;
   User_ID: any;
-  assigned_roles:any;
-  delete_roles:any;
-  permissions = [];
+  User_Roles:any;
+  permissions = [
+    "sensor:delete",
+    "sensor:create",
+    "sensor:list",
+    "sensor:update",
+    "s_group:list",
+    "s_group:update",
+    "s_group:delete",
+    "s_group:create",
+    "s_group",
+    "sensor",
+    "admin"
+  ];
+  //assigned_roles:any;
+  //delete_roles:any;
+  //permissions = [];
   displayedColumns: string[] = ["email", "username", "roles"];
   dataSource = new MatTableDataSource<UserElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -45,16 +59,22 @@ export class RolesComponent implements OnInit {
 
   onCheckboxChange(event: any,user,index) {
     if (event.target.checked) {
-      this.assigned_roles.push(this.permissions[index]);
+      user.roles.push(this.permissions[index]);
+      //this.assigned_roles.push(this.permissions[index]);
     } 
     else {
-      this.delete_roles.push(this.permissions[index]);
+      const index_element=user.roles.indexOf(this.permissions[index])
+      user.roles.splice(index_element, 1); 
+      //this.delete_roles.push(this.permissions[index]);
     }
+    //this.User_ID=user.id;
     this.User_ID=user.id;
+    this.User_Roles=user.roles;
   }
 
   onsubmit() {
-    this.Updated_values={userid:this.User_ID,new_assign:this.assigned_roles,delete_assigned:this.delete_roles}
+    this.Updated_values={userid:this.User_ID,permissions:this.User_Roles}
+    //this.Updated_values={userid:this.User_ID,new_assign:this.assigned_roles,delete_assigned:this.delete_roles}
       this.service_Updateroles_User.service_update_user_roles(this.Updated_values).then(res => {
         this.openSnackBar(`Permissions Updated Successfully`, '', 2000)
       })
@@ -63,7 +83,8 @@ export class RolesComponent implements OnInit {
 
   check_value(user_assined_groups, user_group_id) {
     for (let group of user_assined_groups) {
-      if (group['id'] === user_group_id)
+      //if (group['id'] === user_group_id)
+      if (group === user_group_id)
         return true;
     }
     return false
@@ -108,6 +129,6 @@ export class RolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.get_users_list(false);
-    this.get_usergroups_list();
+    //this.get_usergroups_list();
   }
 }

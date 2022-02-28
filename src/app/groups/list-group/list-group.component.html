@@ -75,7 +75,7 @@
                                         </button>
                                     </div>
                                     <!-- Create Group button -->
-                                    <div class="col-4" *ngIf='authorize(["group:create"])'>
+                                    <div class="col-4" *ngIf='authorize(["s_group:create"])'>
                                         <button [routerLink]="['/addGroup']" routerLinkActive="router-link-active"
                                             mat-fab class="mb-4 mr-1 right" color="primary"
                                             aria-label="Example icon button with a home icon"
@@ -85,7 +85,7 @@
                                     </div>
                                     <!-- end -->
                                     <!-- delete -->
-                                    <div class="col-auto" *ngIf='authorize(["group:delete"])'>
+                                    <div class="col-auto" *ngIf='authorize(["s_group:delete"])'>
                                         <button data-toggle="modal" *ngIf="selection.hasValue()"
                                             data-target="#exampleModal" (click)="get_group_list(true)" mat-fab
                                             class="mb-4 mr-1 right" color="primary"
@@ -131,14 +131,14 @@
                                         <!-- edit button -->
                                         <div class="btn-edit" *ngSwitchCase="'isEdit'">
 
-                                            <div *ngIf='authorize(["group:delete"]) || authorize(["group:update"])'>
+                                            <div *ngIf='authorize(["s_group:delete"]) || authorize(["s_group:update"])'>
                                                 <button mat-icon-button [matMenuTriggerFor]="menuu"
                                                     aria-label="Example icon-button with a menu">
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
                                             </div>
                                             <mat-menu #menuu="matMenu">
-                                                <div *ngIf='authorize(["group:update"])'>
+                                                <div *ngIf='authorize(["s_group:update"])'>
                                                     <!-- edit -->
                                                     <button
                                                         (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
@@ -149,7 +149,7 @@
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["group:delete"])'>
+                                                <div *ngIf='authorize(["s_group:delete"])'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>

@@ -13,10 +13,6 @@ export class GenerateTokenService {
   // generate token function.
   service_generate_token(formData: any) {
 
-    // Hash password
-    var hash = CryptoJS.HmacSHA256(formData['password'], environment.backend.hash_secret);
-    var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
-    formData['password'] = hashInBase64
 
     let promise = new Promise((resolve, reject) => {
       let apiURL = `${environment.backend.api_url}/api/v1/users/token`;
