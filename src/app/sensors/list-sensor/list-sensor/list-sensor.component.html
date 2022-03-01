@@ -172,7 +172,7 @@
                                     <span *ngSwitchDefault>
                                         <!-- text cell -->
                                         <label for=""
-                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensortype'">
+                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensor_type'">
                                             {{element[col]}}
                                         </label>
                                         <label *ngIf="col==='sleep_time'">
@@ -183,7 +183,7 @@
                                                 {{ element[col]['username']}}
                                             </label>
                                         </div>
-                                        <div *ngIf="col==='sensortype'">
+                                        <div *ngIf="col==='sensor_type'">
                                             <label>
                                                 {{ element[col]['type']}}
                                             </label>
@@ -211,7 +211,7 @@
                                     <!-- col with edit -->
                                     <ng-template #dataField>
                                         <!-- input text -->
-                                        <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user' && col!=='sensortype'">
+                                        <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user' && col!=='sensor_type'">
                                             <mat-label>{{col}}</mat-label>
                                             <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
                                         </mat-form-field>
@@ -226,7 +226,7 @@
                                         <!-- end -->
 
                                           <!-- sensortype -->
-                                          <mat-form-field *ngIf="col==='sensortype'">
+                                          <mat-form-field *ngIf="col==='sensor_type'">
                                             <mat-select [(ngModel)]="element['sensortypeId']">
                                                 <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id">
                                                     {{typee.type}}</mat-option>

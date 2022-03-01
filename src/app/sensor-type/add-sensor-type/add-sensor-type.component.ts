@@ -19,6 +19,7 @@ export class AddSensorTypeComponent implements OnInit {
   ) { }
 
 
+
   init_form() {
     this.Formsensor = this.formBuilder.group({
       // validators 
@@ -29,11 +30,13 @@ export class AddSensorTypeComponent implements OnInit {
         Validators.minLength(4),
       ])]
     });
-
   }
+
+
 
   //Create Sensor-type
   save_sensor_type() {
+    console.log('heyyy')
     if (this.Formsensor.valid) {
       console.log(this.Formsensor)
       this.formData = this.Formsensor.value
@@ -52,7 +55,8 @@ export class AddSensorTypeComponent implements OnInit {
   }
   //End
 
-  
+
+
 
 
   ngOnInit(): void {
