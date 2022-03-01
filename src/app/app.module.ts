@@ -80,7 +80,8 @@ import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 
-import { AddSensorTypeComponent } from './sensor-type/add-sensor-type/add-sensor-type.component';
+
+import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
 
 
 
@@ -125,7 +126,8 @@ import { AddSensorTypeComponent } from './sensor-type/add-sensor-type/add-sensor
     LogsComponent,
     GroupSensorComponent,
     GroupSensorTreeComponent,
-    AddSensorTypeComponent,
+   
+    ListSensorTypeComponent,
 
   ],
   imports: [
