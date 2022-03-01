@@ -14,8 +14,8 @@ import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
-import { AddSensorTypeComponent } from './sensor-type/add-sensor-type/add-sensor-type.component';
 
+import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
 
 const routes: Routes = [
   { path: "Login", component: LoginComponent, outlet: "first" },
@@ -34,7 +34,8 @@ const routes: Routes = [
       { path: "logs", component: LogsComponent, outlet: "second" },
       { path: "sensor-group", component: GroupSensorComponent, outlet: "second" },
       { path: "sensor-group-tree", component: GroupSensorTreeComponent, outlet: "second" },
-      { path: "create-sensor-type", component: AddSensorTypeComponent, outlet: "second" }
+    
+      { path: "List-sensor-type", component: ListSensorTypeComponent, outlet: "second" }
 
     ], outlet: "first"
   }

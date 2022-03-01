@@ -83,7 +83,7 @@ export class ListSensorComponent implements OnInit {
       'sim_msidm',
       'flags',
       'mqtt_user',
-      'sensortype',
+      'sensor_type',
       'isEdit',
       'isDelete'];
 
@@ -370,6 +370,7 @@ export class ListSensorComponent implements OnInit {
         sensorType.push(sensor_type)
       });
     });
+    console.log(sensorType)
     return sensorType;
   }
 

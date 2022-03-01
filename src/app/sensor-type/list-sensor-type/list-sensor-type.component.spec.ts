@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddSensorTypeComponent } from './add-sensor-type.component';
+import { ListSensorTypeComponent } from './list-sensor-type.component';
 
-describe('AddSensorTypeComponent', () => {
-  let component: AddSensorTypeComponent;
-  let fixture: ComponentFixture<AddSensorTypeComponent>;
+describe('ListSensorTypeComponent', () => {
+  let component: ListSensorTypeComponent;
+  let fixture: ComponentFixture<ListSensorTypeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddSensorTypeComponent ]
+      declarations: [ ListSensorTypeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddSensorTypeComponent);
+    fixture = TestBed.createComponent(ListSensorTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
