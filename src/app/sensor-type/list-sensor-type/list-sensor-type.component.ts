@@ -138,10 +138,7 @@ export class ListSensorTypeComponent implements OnInit {
         this.dataSource.sort = this.sort;
         // end
         // display a notification
-        if (showSnackBar) {
-
-          this.openSnackBar("list is updated", "Ok", 4000);
-        }
+    
       }
       else {
         this.dataSource.data = [];
