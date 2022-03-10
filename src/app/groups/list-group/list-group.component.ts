@@ -149,7 +149,7 @@ export class ListGroupComponent implements OnInit {
       this.service_deleteGroup.service_delete_group(formData).then(res => {
         console.log(res);
 
-        this.openSnackBar(res['data']['message'], '', 4000);
+        this.openSnackBar(res['message'], '', 4000);
 
         // recall refresh
         this.get_group_list(true);
@@ -219,7 +219,7 @@ export class ListGroupComponent implements OnInit {
       delete e['isDelete']
       this.service_deleteGroup.service_delete_group(e).then(res => {
         console.log(res);
-        this.openSnackBar(res['data']['message'], '', 4000);
+        this.openSnackBar(res['message'], '', 4000);
         // recall refresh
         this.get_group_list(true);
       })
