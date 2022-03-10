@@ -13,7 +13,7 @@ export class DeleteSensorTypeService {
     service_delete_sensor_type(formData: any) {
 
       let promise = new Promise((resolve, reject) => {
-        let apiURL = `${environment.backend.api_url}/api/v1/sensor/sensortype/delete`;
+        let apiURL = `${environment.backend.api_url}/api/v1/sensortype/delete`;
         var headers = {
           headers: new HttpHeaders()
             .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

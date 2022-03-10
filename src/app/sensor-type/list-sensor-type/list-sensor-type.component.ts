@@ -77,7 +77,8 @@ export class ListSensorTypeComponent implements OnInit {
       type: ['', Validators.compose([
         Validators.required,
         Validators.minLength(4),
-      ])]
+      ])],
+      active:[false]
     });
   }
 

@@ -11,7 +11,7 @@ export class UpdateSensorService {
 
   // update sensor function.
   service_update_sensor(formData: any) {
-
+    
     let promise = new Promise((resolve, reject) => {
       let apiURL = `${environment.backend.api_url}/api/v1/sensor/update`;
       var header = {
