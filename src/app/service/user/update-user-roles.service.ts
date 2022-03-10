@@ -11,7 +11,8 @@ export class UpdateUserRolesService {
    // update user permissions function.
    service_update_user_roles(formData: any) {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/users/create`;
+      //let apiURL = `${environment.backend.api_url}/api/v1/users/create`;
+      let apiURL = `${environment.backend.api_url}/api/v1/users/updaterole`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

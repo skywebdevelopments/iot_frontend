@@ -27,13 +27,14 @@
                     <mat-expansion-panel-header>
                     </mat-expansion-panel-header>
                     <p *ngFor="let item of permissions;let i=index">
-                        <!--<input type="checkbox" [checked]="check_value(element.usergroup,item.id)"
-                            (change)="onCheckboxChange($event,element,i)"> {{ item.groupname }}-->
-                            <input type="checkbox" [checked]="check_value(element.roles,item)"
-                            (change)="onCheckboxChange($event,element,i)"> {{ item }}
+                        <input type="checkbox" [checked]="check_value(element.u_groups,item.id)"
+                            (change)="onCheckboxChange($event,i)"> {{ item.groupname }}
+                            <!--<input type="checkbox" [checked]="check_value(element.roles,item)"
+                            (change)="onCheckboxChange($event,element,i)"> {{ item }}-->
                     </p>
-                    <button class="btn btn-primary btn-block" *ngIf="User_Roles!==undefined"
-                    (click)="onsubmit()">Save</button>
+                    <!--*ngIf="User_Roles!==undefined"-->
+                    <button class="btn btn-primary btn-block" 
+                    (click)="onsubmit(element)">Save</button>
                 </mat-expansion-panel>
             </td>
         </ng-container>
