@@ -55,7 +55,7 @@ export class AddGroupComponent implements OnInit {
      }
      else{
         this.id = res['data']['rec_id'];
-        this.openSnackBar(res['status']['message'], "Ok", 1000);
+        this.openSnackBar(res['message'], "Ok", 1000);
         this.myStepper.next();
         this.form_AddGroup.reset();
      }
