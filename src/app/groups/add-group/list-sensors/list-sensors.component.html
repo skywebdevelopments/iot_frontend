@@ -46,7 +46,7 @@
                                     <span *ngSwitchDefault>
                                         <!-- text cell -->
                                         <label for=""
-                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user'">
+                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensor_type'">
                                             {{element[col]}}
                                         </label>
                                         <label *ngIf="col==='sleep_time'">
@@ -55,6 +55,11 @@
                                         <div *ngIf="col==='mqtt_user'">
                                             <label>
                                                 {{ element[col]['username']}}
+                                            </label>
+                                        </div>
+                                        <div *ngIf="col==='sensor_type'">
+                                            <label>
+                                                {{ element[col]['type']}}
                                             </label>
                                         </div>
                                         <!-- slide type cell -->

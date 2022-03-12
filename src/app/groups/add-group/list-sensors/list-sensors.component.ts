@@ -181,7 +181,7 @@ export class ListSensorsComponent implements OnInit {
   assign_sensors() {
     this.selection.selected.forEach(Sensor_data => {
       this.formData["sensorId"] = Sensor_data['id'];
-      this.formData["group_rec_id"] = this.id;
+      this.formData["rec_id"] = this.id;
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
         this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);
       }).catch((err) => {
