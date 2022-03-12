@@ -15,7 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 export interface sensortypeElement {
   type: "text",
-  rec_id: "text"
+  rec_id: "text",
+  active: "boolean",
 }
 
 const TABLE_SCHEMA = {
@@ -39,7 +40,7 @@ export class ListSensorTypeComponent implements OnInit {
   Formsensor: FormGroup;
   formData: any;
 
-  displayedColumns: string[] = ['select', 'type', 'isEdit', 'isDelete'];
+  displayedColumns: string[] = ['select', 'type','active', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<sensortypeElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensortypeElement>(true, []);
 
@@ -123,6 +124,7 @@ export class ListSensorTypeComponent implements OnInit {
       this._snackBar.dismiss()
     }, interval);
   }
+  
 
   // get group list
   get_sensor_type_list(showSnackBar: boolean) {
