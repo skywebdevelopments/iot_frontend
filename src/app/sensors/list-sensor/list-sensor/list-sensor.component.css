@@ -1,19 +1,13 @@
-.mat-table {
-    overflow-x: scroll;
-    max-width: 99%;
-  }
-  .mat-cell,
-  .mat-header-cell {
-    word-wrap: initial;
-    display: table-cell;
-    padding: 0px 10px;
-    line-break: unset;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: middle;
-  }
-  .mat-paginator{
-    width: 53.9cm;
+table {
+  width: 100%;
 }
-  
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}

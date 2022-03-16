@@ -60,29 +60,12 @@ export class ListSensorComponent implements OnInit {
   authorized = false;
   mqtt: any;
   sensor_typee: any;
+  selectedTableRecord: any;
   // end
   displayedColumns: string[] =
     ['select',
-      'mac_address',
-      'client_id',
-      'active',
-      'static_ip',
-      'dns1',
-      'dns2',
-      'gateway',
-      'subnet',
-      'serial_number',
-      'sleep_time',
-      'ap_name',
-      'ap_ip',
-      'node_profile',
-      'host_ip',
       'board_name',
       'board_model',
-      'sim_serial',
-      'sim_msidm',
-      'flags',
-      'mqtt_user',
       'sensor_type',
       'isEdit',
       'isDelete'];
@@ -372,6 +355,10 @@ export class ListSensorComponent implements OnInit {
     });
     console.log(sensorType)
     return sensorType;
+  }
+
+  selectTableRow(row:any){
+    this.selectedTableRecord = row;
   }
 
   ngOnInit(): void {

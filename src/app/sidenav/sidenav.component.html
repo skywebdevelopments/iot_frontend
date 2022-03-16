@@ -1,17 +1,60 @@
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" opened mode="side">
-        <p>Auto-resizing sidenav</p>
-        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-        <button (click)="showFiller = !showFiller" mat-raised-button>
-            Toggle extra text
-        </button>
-    </mat-drawer>
+<div class=" overflow-auto">
+
+    <div class="row p-4 justify-content-end">
+
+        <div class="col-auto">
+
+
+            <mat-button-toggle-group appearance="legacy">
+                <mat-button-toggle (click)="expandAll()" value="expand">
+                    <mat-icon>menu</mat-icon>
+                </mat-button-toggle>
+
+
+                <mat-button-toggle (click)="collapseAll()" value="collapse">
+                    <mat-icon>expand_less</mat-icon>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+
+        </div>
+    </div>
+
+    <div class="sidenav p-4">
+        <!-- page title -->
+
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+            <!-- This is the tree node template for leaf nodes -->
+            <mat-tree-node expanded="true" *matTreeNodeDef="let node" matTreeNodePadding>
+                <!-- use a disabled button to provide padding for tree leaf -->
+
+                <div class="outer-div">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">{{node.icon}}</mat-icon>
+
+                    <button mat-button class="text-capitalize text-dark"
+                        [routerLink]="node.routerLink">{{node.labelText}}</button>
+                </div>
+
+            </mat-tree-node>
+            <!-- This is the tree node template for expandable nodes -->
+            <mat-tree-node Expanded="true" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+
+                <div class="outer-div">
+
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">{{node.icon}}</mat-icon>
+
+                    <span class="text-capitalize">{{node.labelText}}</span>
+                </div>
 
 
 
-</mat-drawer-container>
+            </mat-tree-node>
+        </mat-tree>
 
 
-<!-- Copyright 2022 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at https://angular.io/license -->
+    </div>
+</div>

@@ -16,30 +16,47 @@ import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 
 const routes: Routes = [
-  { path: "Login", component: LoginComponent, outlet: "first" },
-  { path: "", component: LoginComponent, outlet: "first" },
-  { path: "signup", component: SignupComponent, outlet: "first" },
-  {
-    path: "index", component: IndexComponent, children: [
-      { path: "rolesUser", component: RolesComponent, outlet: "second" },
-      { path: "addGroup", component: AddGroupComponent, outlet: "second" },
-      { path: "listGroup", component: ListGroupComponent, outlet: "second" },
-      { path: "addGroup", component: AddGroupComponent, outlet: "second" },
-      { path: "test", component: TestComponentComponent, outlet: "second" },
-      { path: "addSensor", component: AddSensorComponent, outlet: "second" },
-      { path: "listSensor", component: ListSensorComponent, outlet: "second" },
-      { path: "nav", component: SidenavComponent, outlet: "second" },
-      { path: "logs", component: LogsComponent, outlet: "second" },
-      { path: "sensor-group", component: GroupSensorComponent, outlet: "second" },
-      { path: "sensor-group-tree", component: GroupSensorTreeComponent, outlet: "second" },
-    
-      { path: "List-sensor-type", component: ListSensorTypeComponent, outlet: "second" }
-
-    ], outlet: "first"
-  }
+  { path: "Login", component: LoginComponent },
+  { path: "", component: LoginComponent },
+  { path: "signup", component: SignupComponent },
+  { path: "logs", component: LogsComponent },
+  { path: "rolesUser", component: RolesComponent },
+  { path: "addGroup", component: AddGroupComponent },
+  { path: "listGroup", component: ListGroupComponent },
+  { path: "addGroup", component: AddGroupComponent },
+  { path: "test", component: TestComponentComponent },
+  { path: "addSensor", component: AddSensorComponent },
+  { path: "listSensor", component: ListSensorComponent },
+  { path: "sensor-group", component: GroupSensorComponent },
+  { path: "sensor-group-tree", component: GroupSensorTreeComponent }
 ]
+// const routes: Routes = [
+//   { path: "Login", component: LoginComponent, outlet: "first" },
+//   { path: "", component: LoginComponent, outlet: "first" },
+//   { path: "signup", component: SignupComponent, outlet: "first" },
+//   {
+//     path: "index", component: IndexComponent, children: [
+//       { path: "rolesUser", component: RolesComponent, outlet: "second" },
+//       { path: "addGroup", component: AddGroupComponent, outlet: "second" },
+//       { path: "listGroup", component: ListGroupComponent, outlet: "second" },
+//       { path: "addGroup", component: AddGroupComponent, outlet: "second" },
+//       { path: "test", component: TestComponentComponent, outlet: "second" },
+//       { path: "addSensor", component: AddSensorComponent, outlet: "second" },
+//       { path: "listSensor", component: ListSensorComponent, outlet: "second" },
+//       { path: "nav", component: SidenavComponent, outlet: "second" },
+//       { path: "logs", component: LogsComponent, outlet: "second" },
+//       { path: "sensor-group", component: GroupSensorComponent, outlet: "second" },
+//       { path: "sensor-group-tree", component: GroupSensorTreeComponent, outlet: "second" },
+//       { path: "sidenav", component: SidenavComponent, outlet: "second" },
+    
+//       { path: "List-sensor-type", component: ListSensorTypeComponent, outlet: "second" }
+
+//     ], outlet: "first"
+//   }
+// ]
 
 
 @NgModule({

@@ -1,5 +1,3 @@
-
-
 <div class="row">
 
 
@@ -41,241 +39,248 @@
     </div>
 
 
-    <div class="col-auto  w-100">
-        <!-- end -->
-        <div class="container-fluid mt-1">
-            <!-- table control  -->
-            <div class="row justify-content-end">
-                <!-- save div -->
-                <div class="col-auto">
-                    <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
-                        <mat-icon>save</mat-icon>
-                        <span>Save Changes</span>
-                    </button>
-                </div>
-                <!-- menu div -->
-                <div class="col-auto">
 
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_horizontal</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <!-- delete -->
-                        <div class="container">
-                            <div class="row">
-                                <!-- refresh -->
-                                <div class="col-4">
-                                    <button (click)="get_sensor_list(true)" mat-fab class="mb-4 mr-1 right"
-                                        color="primary" aria-label="Example icon button with a home icon"
-                                        matTooltip="Click to Refresh Data">
-                                        <mat-icon>refresh</mat-icon>
-                                        <!-- <span>Refresh Data</span> -->
-                                    </button>
-                                </div>
-
-                                <!-- Create sensor button -->
-                                <div class="col-4" *ngIf='authorize(["sensor:create"])'>
-                                    <button [routerLink]='[{ outlets: { second: ["addSensor"] } }]'routerLinkActive="router-link-active" mat-fab
-                                        class="mb-4 mr-1 right" color="primary"
-                                        aria-label="Example icon button with a home icon"
-                                        matTooltip="Click to Create Sensor">
-                                        <mat-icon>add</mat-icon>
-                                    </button>
-                                </div>
-                                <!-- end -->
-                                <div class="col-auto" *ngIf='authorize(["sensor:delete"])'>
-                                    <button data-toggle="modal" *ngIf="selection.hasValue()  "
-                                        data-target="#exampleModal" (click)="get_sensor_list(true)" mat-fab
-                                        class="mb-4 mr-1 right" color="primary"
-                                        aria-label="Example icon button with a home icon"
-                                        matTooltip="Click to Delete Selected Sensors">
-                                        <mat-icon>delete</mat-icon>
-                                        <!-- <span>Delete {{selection.selected.length}}</span>-->
-                                    </button>
-                                </div>
-                                <!-- save -->
-                            </div>
-                        </div>
-                    </mat-menu>
-                </div>
-
+    <!-- end -->
+    <div class="container-fluid mt-1">
+        <!-- table control  -->
+        <div class="row justify-content-end">
+            <!-- save div -->
+            <div class="col-auto">
+                <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
+                    <mat-icon>save</mat-icon>
+                    <span>Save Changes</span>
+                </button>
             </div>
+            <!-- menu div -->
+            <div class="col-auto">
 
-            <!-- filter control -->
-            <mat-form-field appearance="standard" class="w-100">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
-            </mat-form-field>
-
-
-
-            <!-- end -->
-
-            <!-- table -->
-            <div class="mat-elevation-z8 col-md-12" style="overflow-x: scroll;">
-                <table class="w-100" mat-table [dataSource]="dataSource" matSort>
-
-                    <!-- Checkbox Column -->
-
-                    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
-
-                        <div *ngIf="col !=='select' ">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_horizontal</mat-icon>
+                </button>
+                <mat-menu class="p-2" #menu="matMenu">
+                    <!-- delete -->
 
 
-                            <!-- table header -->
-                            <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                                <span *ngIf="col !== 'isEdit' && col!== 'isDelete' ">
-                                    {{col}}
-                                </span>
-                            </th>
+                    <!-- refresh -->
 
-                            <!-- table cell -->
-                            <td mat-cell *matCellDef="let element">
-                                <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit && !element.isDelete">
+                    <button (click)="get_sensor_list(true)" mat-menu-item>
+                        <mat-icon>refresh</mat-icon>
+                        <span>refresh</span>
+                    </button>
 
-                                    <!-- edit button -->
-                                    <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                    <!-- Create sensor button -->
 
-                                        <div *ngIf='authorize(["sensor:delete"]) || authorize(["sensor:update"])'>
-                                            <button mat-icon-button [matMenuTriggerFor]="menuu"
-                                                aria-label="Example icon-button with a menu">
-                                                <mat-icon>more_vert</mat-icon>
-                                            </button>
-                                        </div>
-
-                                        <mat-menu #menuu="matMenu">
-                                            <!-- edit -->
-                                            <div *ngIf='authorize(["sensor:update"])'>
-                                                <!-- delete -->
-                                                <button
-                                                    (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
-                                                    mat-menu-item>
-                                                    <mat-icon>edit</mat-icon>
-                                                    <span>edit {{element.mac_address}}</span>
-                                                </button>
-                                            </div>
-
-                                            <div *ngIf='authorize(["sensor:delete"])'>
-                                                <button (click)="delete_dialog(element)" mat-menu-item>
-                                                    <mat-icon>delete</mat-icon>
-                                                    <span>delete {{element.mac_address}}</span>
-                                                </button>
-                                            </div>
-
-                                        </mat-menu>
+                    <button [routerLink]="['/addSensor']" routerLinkActive="router-link-active" mat-menu-item>
+                        <mat-icon>playlist_add</mat-icon>
+                        <span>add</span>
+                    </button>
+                    <div *ngIf='authorize(["sensor:delete"])'>
+                        <button data-toggle="modal" *ngIf="selection.hasValue()  " data-target="#exampleModal"
+                            (click)="get_sensor_list(true)" mat-menu-item>
+                            <mat-icon>delete</mat-icon>
+                            <span>delete</span>
+                        </button>
 
 
-                                    </div>
+                    </div>
+
+                    <!-- save -->
 
 
-                                    <!-- row: view mode -->
-                                    <span *ngSwitchDefault>
-                                        <!-- text cell -->
-                                        <label for=""
-                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensor_type'">
-                                            {{element[col]}}
-                                        </label>
-                                        <label *ngIf="col==='sleep_time'">
-                                            {{element[col]}} Sec
-                                        </label>
-                                        <div *ngIf="col==='mqtt_user'">
-                                            <label>
-                                                {{ element[col]['username']}}
-                                            </label>
-                                        </div>
-                                        <div *ngIf="col==='sensor_type'">
-                                            <label>
-                                                {{ element[col]['type']}}
-                                            </label>
-                                        </div>
-                                        <!-- slide type cell -->
-                                        <mat-slide-toggle disabled="true" [checked]="element[col]"
-                                            *ngIf="isBool(element[col])">
-                                        </mat-slide-toggle>
-
-                                        <!-- dropdown cell -->
-                                        <!-- end -->
-                                    </span>
-                                </div>
-
-
-                                <!-- edit mode -->
-                                <div *ngIf="element.isEdit">
-                                    <!-- done -->
-                                    <div class="btn-edit"
-                                        *ngIf="col === 'isEdit' || col === 'isDelete'; else dataField">
-
-
-                                    </div>
-
-                                    <!-- col with edit -->
-                                    <ng-template #dataField>
-                                        <!-- input text -->
-                                        <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user' && col!=='sensor_type'">
-                                            <mat-label>{{col}}</mat-label>
-                                            <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
-                                        </mat-form-field>
-
-                                        <!-- mqttUserId -->
-                                        <mat-form-field *ngIf="col==='mqtt_user'">
-                                            <mat-select [(ngModel)]="element['mqttUserId']">
-                                                <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id">
-                                                    {{mqtt_user.username}}</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                        <!-- end -->
-
-                                          <!-- sensortype -->
-                                          <mat-form-field *ngIf="col==='sensor_type'">
-                                            <mat-select [(ngModel)]="element['sensortypeId']">
-                                                <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id">
-                                                    {{typee.type}}</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                        <!-- end -->
-
-                                        <!-- slide type cell -->
-                                        <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
-                                            *ngIf="isBool(element[col])">
-                                        </mat-slide-toggle>
-
-                                    </ng-template>
-                                </div>
-                            </td>
-                        </div>
-
-                        <!-- for checkboxes -->
-                        <div *ngIf="col ==='select'">
-                            <th mat-header-cell *matHeaderCellDef>
-                                <mat-checkbox (change)="$event ? masterToggle() : null"
-                                    [checked]="selection.hasValue() && isAllSelected()"
-                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                    [aria-label]="checkboxLabel()">
-                                </mat-checkbox>
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-checkbox (click)="$event.stopPropagation()"
-                                    (change)="$event ? selection.toggle(row) : null"
-                                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                                </mat-checkbox>
-                            </td>
-                        </div>
-
-
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                    aria-label="Select page of periodic elements">
-                </mat-paginator>
+                </mat-menu>
             </div>
         </div>
 
-
     </div>
 </div>
+
+<mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+</mat-form-field>
+
+
+<div class="mat-elevation-z8 overflow-auto">
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Checkbox Column -->
+
+        <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+
+            <div *ngIf="col !=='select' ">
+
+
+                <!-- table header -->
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                    <span class="text-capitalize" *ngIf="col !== 'isEdit' && col!== 'isDelete' ">
+                        {{col.replace('_',' ')}}
+                    </span>
+                </th>
+
+                <!-- table cell -->
+                <td mat-cell *matCellDef="let element">
+                    <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit && !element.isDelete">
+
+                        <!-- edit button -->
+                        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+
+                            <div *ngIf='authorize(["sensor:delete"]) || authorize(["sensor:update"])'>
+                                <button mat-icon-button [matMenuTriggerFor]="menuu"
+                                    aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                            </div>
+
+                            <mat-menu class="p-2" #menuu="matMenu">
+                                <!-- details -->
+
+                                <div>
+                                    <button (click)="selectTableRow(element)" mat-menu-item>
+                                        <mat-icon>list</mat-icon>
+                                        <span>View {{element.board_name}}</span>
+                                    </button>
+                                </div>
+
+
+                                <!-- edit -->
+                                <div *ngIf='authorize(["sensor:update"])'>
+                                    <!-- delete -->
+                                    <button (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                        mat-menu-item>
+                                        <mat-icon>edit</mat-icon>
+                                        <span>edit {{element.mac_address}}</span>
+                                    </button>
+                                </div>
+
+                                <div *ngIf='authorize(["sensor:delete"])'>
+                                    <button (click)="delete_dialog(element)" mat-menu-item>
+                                        <mat-icon>delete</mat-icon>
+                                        <span>delete {{element.mac_address}}</span>
+                                    </button>
+                                </div>
+
+                            </mat-menu>
+
+
+                        </div>
+
+
+                        <!-- row: view mode -->
+                        <span *ngSwitchDefault>
+                            <!-- text cell -->
+                            <label for=""
+                                *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensor_type'">
+                                {{element[col]}}
+                            </label>
+                            <label *ngIf="col==='sleep_time'">
+                                {{element[col]}} Sec
+                            </label>
+                            <div *ngIf="col==='mqtt_user'">
+                                <label>
+                                    {{ element[col]['username']}}
+                                </label>
+                            </div>
+                            <div *ngIf="col==='sensor_type'">
+                                <label>
+                                    {{ element[col]['type']}}
+                                </label>
+                            </div>
+                            <!-- slide type cell -->
+                            <mat-slide-toggle disabled="true" [checked]="element[col]" *ngIf="isBool(element[col])">
+                            </mat-slide-toggle>
+
+                            <!-- dropdown cell -->
+                            <!-- end -->
+                        </span>
+                    </div>
+
+
+                    <!-- edit mode -->
+                    <div *ngIf="element.isEdit">
+                        <!-- done -->
+                        <div class="btn-edit" *ngIf="col === 'isEdit' || col === 'isDelete'; else dataField">
+
+
+                        </div>
+
+                        <!-- col with edit -->
+                        <ng-template #dataField>
+                            <!-- input text -->
+                            <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user' && col!=='sensor_type'">
+                                <mat-label>{{col}}</mat-label>
+                                <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
+                            </mat-form-field>
+
+                            <!-- mqttUserId -->
+                            <mat-form-field *ngIf="col==='mqtt_user'">
+                                <mat-select [(ngModel)]="element['mqttUserId']">
+                                    <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id">
+                                        {{mqtt_user.username}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- end -->
+
+                            <!-- sensortype -->
+                            <mat-form-field *ngIf="col==='sensor_type'">
+                                <mat-select [(ngModel)]="element['sensortypeId']">
+                                    <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id">
+                                        {{typee.type}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- end -->
+
+                            <!-- slide type cell -->
+                            <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
+                                *ngIf="isBool(element[col])">
+                            </mat-slide-toggle>
+
+                        </ng-template>
+                    </div>
+                </td>
+            </div>
+
+            <!-- for checkboxes -->
+            <div *ngIf="col ==='select'">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </div>
+
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>
+
+<div class="mt-5" *ngIf="selectedTableRecord">
+    <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="text-uppercase">
+                {{selectedTableRecord.board_name}}
+            </mat-panel-title>
+            <mat-panel-description class="text-uppercase">
+                {{selectedTableRecord.board_model}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+  
+    </mat-expansion-panel>
+</div>
+<!-- end -->
+
+<!-- table -->
+<!-- filter control -->
 
 
 

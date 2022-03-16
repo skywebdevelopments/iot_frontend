@@ -66,7 +66,7 @@ checkToken(){
 
         }
         else {
-          this.router.navigate([{ outlets: { first: [ 'index' ] }}]); 
+          this.router.navigateByUrl('listGroup')
           this.form_login.reset();
         }
       }).catch((err) => {
@@ -81,7 +81,7 @@ checkToken(){
     let dialogRef = this.dialog.open(LoginDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
-        this.router.navigate([{ outlets: { first: [ 'signup' ] }}]); 
+        this.router.navigateByUrl('signup'); 
       }
       else {
         this.form_login.reset();
