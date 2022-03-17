@@ -87,6 +87,7 @@ import { NavigationComponent } from './test/navigation/navigation.component';
 import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
 import { TesttreeComponent } from './test/testtree/testtree.component';
 import { DragComponent } from './test/drag/drag.component';
+import { UGroupComponent } from './u-group/u-group.component';
 
 
 
@@ -146,6 +147,8 @@ import { DragComponent } from './test/drag/drag.component';
     TesttreeComponent,
    
     DragComponent,
+   
+    UGroupComponent,
 
   ],
   imports: [

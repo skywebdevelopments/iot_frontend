@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your Group Name</mat-label>
+      <input matInput [formControl]="groupname" required>
+      <mat-error *ngIf="groupname.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <div>
+      <mat-checkbox [formControl]="activeGroup">Active</mat-checkbox>
+    </div>
+  </div>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        User Roles
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div cdkDropListGroup>
+      <div class="example-container">
+        <h2>Avaliable Roles</h2>
+        <div
+          cdkDropList
+          [cdkDropListData]="avaliableRoles"
+          class="example-list"
+          cdkDropListSortingDisabled
+          (cdkDropListDropped)="onDrop($event)">
+          <div class="example-box" *ngFor="let item of avaliableRoles" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+      <div class="example-container">
+        <h2>Assigned Roles</h2>
+        <div
+          cdkDropList
+          [cdkDropListData]="assignedRoles"
+          class="example-list"
+          (cdkDropListDropped)="onDrop($event)">
+          <div class="example-box" *ngFor="let item of assignedRoles" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+  <br>
+  <button mat-raised-button (click)="saveResults()" color="primary">Add Group</button>
+</div>

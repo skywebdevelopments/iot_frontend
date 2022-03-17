@@ -9,7 +9,16 @@
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                     <label for="email">Email</label>
-                    <input class="form-group" type="email" matInput formControlName="email">
+                    <input class="form-group" type="email" matInput formControlName="email" [formControl]="email">
+                    <div [hidden]="email.valid || email.untouched">
+                      <div [hidden]="!email.hasError('pattern')">
+                        <mat-error>can not be written like that, please check the email again.</mat-error>
+                      </div>
+                      <div [hidden]="!email.hasError('required')">
+                        <mat-error>email is required.</mat-error>
+                      </div>
+                    </div>
+
                 </mat-form-field>
             </div>
             <!--End Email Field-->
@@ -18,10 +27,21 @@
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                     <label for="password">Password</label>
-                    <input #eye_password type="password" matInput formControlName="password">
+                    <input #eye_password type="password" matInput formControlName="password" [formControl]="password">
                     <mat-icon class="field-icon"
                         (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
                     </mat-icon>
+                    <div [hidden]="password.valid || password.untouched">
+                      <div [hidden]="!password.hasError('required')">
+                        <mat-error>The password is required.</mat-error>
+                      </div>
+                      <div [hidden]="!password.hasError('minlength')">
+                        <mat-error>The password must be at least 4 characters long.</mat-error>
+                      </div>
+                      <div [hidden]="!password.hasError('pattern')">
+                        <mat-error>The password must be letters (both uppercase and lowercase) and numbers and special charachter.</mat-error>
+                      </div>
+                    </div>
                 </mat-form-field>
             </div>
             <!--End Password Field-->

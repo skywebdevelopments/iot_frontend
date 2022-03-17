@@ -7,7 +7,18 @@
              <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                 <label for="email">Username</label>
-                <input class="form-group" type="text" matInput formControlName="username">
+                <input class="form-group" type="text" matInput formControlName="username" [formControl]="username">
+                <div [hidden]="username.valid || username.untouched">                
+                  <div [hidden]="!username.hasError('pattern')">
+                    <mat-error>can not be written like that, please write a real username again.</mat-error>
+                  </div>
+                  <div [hidden]="!username.hasError('required')">
+                    <mat-error>Username is required.</mat-error>
+                  </div>
+                  <div [hidden]="!username.hasError('minlength')">
+                    <mat-error>The Username must be at least 3 characters long.</mat-error>
+                  </div>
+                </div> 
             </mat-form-field>
             </div>
             <!--End username Field-->
@@ -16,8 +27,16 @@
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                 <label for="email">Email</label>
-                <input class="form-group" type="email" matInput formControlName="email">
-            </mat-form-field>
+                <input class="form-group" type="email" matInput formControlName="email" [formControl]="email">
+                <div [hidden]="email.valid || email.untouched">                
+                  <div [hidden]="!email.hasError('pattern')">
+                    <mat-error>can not be written like that, please check the email again.</mat-error>
+                  </div>
+                  <div [hidden]="!email.hasError('required')">
+                    <mat-error>email is required.</mat-error>
+                  </div>
+                </div>    
+              </mat-form-field>
             </div>
             <!--End Email Field-->
 
@@ -25,9 +44,23 @@
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                 <label for="password">Password</label>
-                <input  #eye_password type="password" matInput formControlName="password">
+                <input  #eye_password type="password" matInput formControlName="password" [formControl]="password">
                 <mat-icon  class="field-icon" (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
                 </mat-icon>
+                <div [hidden]="password.valid || password.untouched">
+                  <div [hidden]="!password.hasError('required')">
+                    <mat-error>The password is required.</mat-error>
+                  </div>
+                  <div [hidden]="!password.hasError('minlength')">
+                    <mat-error>The password must be at least 5 characters long.</mat-error>
+                  </div>
+                  <div [hidden]="!password.hasError('pattern')">
+                    <mat-error>The password must be letters (both uppercase and lowercase) and numbers.</mat-error>
+                  </div>
+                  <div [hidden]="form_signup.hasError('notSame')">
+                    <mat-error>Passwords do not match</mat-error> 
+                  </div>
+                </div>
             </mat-form-field>
             </div>
             <!--End Password Field-->
@@ -36,9 +69,24 @@
              <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                 <label for="password"> Confirm Password</label>
-                <input  #eye_passwordd type="password" matInput formControlName="Confirm_password">
+                <input  #eye_passwordd type="password" matInput formControlName="Confirm_password" [formControl]="password">
                 <mat-icon  class="field-icon" (click)="eye_passwordd.type=eye_passwordd.type=='password'?'text':'password'">remove_red_eye
                 </mat-icon>
+                <div [hidden]="password.valid || password.untouched">
+                  <div [hidden]="!password.hasError('required')">
+                    <mat-error>The password is required.</mat-error>
+                  </div>
+                  <div [hidden]="!password.hasError('minlength')">
+                    <mat-error>The password must be at least 5 characters long.</mat-error>
+                  </div>
+                  <div [hidden]="!password.hasError('pattern')">
+                    <mat-error>The password must be letters (both uppercase and lowercase) and numbers.</mat-error>
+                  </div>
+                </div>
+                <!-- <span class="text-danger"
+                    *ngIf="Confirm_password.touched && Confirm_password.errors?.mustMatch">
+                    <mat-error>Passwords doesnot match</mat-error>
+                </span> -->
             </mat-form-field>
             </div>
             <!--End Password Field-->

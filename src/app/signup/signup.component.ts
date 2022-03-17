@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SignupService } from '../service/user/signup.service';
 import { SignupDialogComponent } from '../signup-dialog/signup-dialog.component';
@@ -15,6 +15,22 @@ export class SignupComponent implements OnInit {
 
   form_signup: any;
 
+  username = new FormControl('', [
+    Validators.required,
+    Validators.minLength(2),
+    Validators.pattern('^[_A-z0-9]*((-|s)*[_A-z0-9])*$'),
+  ]);
+  email = new FormControl('', [
+    Validators.required,
+    Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+  ]);
+
+  password = new FormControl('',
+  [
+    Validators.required, 
+    Validators.minLength(5),
+    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') 
+  ]);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,23 +46,25 @@ export class SignupComponent implements OnInit {
     // name min length 
     // required.
     this.form_signup = this.formBuilder.group({
-      username: ['', Validators.compose([
-        Validators.required
-      ])],
-      email: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
-      ])],
-      password: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-      ])],
-      Confirm_password: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-      ])]
-    })
+      username: this.username,
+      email: this.email,
+      password: this.password,
+      Confirm_password: this.password
+    },{ validators: this.MatchPassword })
   }
+  
+  MatchPassword(abstractControl: AbstractControl) {
+    let password = abstractControl.get('password').value;
+    let confirmPassword = abstractControl.get('Confirm_password').value;
+    if (password != confirmPassword) {
+        abstractControl.get('Confirm_password').setErrors({
+          MatchPassword: true
+        })
+    } else {
+      return null
+    }
+  }
+
   openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
 

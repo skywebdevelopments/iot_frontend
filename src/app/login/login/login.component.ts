@@ -14,6 +14,17 @@ import { Router } from '@angular/router'
 export class LoginComponent implements OnInit {
   form_login: any;
   //  user_data = true
+  email = new FormControl('', [
+    Validators.required,
+    Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'),
+  ]);
+
+  password = new FormControl('',
+  [
+    Validators.required,
+    Validators.minLength(5),
+    Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+  ]);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,17 +34,12 @@ export class LoginComponent implements OnInit {
 
   ) { }
   init_form() {
-    // validators 
-    // name min length 
+    // validators
+    // name min length
     // required.
     this.form_login = this.formBuilder.group({
-      email: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
-      ])],
-      password: ['', Validators.compose([
-        Validators.required
-      ])]
+      email: this.email,
+      password: this.password
     })
   }
 
@@ -42,20 +48,20 @@ checkToken(){
 
   if (token_key){
     this.router.navigateByUrl('/dashboard')
-    
+
   }
   else{
     this.router.navigateByUrl('/')
 
   }
- 
+
 }
   onsubmit() {
-    // check the form is valid 
+    // check the form is valid
 
     if (this.form_login.valid) {
 
-      
+
 
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
@@ -81,7 +87,7 @@ checkToken(){
     let dialogRef = this.dialog.open(LoginDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
-        this.router.navigateByUrl('signup'); 
+        this.router.navigateByUrl('signup');
       }
       else {
         this.form_login.reset();

@@ -17,7 +17,7 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 import { TestcomComponent } from './testcom/testcom.component';
-
+import { UGroupComponent } from "./u-group/u-group.component";
 
 const routes: Routes = [
   { path: "Login", component: LoginComponent },
@@ -32,7 +32,8 @@ const routes: Routes = [
   { path: "listSensor", component: ListSensorComponent },
   { path: "sensor-group", component: GroupSensorComponent },
   { path: "test123", component: TestcomComponent },
-  { path: "sensor-group-tree", component: GroupSensorTreeComponent }
+  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
+  { path: "usergroup", component: UGroupComponent }
 ]
 // const routes: Routes = [
 //   { path: "Login", component: LoginComponent, outlet: "first" },
@@ -52,7 +53,7 @@ const routes: Routes = [
 //       { path: "sensor-group", component: GroupSensorComponent, outlet: "second" },
 //       { path: "sensor-group-tree", component: GroupSensorTreeComponent, outlet: "second" },
 //       { path: "sidenav", component: SidenavComponent, outlet: "second" },
-    
+
 //       { path: "List-sensor-type", component: ListSensorTypeComponent, outlet: "second" }
 
 //     ], outlet: "first"
