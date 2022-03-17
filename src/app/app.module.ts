@@ -54,9 +54,6 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
-
-import { TestComponentComponent } from './test-component/test-component.component';
-
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
 
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
@@ -81,8 +78,20 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+<<<<<<< HEAD
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+=======
+import { TestcomComponent } from './testcom/testcom.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { TableComponent } from './test/table/table.component';
+import { AddressFormComponent } from './test/address-form/address-form.component';
+import { NavigationComponent } from './test/navigation/navigation.component';
+import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
+import { TesttreeComponent } from './test/testtree/testtree.component';
+import { DragComponent } from './test/drag/drag.component';
+import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
+>>>>>>> 59417fd68d3c80913acaab6a4543ab2c3fe8f0b6
 
 
 
@@ -92,7 +101,6 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     StepperComponent,
     AddGroupComponent,
     ListGroupComponent,
-    TestComponentComponent,
 
     AddSensorComponent,
 
@@ -129,9 +137,27 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
    
     ListSensorTypeComponent,
    
+<<<<<<< HEAD
     UsersComponent,
    
     UserProfileComponent,
+=======
+    TestcomComponent,
+   
+    TableComponent,
+   
+    AddressFormComponent,
+   
+    NavigationComponent,
+   
+    Dashboard2Component,
+   
+    TesttreeComponent,
+   
+    DragComponent,
+   
+    LogsDashboardComponent,
+>>>>>>> 59417fd68d3c80913acaab6a4543ab2c3fe8f0b6
 
   ],
   imports: [
@@ -188,6 +214,7 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     ReactiveFormsModule,
     NgbModule,
     AppRoutingModule,
+    LayoutModule,
 
 
   ],
