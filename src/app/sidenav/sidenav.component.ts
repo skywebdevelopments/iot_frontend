@@ -42,7 +42,7 @@ const TREE_DATA: listItems[] = [
       },
       {
         labelText: "sensor",
-        icon: "memory",
+        icon: "developer_board",
         routerLink: "",
         children: [
           {

@@ -54,9 +54,6 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
-
-import { TestComponentComponent } from './test-component/test-component.component';
-
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
 
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
@@ -82,6 +79,14 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { TestcomComponent } from './testcom/testcom.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { TableComponent } from './test/table/table.component';
+import { AddressFormComponent } from './test/address-form/address-form.component';
+import { NavigationComponent } from './test/navigation/navigation.component';
+import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
+import { TesttreeComponent } from './test/testtree/testtree.component';
+import { DragComponent } from './test/drag/drag.component';
 
 
 
@@ -91,7 +96,6 @@ import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sen
     StepperComponent,
     AddGroupComponent,
     ListGroupComponent,
-    TestComponentComponent,
 
     AddSensorComponent,
 
@@ -128,6 +132,20 @@ import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sen
     GroupSensorTreeComponent,
    
     ListSensorTypeComponent,
+   
+    TestcomComponent,
+   
+    TableComponent,
+   
+    AddressFormComponent,
+   
+    NavigationComponent,
+   
+    Dashboard2Component,
+   
+    TesttreeComponent,
+   
+    DragComponent,
 
   ],
   imports: [
@@ -184,6 +202,7 @@ import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sen
     ReactiveFormsModule,
     NgbModule,
     AppRoutingModule,
+    LayoutModule,
 
 
   ],

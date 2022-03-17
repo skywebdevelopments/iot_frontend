@@ -1,0 +1,28 @@
+<mat-sidenav-container class="sidenav-container w-auto   ">
+  <mat-sidenav #drawer class="sidenav overflow-auto w-auto shadow-sm p-3" 
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <app-testtree></app-testtree>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>IoT Platform</span>
+    </mat-toolbar>
+
+
+
+    <app-dashboard2></app-dashboard2>
+    <app-address-form></app-address-form>
+   
+  </mat-sidenav-content>
+</mat-sidenav-container>

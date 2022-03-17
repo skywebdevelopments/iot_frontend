@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
 import { ListGroupComponent } from './groups/list-group/list-group.component';
-import { TestComponentComponent } from './test-component/test-component.component';
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component';
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
 import { LoginComponent } from './login/login/login.component';
@@ -17,6 +16,8 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
+import { TestcomComponent } from './testcom/testcom.component';
+
 
 const routes: Routes = [
   { path: "Login", component: LoginComponent },
@@ -27,10 +28,10 @@ const routes: Routes = [
   { path: "addGroup", component: AddGroupComponent },
   { path: "listGroup", component: ListGroupComponent },
   { path: "addGroup", component: AddGroupComponent },
-  { path: "test", component: TestComponentComponent },
   { path: "addSensor", component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
   { path: "sensor-group", component: GroupSensorComponent },
+  { path: "test123", component: TestcomComponent },
   { path: "sensor-group-tree", component: GroupSensorTreeComponent }
 ]
 // const routes: Routes = [
