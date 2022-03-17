@@ -307,6 +307,6 @@ export class AddSensorComponent implements OnInit {
     this.init_form();
     this.mqtt = this.Get_mqqtuser();
     this.sensor_typee = this.Get_sensorType();
-    console.log(this.sensor_typee)
+    //console.log(this.sensor_typee)
   }
 }

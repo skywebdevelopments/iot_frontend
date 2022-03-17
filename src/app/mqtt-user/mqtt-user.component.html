@@ -5,7 +5,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Sensor type</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Mqtt User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -13,11 +13,14 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Senor Type</label>
-                            <div [formGroup]="Formsensor">
-                                <input type="text" matInput formControlName="type" class="form-control">
-                                <mat-checkbox formControlName="active" class="example-margin">
-                                    Active
+                            
+                            <div [formGroup]="Formmqttuser">
+                                <label for="recipient-name" class="col-form-label">Username</label>
+                                <input type="text" matInput formControlName="username" class="form-control">
+                                <label for="recipient-name" class="col-form-label">Password</label>
+                                <input type="text" matInput formControlName="password" class="form-control">
+                                <mat-checkbox formControlName="is_superuser" class="example-margin">
+                                    Is Superuser
                                 </mat-checkbox>
                             </div>
                         </div>
@@ -25,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="save_sensor_type()">Create</button>
+                    <button type="button" class="btn btn-primary" (click)="save_mqttuser()">Create</button>
                 </div>
             </div>
 
@@ -38,7 +41,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Delete {{selection.selected.length}} sensors type
+                    <h3 class="modal-title" id="exampleModalLabel">Delete {{selection.selected.length}} Mqtt user
                     </h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -53,7 +56,7 @@
 
                                 <ol>
                                     <li *ngFor="let item of selection.selected">
-                                        {{item.type}}
+                                        {{item.username}}
                                     </li>
                                 </ol>
                             </div>
@@ -65,7 +68,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="delete_sensor_type()" data-dismiss="modal"
+                    <button type="button" (click)="delete_mqttuser()" data-dismiss="modal"
                         class="btn btn-danger">yes,
                         Delete</button>
                 </div>
@@ -99,25 +102,25 @@
                             <div class="container">
                                 <div class="row">
                                     <!-- refresh -->
-                                    <button (click)="get_sensor_type_list(true)" mat-menu-item>
+                                    <button (click)="get_mqtt_user(true)" mat-menu-item>
                                         <mat-icon>refresh</mat-icon>
                                         <span>refresh</span>
                                     </button>
 
 
                                     <!-- Create sensor type button -->
-                                    <div *ngIf='authorize(["sensortype:create"])'>
-                                        <button data-toggle="modal" data-target="#exampleModal" mat-menu-item>
-                                            <mat-icon>playlist_add</mat-icon>
-                                            <span>add</span>
-                                        </button>
+                                    <div *ngIf='authorize(["mqttuser:create"])'>
+                                    <button data-toggle="modal" data-target="#exampleModal" mat-menu-item>
+                                        <mat-icon>playlist_add</mat-icon>
+                                        <span>add</span>
+                                    </button>
                                     </div>
                                     <!-- end -->
-
+                                
                                     <!-- delete -->
-                                    <div *ngIf='authorize(["sensortype:delete"])'>
+                                    <div *ngIf='authorize(["mqttuser:delete"])'>
                                     <button data-toggle="modal" *ngIf="selection.hasValue()"
-                                        data-target="#exampleModall" (click)="get_sensor_type_list(true)" mat-menu-item>
+                                        data-target="#exampleModall" (click)="get_mqtt_user(true)" mat-menu-item>
                                         <mat-icon>delete</mat-icon>
                                         <span>delete</span>
                                     </button>
@@ -136,6 +139,7 @@
                     <mat-label>Filter</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
                 </mat-form-field>
+                
 
 
 
@@ -170,23 +174,23 @@
                                             <mat-menu #menuu="matMenu">
                                                 <div>
                                                     <!-- edit -->
-                                                    <div *ngIf='authorize(["sensortype:update"])'>
+                                                    <div *ngIf='authorize(["mqttuser:update"])'>
                                                     <button
                                                         (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
                                                         mat-menu-item>
                                                         <mat-icon>edit</mat-icon>
-                                                        <span>edit {{element.type}}</span>
+                                                        <span>edit {{element.username}}</span>
                                                     </button>
-                                                </div>
+                                                    </div>
                                                     <!-- slide type cell -->
 
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["sensortype:delete"])'>
+                                                <div  *ngIf='authorize(["mqttuser:delete"])'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
-                                                        <span>delete {{element.type}}</span>
+                                                        <span>delete {{element.username}}</span>
                                                     </button>
                                                 </div>
                                             </mat-menu>

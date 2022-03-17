@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../../environments/environment.prod'
+
 @Injectable({
   providedIn: 'root'
 })
-export class ListMqqtUserService {
+export class DeleteMqttuserService {
 
   constructor(private http: HttpClient) { }
-  //get all mqtt_users
-  service_list_mqttUser() {
+   
+  service_delete_mqtt_user(formData: any) {
+
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/mqttuser`;
-      var header = {
+      let apiURL = `${environment.backend.api_url}/api/v1/mqttuser/delete`;
+      var headers = {
         headers: new HttpHeaders()
-          .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
+          .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.get(apiURL,header)
+      
+      this.http.post(apiURL, formData,headers)
         .toPromise()
         .then(
           res => { // Success
+
             resolve(res);
           }
         ).catch((err)=> {
@@ -28,4 +32,5 @@ export class ListMqqtUserService {
     return promise;
 
   };
+
 }

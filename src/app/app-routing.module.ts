@@ -16,6 +16,7 @@ import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 
 const routes: Routes = [
@@ -31,7 +32,9 @@ const routes: Routes = [
   { path: "addSensor", component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
   { path: "sensor-group", component: GroupSensorComponent },
-  { path: "sensor-group-tree", component: GroupSensorTreeComponent }
+  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
+  { path: "listsensortype", component: ListSensorTypeComponent },
+  { path: "listmqttuser", component: MqttUserComponent }
 ]
 // const routes: Routes = [
 //   { path: "Login", component: LoginComponent, outlet: "first" },

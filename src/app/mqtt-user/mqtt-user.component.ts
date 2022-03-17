@@ -1,54 +1,54 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SensorTypeService } from '../../service/sensor/sensor-type.service';
-import { DeleteSensorTypeService } from '../../service/sensor-type/delete-sensor-type.service';
-import { UpdateSensorTypeService } from '../../service//sensor-type/update-sensor-type.service';
-import { AddSensorTypeService } from '../../service/sensor-type/add-sensor-type.service';
+import { ListMqqtUserService } from '../service/sensor/list-mqqt-user.service';
+import { DeleteMqttuserService } from '../service/mqtt_user/delete-mqttuser.service';
+import { UpdateMqttuserService } from '../service/mqtt_user/update-mqttuser.service';
+import { AddMqttuserService } from '../service/mqtt_user/add-mqttuser.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
-import { AuthorizeRoleService } from '../../service/user/authorize-role.service';
-import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import { AuthorizeRoleService } from '../service/user/authorize-role.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
-export interface sensortypeElement {
-  type: "text",
+export interface mqttuserElement {
+  username: "text",
   rec_id: "text",
-  active: "boolean",
+  is_superuser: "boolean",
+  password: "text",
 }
 
 const TABLE_SCHEMA = {
   "isEdit": "isEdit",
   "isDelete": "isDelete"
 }
-// to be filled from the service
-const ELEMENT_DATA: sensortypeElement[] = [];
+const ELEMENT_DATA: mqttuserElement[] = [];
 
 @Component({
-  selector: 'app-list-sensor-type',
-  templateUrl: './list-sensor-type.component.html',
-  styleUrls: ['./list-sensor-type.component.css']
+  selector: 'app-mqtt-user',
+  templateUrl: './mqtt-user.component.html',
+  styleUrls: ['./mqtt-user.component.css']
 })
-export class ListSensorTypeComponent implements OnInit {
+export class MqttUserComponent implements OnInit {
+
 
   enable_save_all = false
-  form_updatesensor_type: any;
+  form_updatemqttuser: any;
   replace_with_input = false;
   authorized: boolean;
-  Formsensor: FormGroup;
+  Formmqttuser: FormGroup;
   formData: any;
 
-  displayedColumns: string[] = ['select', 'type','active', 'isEdit', 'isDelete'];
-  dataSource = new MatTableDataSource<sensortypeElement>(ELEMENT_DATA);
-  selection = new SelectionModel<sensortypeElement>(true, []);
+  displayedColumns: string[] = ['select', 'username', 'is_superuser', 'isEdit', 'isDelete'];
+  dataSource = new MatTableDataSource<mqttuserElement>(ELEMENT_DATA);
+  selection = new SelectionModel<mqttuserElement>(true, []);
 
   dataSchema = TABLE_SCHEMA;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
 
   ngAfterViewInit() {
 
@@ -56,12 +56,13 @@ export class ListSensorTypeComponent implements OnInit {
 
   }
 
+
   constructor(
-    private service_listsensortype: SensorTypeService,
-    private service_deletesensortype: DeleteSensorTypeService,
-    private service_updatesensortype: UpdateSensorTypeService,
+    private service_listmqttuser: ListMqqtUserService,
+    private service_deletemqttuser: DeleteMqttuserService,
+    private service_updatemqttuser: UpdateMqttuserService,
     private formBuilder: FormBuilder,
-    private service_add_sensor_type: AddSensorTypeService,
+    private service_add_mqtt_user: AddMqttuserService,
 
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
@@ -71,17 +72,22 @@ export class ListSensorTypeComponent implements OnInit {
   ) { }
 
   init_form() {
-    this.Formsensor = this.formBuilder.group({
+    this.Formmqttuser = this.formBuilder.group({
       // validators 
       // Min length 4  
       // required.
-      type: ['', Validators.compose([
+      username: ['', Validators.compose([
         Validators.required,
         Validators.minLength(4),
       ])],
-      active:[false]
+      is_superuser: [false],
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+      ])]
     });
   }
+
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -103,7 +109,7 @@ export class ListSensorTypeComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: sensortypeElement): string {
+  checkboxLabel(row?: mqttuserElement): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -124,18 +130,23 @@ export class ListSensorTypeComponent implements OnInit {
       this._snackBar.dismiss()
     }, interval);
   }
-  
 
-  // get sensor type list
-  get_sensor_type_list(showSnackBar: boolean) {
+  // get Mqttuser list
+  get_mqtt_user(showSnackBar: boolean) {
 
-    this.service_listsensortype.service_list_sensor_type().then(res => {
+    this.service_listmqttuser.service_list_mqttUser().then(res => {
 
       if (res['data']) {
         // add data to the table (data source)
         this.dataSource.data = res['data']
-        this.sort.sort({ id: 'type', start: 'asc' } as MatSortable)
+
+        // control the sort
+        // TODO: switch to an input
+        this.sort.sort({ id: 'username', start: 'asc' } as MatSortable)
         this.dataSource.sort = this.sort;
+        // end
+        // display a notification
+
       }
       else {
         this.dataSource.data = [];
@@ -148,19 +159,21 @@ export class ListSensorTypeComponent implements OnInit {
   // UI Functions
   isBool(val): boolean { return typeof val === 'boolean'; }
 
-  // delete sensortype
-  delete_sensor_type() {
+  // delete Mqttuser
+  delete_mqttuser() {
 
-    this.selection.selected.forEach(sensor_type => {
+    this.selection.selected.forEach(mqttuser => {
       let formData = {
-        rec_id: sensor_type.rec_id
+        rec_id: mqttuser.rec_id
       }
 
-      this.service_deletesensortype.service_delete_sensor_type(formData).then(res => {
+      this.service_deletemqttuser.service_delete_mqtt_user(formData).then(res => {
+        console.log(res);
+
         this.openSnackBar(res['status'], '', 4000);
 
         // recall refresh
-        this.get_sensor_type_list(true);
+        this.get_mqtt_user(true);
 
       })
     })
@@ -173,25 +186,24 @@ export class ListSensorTypeComponent implements OnInit {
     this.replace_with_input = !this.replace_with_input;
   }
 
-  edit_sensor_type(e: any) {
+  edit_mqttuser(e: any) {
     let rec_id = e.rec_id
     this.dataSource.data.forEach(item => {
 
-      this.form_updatesensor_type = this.fb.group({
-        name: [item.type, Validators.compose([
+      this.form_updatemqttuser = this.fb.group({
+        name: [item.username, Validators.compose([
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(4)
         ])]
       });
     });
   };
 
   submit_all() {
-    // flag the 
     this.dataSource.data.forEach(item => {
       if (item['isEdit'] !== undefined && item['isEdit'] == true) {
         // 2. post to the update API
-        this.service_updatesensortype.service_update_sensor_type(item).then(res => {
+        this.service_updatemqttuser.service_update_mqtt_user(item).then(res => {
           // 1. delete the flag
           delete item['isEdit']
           this.openSnackBar(res['status'], '', 2000)
@@ -199,20 +211,18 @@ export class ListSensorTypeComponent implements OnInit {
 
         })
       }
-      //this.enable_save_all = false;
     })
   }
-
-  // delete sensor type
-  delete_sensor_type_onerec(e: any) {
+  // delete Mqttuser one rec
+  delete_mqttuser_onerec(e: any) {
     if (e['isDelete'] !== undefined && e['isDelete'] == true) {
       // 1. delete the flag
       delete e['isDelete']
-      this.service_deletesensortype.service_delete_sensor_type(e).then(res => {
+      this.service_deletemqttuser.service_delete_mqtt_user(e).then(res => {
         console.log(res);
         this.openSnackBar(res['status'], '', 4000);
         // recall refresh
-        this.get_sensor_type_list(true);
+        this.get_mqtt_user(true);
       })
     }
   }
@@ -223,37 +233,34 @@ export class ListSensorTypeComponent implements OnInit {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
         e['isDelete'] = !e['isDelete'];
-        this.delete_sensor_type_onerec(e);
+        this.delete_mqttuser_onerec(e);
       }
     })
   }
 
-
-  //Create Sensor-type
-  save_sensor_type() {
-    console.log('heyyy')
-    if (this.Formsensor.valid) {
-      console.log(this.Formsensor)
-      this.formData = this.Formsensor.value
+  //Create mqttuser
+  save_mqttuser() {
+    if (this.Formmqttuser.valid) {
+      console.log(this.Formmqttuser)
+      this.formData = this.Formmqttuser.value
       console.log(this.formData)
-      this.service_add_sensor_type.service_add_sensor_type(this.formData).then(res => {
+      this.service_add_mqtt_user.service_add_mqtt_user(this.formData).then(res => {
         this.openSnackBar(res['status'], "Ok", 2000);
-        this.Formsensor.reset();
+        this.Formmqttuser.reset();
       })
     }
     else {
       this.openSnackBar("Invalid value", "Ok", 2000);
     }
   }
-
   //End
-
 
   ngOnInit(): void {
     this.init_form();
-    this.get_sensor_type_list(false);
+    this.get_mqtt_user(false);
   }
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);
   }
+
 }

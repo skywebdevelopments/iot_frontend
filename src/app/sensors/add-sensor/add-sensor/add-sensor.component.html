@@ -1,17 +1,12 @@
-
-
 <div class="container mt-6 w-80">
   <h1>Add Sensor</h1>
-<div style="display: flex;justify-content: flex-end;">
-  <input
-  style="display: none"
-  type="file" (change)="onFileChanged($event)"
-  #fileInput>
-  <button (click)="fileInput.click()" mat-raised-button color="primary">
-    <mat-icon> publish</mat-icon>
-    <span>Upload File</span>
-  </button>
-</div>
+  <div style="display: flex;justify-content: flex-end;">
+    <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+    <button (click)="fileInput.click()" mat-raised-button color="primary">
+      <mat-icon> publish</mat-icon>
+      <span>Upload File</span>
+    </button>
+  </div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
     <!--First form group------------------------------------>
@@ -60,7 +55,7 @@
         </div>
 
 
-        <div style=" margin-left:26cm">
+        <div style=" margin-left:20cm">
           <button mat-button matStepperNext>Next</button>
         </div>
 
@@ -164,7 +159,7 @@
           <!-- end -->
         </div>
 
-        <div style=" margin-left:24cm">
+        <div style=" margin-left:20cm">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -233,7 +228,7 @@
           <!-- end -->
         </div>
 
-        <div style=" margin-left:24cm">
+        <div style=" margin-left:20cm">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext (click)='save_sensor()'>Next</button>
         </div>
@@ -242,9 +237,9 @@
     <!--Third form group------------------------------------>
     <mat-step>
       <ng-template matStepLabel>Sensor Created Successfully</ng-template>
-      <div style=" margin-left:24cm">
-        <!-- <button mat-button matStepperPrevious>Back</button> -->
-        <button mat-button (click)="stepper.reset()">Create new sensor</button>
+      <div style=" margin-left:20cm">
+        <p style="position: absolute; left: 10cm; font-weight: bold;">Sensor Created Successfully</p>
+        <button mat-button (click)="stepper.reset()" mat-raised-button color="primary" class="create-button" >Create new sensor</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

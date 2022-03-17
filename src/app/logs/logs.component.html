@@ -1,6 +1,11 @@
 <div class="container-fluid mt-1">
     <!-- table control  -->
-    <div class="row justify-content-end">
+<h1 style="font-weight: bold;">Logs</h1>
+    <div class="input-group rounded" style="width: 6cm; margin-left: 19cm; position:absolute;">
+        <input type="search" (keyup)="applyFilter($event)" class="form-control rounded" placeholder="Search"
+            aria-label="Search" aria-describedby="search-addon" />
+    </div>
+    <div class="row" style="padding-bottom: 0.7cm; margin-left: 0.03cm;">
         <!-- loglevel quick filter -->
         <mat-button-toggle-group (change)="applyFilter_buttonGroup(selectedLogLevel.value)"
             #selectedLogLevel="matButtonToggleGroup" appearance="legacy" aria-label="label">
@@ -10,11 +15,13 @@
         </mat-button-toggle-group>
     </div>
 
-    <!-- filter control -->
-    <mat-form-field appearance="standard" class="w-100">
+    <!-- filter control 
+    <mat-form-field appearance="standard" class="w-100 input-group rounded">
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
     </mat-form-field>
+
+ -->
     <!-- end -->
 
 

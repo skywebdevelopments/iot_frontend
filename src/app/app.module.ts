@@ -82,6 +82,7 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 
 
 
@@ -128,6 +129,8 @@ import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sen
     GroupSensorTreeComponent,
    
     ListSensorTypeComponent,
+   
+    MqttUserComponent,
 
   ],
   imports: [
