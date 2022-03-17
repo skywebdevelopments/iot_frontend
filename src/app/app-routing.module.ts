@@ -10,20 +10,19 @@ import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
-import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
-
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
+import { UsersComponent } from './users/user-management/users.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: "Login", component: LoginComponent },
   { path: "", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   { path: "logs", component: LogsComponent },
-  { path: "rolesUser", component: RolesComponent },
   { path: "addGroup", component: AddGroupComponent },
   { path: "listGroup", component: ListGroupComponent },
   { path: "addGroup", component: AddGroupComponent },
@@ -31,7 +30,9 @@ const routes: Routes = [
   { path: "addSensor", component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
   { path: "sensor-group", component: GroupSensorComponent },
-  { path: "sensor-group-tree", component: GroupSensorTreeComponent }
+  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
+  { path: "usersManagement", component: UsersComponent },
+  { path: "userProfile", component: UserProfileComponent },
 ]
 // const routes: Routes = [
 //   { path: "Login", component: LoginComponent, outlet: "first" },

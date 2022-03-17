@@ -79,6 +79,40 @@ const TREE_DATA: listItems[] = [
 
     ],
   },
+  {
+
+    icon: " lock_icon",
+    labelText: "Adminstration",
+    routerLink: "",
+    children: [
+
+      {
+        labelText: "Users Management",
+        icon: "group",
+        routerLink: "/usersManagement",
+
+      },
+
+    ],
+  },
+  {
+
+    icon: " account_circle_icon",
+    labelText: "Profile",
+    routerLink: "",
+    children: [
+
+      {
+        labelText: "Settings",
+        icon: "settings_icon",
+        routerLink: "/userProfile",
+
+      },
+
+    ],
+
+  }
+
 
 ];
 /** Flat node with expandable and level information */

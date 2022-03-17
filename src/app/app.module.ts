@@ -75,13 +75,14 @@ import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
 import { IndexComponent } from './index/index.component';
-import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { UsersComponent } from './users/user-management/users.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 
 
@@ -122,12 +123,15 @@ import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sen
 
     IndexComponent,
 
-    RolesComponent,
     LogsComponent,
     GroupSensorComponent,
     GroupSensorTreeComponent,
    
     ListSensorTypeComponent,
+   
+    UsersComponent,
+   
+    UserProfileComponent,
 
   ],
   imports: [

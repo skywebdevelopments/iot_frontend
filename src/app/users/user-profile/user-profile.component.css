@@ -1,0 +1,20 @@
+.example-card {
+    max-width: 600px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://ssl.gstatic.com/accounts/ui/avatar_2x.png');
+    background-size: cover;
+  }
+  .mat-card-title{
+      margin-top: 0.35cm;
+  }
+  .button-edit{
+      margin-left:9cm;
+  }
+  .btn{
+      max-width:6cm;
+  }
+  .mat-form-field{
+    width:400px ;
+  }
