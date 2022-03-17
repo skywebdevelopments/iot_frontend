@@ -1,0 +1,52 @@
+{
+        "batch": {
+         "type": "client",
+         "start": 889101,
+         "end": 911100,
+         "year": 2022,
+         "month": 3,
+         "profile": { "uuid": "f030e614-64f4-4ded-ae14-96bc8f694cf1" },
+         "isn": 2,
+         "iin": 57836,
+         "cin": 18320,
+         "csn": 54049
+     }
+}
+
+
+
+{
+    "batch": {
+        "type": "control",
+        "start": 1016101,
+        "end": 1020600,
+        "year": 2022,
+        "month": 3,
+        "profile": {
+            "uuid": "f030e614-64f4-4ded-ae14-96bc8f694cf1"
+        },
+        "isn": 2,
+        "iin": 57836,
+        "cin": 18320,
+        "csn": 54049
+    }
+}
+
+
+
+{
+    "batch": {
+        "type": "collection",
+        "start": 1020601,
+        "end": 1023600,
+        "year": 2022,
+        "month": 3,
+        "profile": {
+            "uuid": "f030e614-64f4-4ded-ae14-96bc8f694cf1"
+        },
+        "isn": 2,
+        "iin": 57836,
+        "cin": 18320,
+        "csn": 54049
+    }
+}

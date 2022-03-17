@@ -63,12 +63,11 @@ export class SignupComponent implements OnInit {
 
       // submit the form
       this.service_signup.service_signup(this.form_signup.value).then(res => {
-
         if (res['code'] === 3100) {
           this.Invalid_signup()
         }
         else {
-          this.router.navigate([{ outlets: { first: [ 'Login' ] }}])
+          this.router.navigateByUrl('Login')
           this.form_signup.reset();
         }
       })
@@ -79,7 +78,7 @@ export class SignupComponent implements OnInit {
     let dialogRef = this.dialog.open(SignupDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'confirm') {
-        this.router.navigate([{ outlets: { first: [ 'Login' ] }}])
+        this.router.navigateByUrl('Login')
       }
       else{
         window.location.reload();

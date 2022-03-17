@@ -4,7 +4,7 @@ import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../../login-dialog/login-dialog.component'
 import { Router } from '@angular/router'
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     private service_generateToken: GenerateTokenService,
     private dialog: MatDialog,
     private router: Router,
+    private _snackBar: MatSnackBar
 
   ) { }
   init_form() {
@@ -37,40 +38,41 @@ export class LoginComponent implements OnInit {
     })
   }
 
-checkToken(){
-  let token_key= localStorage.getItem('token');
+  checkToken() {
+    let token_key = localStorage.getItem('token');
 
-  if (token_key){
-    this.router.navigateByUrl('/dashboard')
-    
-  }
-  else{
-    this.router.navigateByUrl('/')
+    if (token_key) {
+      this.router.navigateByUrl('/dashboard')
+
+    }
+    else {
+      this.router.navigateByUrl('/')
+
+    }
 
   }
- 
-}
+
+  openSnackBar(message: string, action: string, interval: number) {
+    this._snackBar.open(message, action);
+  }
+
   onsubmit() {
     // check the form is valid 
-
     if (this.form_login.valid) {
-
-      
-
       // submit the form
       this.service_generateToken.service_generate_token(this.form_login.value).then(res => {
         // this.user_data = true;
         if (res['code'] === 404) {
-
           this.Invalid_login()
-
+        }
+        else if (res['code'] === 1105) {
+          this.openSnackBar("Sorry you are temporary deactivated", "Ok", 4000);
+          this.form_login.reset();
         }
         else {
           this.router.navigateByUrl('listGroup')
           this.form_login.reset();
         }
-      }).catch((err) => {
-        console.log(err)
       })
     }
   }
@@ -81,7 +83,7 @@ checkToken(){
     let dialogRef = this.dialog.open(LoginDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'confirm') {
-        this.router.navigateByUrl('signup'); 
+        this.router.navigateByUrl('signup');
       }
       else {
         this.form_login.reset();

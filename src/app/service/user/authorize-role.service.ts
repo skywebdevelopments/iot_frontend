@@ -19,7 +19,6 @@ export class AuthorizeRoleService {
     let user = jwt_decode(token);
 
     let user_role = user['roles'];
-
     for (var i = 0; i < view_role.length; i++) {
       let flag = false;
       for (var j = 0; j < user_role.length; j++) {

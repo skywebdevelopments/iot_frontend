@@ -54,9 +54,6 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
-
-import { TestComponentComponent } from './test-component/test-component.component';
-
 import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
 
 import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
@@ -75,14 +72,27 @@ import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
 import { IndexComponent } from './index/index.component';
-import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+
 import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
+
+import { UsersComponent } from './users/user-management/users.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { TestcomComponent } from './testcom/testcom.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { TableComponent } from './test/table/table.component';
+import { AddressFormComponent } from './test/address-form/address-form.component';
+import { NavigationComponent } from './test/navigation/navigation.component';
+import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
+import { TesttreeComponent } from './test/testtree/testtree.component';
+import { DragComponent } from './test/drag/drag.component';
+import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
+
 
 
 
@@ -92,7 +102,6 @@ import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
     StepperComponent,
     AddGroupComponent,
     ListGroupComponent,
-    TestComponentComponent,
 
     AddSensorComponent,
 
@@ -123,14 +132,36 @@ import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 
     IndexComponent,
 
-    RolesComponent,
     LogsComponent,
     GroupSensorComponent,
     GroupSensorTreeComponent,
    
     ListSensorTypeComponent,
    
+
     MqttUserComponent,
+
+
+    UsersComponent,
+   
+    UserProfileComponent,
+
+    TestcomComponent,
+   
+    TableComponent,
+   
+    AddressFormComponent,
+   
+    NavigationComponent,
+   
+    Dashboard2Component,
+   
+    TesttreeComponent,
+   
+    DragComponent,
+   
+    LogsDashboardComponent,
+
 
   ],
   imports: [
@@ -187,6 +218,7 @@ import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
     ReactiveFormsModule,
     NgbModule,
     AppRoutingModule,
+    LayoutModule,
 
 
   ],

@@ -133,7 +133,6 @@ export class ListSensorComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
-      console.log(res['data'])
       //check if list is not empty
       if (res['data']) {
         // add data to the table (data source)
@@ -353,7 +352,6 @@ export class ListSensorComponent implements OnInit {
         sensorType.push(sensor_type)
       });
     });
-    console.log(sensorType)
     return sensorType;
   }
 
