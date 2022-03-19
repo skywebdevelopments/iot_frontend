@@ -1,5 +1,5 @@
 <div class="row">
-
+    <h1 style="font-weight: bold; margin-left: 0.3cm;">List Sensor</h1>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -44,13 +44,7 @@
     <div class="container-fluid mt-1">
         <!-- table control  -->
         <div class="row justify-content-end">
-            <!-- save div -->
-            <div class="col-auto">
-                <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
-                    <mat-icon>save</mat-icon>
-                    <span>Save Changes</span>
-                </button>
-            </div>
+       
             <!-- menu div -->
             <div class="col-auto">
 
@@ -94,10 +88,10 @@
     </div>
 </div>
 
-<mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
-</mat-form-field>
+<div class="input-group rounded" style="width: 9cm;margin-bottom: 0.4cm;">
+    <input type="search" (keyup)="applyFilter($event)" class="form-control rounded" placeholder="Search"
+        aria-label="Search" aria-describedby="search-addon" />
+</div>
 
 
 <div class="mat-elevation-z8 overflow-auto">
@@ -180,8 +174,8 @@
 
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row (click)="clickedRows.add(row)" [class.demo-row-is-clicked]="clickedRows.has(row)"
-            *matRowDef="let row; columns: displayedColumns;"></tr>
+       
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 
     </table>
@@ -189,64 +183,64 @@
     </mat-paginator>
 </div>
 
-<div class="mt-5" *ngFor="let clickedRow of clickedRows">
+<div class="mt-5"  *ngIf="selectedTableRecord">
     <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Board Model
             </mat-panel-title>
             <mat-panel-description class="text-uppercase">
-                {{clickedRow.board_model}}
-
+                {{selectedTableRecord.board_model}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div *ngIf="!clickedRow.isEdit">
-            Macaddress: {{ clickedRow.mac_address}} <span style="margin-left:180px;"></span>
-            Client Id: {{ clickedRow.client_id}} <span style="margin-left:180px;"></span> <br>
-            Static IP: {{ clickedRow.static_ip}}<span style="margin-left:215px;"></span>
-            Active: {{ clickedRow.active}} <br>
-            DNS 1: {{ clickedRow.dns1}} <span style="margin-left:260px;"></span>
-            DNS 2: {{ clickedRow.dns2}} <br>
-            Gateway: {{ clickedRow.gateway}}<span style="margin-left:220px;"></span>
-            Subnet: {{ clickedRow.subnet}} <br>
-            Serial Number: {{ clickedRow.serial_number}} <span style="margin-left:169px;"></span>
-            Sleep Time: {{ clickedRow.sleep_time}} <br>
-            Access Point Name: {{ clickedRow.ap_name}} <span style="margin-left:205px;"></span>
-            Access Point IP: {{ clickedRow.ap_ip}} <br>
-            Node Profile: {{ clickedRow.node_profile}}<span style="margin-left:262px;"></span>
-            Host IP: {{ clickedRow.host_ip}} <br>
-            Board Name: {{ clickedRow.board_name}} <span style="margin-left:205px;"></span>
-            Board Model: {{ clickedRow.board_model}} <br>
-            Sim Serial: {{ clickedRow.sim_serial}} <span style="margin-left:157px;"></span>
-            Sim Msidm: {{ clickedRow.sim_msidm}} <br>
-            Mqtt User: {{ clickedRow.mqtt_user.username}}<span style="margin-left:256px;"></span>
-            Sensor Type: {{ clickedRow.sensor_type.type}} <br>
-            Flags: {{ clickedRow.flags}} <br>
-            <div *ngIf='authorize(["sensor:delete"])'>
-                <button mat-raised-button color="warn" (click)="delete_dialog(clickedRow)">
+        <div *ngIf="!selectedTableRecord.isEdit">
+            Macaddress: {{ selectedTableRecord.mac_address}} <span style="margin-left:192px;"></span>
+            Client Id: {{ selectedTableRecord.client_id}} <br>
+            Static IP: {{ selectedTableRecord.static_ip}}<span style="margin-left:228px;"></span>
+            Active: {{ selectedTableRecord.active}} <br>
+            DNS 1: {{ selectedTableRecord.dns1}} <span style="margin-left:270px;"></span>
+            DNS 2: {{ selectedTableRecord.dns2}} <br>
+            Gateway: {{ selectedTableRecord.gateway}}<span style="margin-left:230px;"></span>
+            Subnet: {{ selectedTableRecord.subnet}} <br>
+            Serial Number: {{ selectedTableRecord.serial_number}} <span style="margin-left:180px;"></span>
+            Sleep Time: {{ selectedTableRecord.sleep_time}} <br>
+            Access Point Name: {{ selectedTableRecord.ap_name}} <span style="margin-left:216px;"></span>
+            Access Point IP: {{ selectedTableRecord.ap_ip}} <br>
+            Node Profile: {{ selectedTableRecord.node_profile}}<span style="margin-left:272px;"></span>
+            Host IP: {{ selectedTableRecord.host_ip}} <br>
+            Board Name: {{ selectedTableRecord.board_name}} <span style="margin-left:238px;"></span>
+            Board Model: {{ selectedTableRecord.board_model}} <br>
+            Sim Serial: {{ selectedTableRecord.sim_serial}} <span style="margin-left:167px;"></span>
+            Sim Msidm: {{ selectedTableRecord.sim_msidm}} <br>
+            Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<span style="margin-left:266px;"></span>
+            Sensor Type: {{ selectedTableRecord.sensor_type.type}} <br>
+            Flags: {{ selectedTableRecord.flags}} <br>
+            
+            <div *ngIf='authorize(["sensor:delete"])' style="margin-left: 22cm;  position:absolute; bottom: 0.48cm;">
+                <button mat-raised-button color="warn" (click)="delete_dialog(selectedTableRecord)">
                     <mat-icon>delete</mat-icon>
                     <span>Delete</span>
                 </button>
             </div>
 
-            <div *ngIf='authorize(["sensor:update"])'>
+            <div *ngIf='authorize(["sensor:update"])' style="margin-left: 19.5cm;">
                 <!-- delete -->
                 <button mat-raised-button color="primary"
-                    (click)="enable_save_all = true ;clickedRow.isEdit = !clickedRow.isEdit ; init_form(clickedRow)">
+                    (click)="enable_save_all = true ;selectedTableRecord.isEdit = !selectedTableRecord.isEdit ; edit_sensor(selectedTableRecord)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>
                 </button>
             </div>
         </div>
+   
 
-        <div *ngIf="clickedRow.isEdit" [formGroup]="form_updateSensor">
+        <div *ngIf="selectedTableRecord.isEdit" [formGroup]="form_updateSensor">
 
             <div class=" full-name-inputs">
                 <!-- Mac_address -->
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Mac address</mat-label>
-                    <input matInput formControlName="mac_address" placeholder="Enter a mac_address"
-                       >
+                    <input matInput formControlName="mac_address" placeholder="Enter a mac_address" >
                        
                 </mat-form-field>
                 <!-- end -->
@@ -267,8 +261,8 @@
                 </mat-form-field>
                 <!-- end -->
                 <!-- sensor_type -->
-                <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
-                    <mat-select placeholder="Sensor Type" formControlName="sensortypeId">
+                <mat-form-field class="example-full-width" appearance="fill" >
+                    <mat-select placeholder="Sensor Type" formControlName="sensorTypeId">
                         <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id"> {{typee.type}}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -277,7 +271,7 @@
 
             <div class="row">
                 <!-- static_ip -->
-                <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
+                <mat-form-field appearance="fill" style=" width:12.2cm ; margin-left:2.2cm;">
                     <mat-label>Static Ip</mat-label>
                     <input type="text" matInput formControlName="static_ip" placeholder="Enter a Static IP">
                 </mat-form-field>
@@ -415,13 +409,27 @@
 
             <div class="row">
                 <!-- mqttUserId -->
-                <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
-                    <mat-select placeholder="MQTT user name" formControlName="mqttUserId">
+                <mat-form-field class="example-full-width" appearance="fill" style=" width:12cm ; margin-left:2.5cm;">
+                    <mat-select placeholder="MQTT user name" formControlName="mqttuserId">
                         <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id"> {{mqtt_user.username}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <!-- end -->
+            </div>
+            <div class="row" style="margin-left: 2cm;">
+                <!-- active -->
+                <mat-checkbox formControlName="active" class="example-margin">
+                  Active 
+                </mat-checkbox>
+                <!-- end -->
+              </div>
+                   <!-- save div -->
+            <div class="col-auto" style="margin-left: 10cm;">
+                <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
+                    <mat-icon>save</mat-icon>
+                    <span>Save Changes</span>
+                </button>
             </div>
 
 

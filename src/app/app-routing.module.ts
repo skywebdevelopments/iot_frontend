@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: "sensor-group", component: GroupSensorComponent },
   { path: "sensor-group-tree", component: GroupSensorTreeComponent },
   { path: "listsensortype", component: ListSensorTypeComponent },
-  { path: "listmqttuser", component: MqttUserComponent }
+  { path: "listmqttuser", component: MqttUserComponent },
   { path: "usersManagement", component: UsersComponent },
   { path: "userProfile", component: UserProfileComponent },
   { path: "test123", component: TestcomComponent },
