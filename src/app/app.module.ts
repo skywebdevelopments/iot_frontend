@@ -61,7 +61,7 @@ import { LoginComponent } from './login/login/login.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ListSensorsComponent } from './groups/add-group/list-sensors/list-sensors.component';
 
-import {EncrDecrService} from './service/encr-decr.service';
+import { EncrDecrService } from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopNavBarComponent } from './shared/top-nav-bar/top-nav-bar.component';
@@ -89,6 +89,7 @@ import { TesttreeComponent } from './test/testtree/testtree.component';
 import { DragComponent } from './test/drag/drag.component';
 import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
 
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 @NgModule({
@@ -131,23 +132,23 @@ import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.com
     LogsComponent,
     GroupSensorComponent,
     GroupSensorTreeComponent,
-   
+
     ListSensorTypeComponent,
-   
+
     TestcomComponent,
-   
+
     TableComponent,
-   
+
     AddressFormComponent,
-   
+
     NavigationComponent,
-   
+
     Dashboard2Component,
-   
+
     TesttreeComponent,
-   
+
     DragComponent,
-   
+
     LogsDashboardComponent,
 
   ],
@@ -206,8 +207,7 @@ import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.com
     NgbModule,
     AppRoutingModule,
     LayoutModule,
-
-
+    GoogleChartsModule
   ],
   providers: [EncrDecrService],
   bootstrap: [AppComponent]
