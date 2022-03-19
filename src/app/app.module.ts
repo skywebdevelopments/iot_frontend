@@ -72,13 +72,17 @@ import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
 import { IndexComponent } from './index/index.component';
-import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+
+import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
+
+import { UsersComponent } from './users/user-management/users.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { TestcomComponent } from './testcom/testcom.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TableComponent } from './test/table/table.component';
@@ -88,6 +92,9 @@ import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
 import { TesttreeComponent } from './test/testtree/testtree.component';
 import { DragComponent } from './test/drag/drag.component';
 import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
+import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
+import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
+
 
 import { GoogleChartsModule } from 'angular-google-charts';
 
@@ -128,12 +135,22 @@ import { GoogleChartsModule } from 'angular-google-charts';
 
     IndexComponent,
 
-    RolesComponent,
     LogsComponent,
     GroupSensorComponent,
     GroupSensorTreeComponent,
 
     ListSensorTypeComponent,
+<<<<<<< HEAD
+=======
+   
+
+    MqttUserComponent,
+
+
+    UsersComponent,
+
+    UserProfileComponent,
+>>>>>>> cf68507af6d6b9263bc429a8de7a1f58910b39cc
 
     TestcomComponent,
 
@@ -150,6 +167,9 @@ import { GoogleChartsModule } from 'angular-google-charts';
     DragComponent,
 
     LogsDashboardComponent,
+
+    AddUgroupsComponent,
+    ListUgroupsComponent,
 
   ],
   imports: [

@@ -126,7 +126,7 @@ export class ListSensorTypeComponent implements OnInit {
   }
   
 
-  // get group list
+  // get sensor type list
   get_sensor_type_list(showSnackBar: boolean) {
 
     this.service_listsensortype.service_list_sensor_type().then(res => {
@@ -134,14 +134,8 @@ export class ListSensorTypeComponent implements OnInit {
       if (res['data']) {
         // add data to the table (data source)
         this.dataSource.data = res['data']
-
-        // control the sort
-        // TODO: switch to an input
         this.sort.sort({ id: 'type', start: 'asc' } as MatSortable)
         this.dataSource.sort = this.sort;
-        // end
-        // display a notification
-    
       }
       else {
         this.dataSource.data = [];
@@ -154,7 +148,7 @@ export class ListSensorTypeComponent implements OnInit {
   // UI Functions
   isBool(val): boolean { return typeof val === 'boolean'; }
 
-  // delete group
+  // delete sensortype
   delete_sensor_type() {
 
     this.selection.selected.forEach(sensor_type => {
@@ -163,9 +157,7 @@ export class ListSensorTypeComponent implements OnInit {
       }
 
       this.service_deletesensortype.service_delete_sensor_type(formData).then(res => {
-        console.log(res);
-
-        this.openSnackBar(res['data']['message'], '', 4000);
+        this.openSnackBar(res['status'], '', 4000);
 
         // recall refresh
         this.get_sensor_type_list(true);
@@ -202,7 +194,7 @@ export class ListSensorTypeComponent implements OnInit {
         this.service_updatesensortype.service_update_sensor_type(item).then(res => {
           // 1. delete the flag
           delete item['isEdit']
-          this.openSnackBar(`Saved successfully`, '', 2000)
+          this.openSnackBar(res['status'], '', 2000)
           this.enable_save_all = false;
 
         })
@@ -218,7 +210,7 @@ export class ListSensorTypeComponent implements OnInit {
       delete e['isDelete']
       this.service_deletesensortype.service_delete_sensor_type(e).then(res => {
         console.log(res);
-        this.openSnackBar(res['data']['message'], '', 4000);
+        this.openSnackBar(res['status'], '', 4000);
         // recall refresh
         this.get_sensor_type_list(true);
       })
@@ -245,7 +237,7 @@ export class ListSensorTypeComponent implements OnInit {
       this.formData = this.Formsensor.value
       console.log(this.formData)
       this.service_add_sensor_type.service_add_sensor_type(this.formData).then(res => {
-        this.openSnackBar(res['status']['message'], "Ok", 2000);
+        this.openSnackBar(res['status'], "Ok", 2000);
         this.Formsensor.reset();
       })
     }

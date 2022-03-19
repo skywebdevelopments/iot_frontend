@@ -5,146 +5,68 @@
 
 
 <div class="container-fluid mt-1">
-
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <mat-button-toggle-group appearance="legecy" #group="matButtonToggleGroup" class="shadow-sm p-2 "
-                aria-label="label">
-                <mat-button-toggle value="1">
-                    <mat-icon>table_chart</mat-icon>
-                </mat-button-toggle>
-                <mat-button-toggle value="2">
-                    <mat-icon>account_tree</mat-icon>
-                </mat-button-toggle>
-                <mat-button-toggle value="3">
-                    <mat-icon>bar_chart</mat-icon>
-                </mat-button-toggle>
-            </mat-button-toggle-group>
-        </div>
+    <!-- table control  -->
+<h1 style="font-weight: bold;">Logs</h1>
+    <div class="input-group rounded" style="width: 9cm; margin-left: 16.2cm; position:absolute;">
+        <input type="search" (keyup)="applyFilter($event)" class="form-control rounded" placeholder="Search"
+            aria-label="Search" aria-describedby="search-addon" />
+    </div>
+    <div class="row" style="padding-bottom: 0.7cm; margin-left: 0.03cm;">
+        <!-- loglevel quick filter -->
+        <mat-button-toggle-group (change)="applyFilter_buttonGroup(selectedLogLevel.value)"
+            #selectedLogLevel="matButtonToggleGroup" appearance="legacy" aria-label="label">
+            <mat-button-toggle value="">ALL</mat-button-toggle>
+            <mat-button-toggle value="INFO">INFO</mat-button-toggle>
+            <mat-button-toggle value="ERROR">ERROR</mat-button-toggle>
+        </mat-button-toggle-group>
     </div>
 
+    <!-- filter control 
+    <mat-form-field appearance="standard" class="w-100 input-group rounded">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+    </mat-form-field>
 
-    <div [ngSwitch]="group.value">
-        <div *ngSwitchCase="1">
-            <!-- table control  -->
-            <div class="row justify-content-end">
-                <!-- loglevel quick filter -->
-                <mat-button-toggle-group (change)="applyFilter_buttonGroup(selectedLogLevel.value)"
-                    #selectedLogLevel="matButtonToggleGroup" appearance="legacy" aria-label="label">
-                    <mat-button-toggle value="">ALL</mat-button-toggle>
-                    <mat-button-toggle value="INFO">INFO</mat-button-toggle>
-                    <mat-button-toggle value="ERROR">ERROR</mat-button-toggle>
-                </mat-button-toggle-group>
-            </div>
-            
-            <!-- filter control -->
-            <mat-form-field appearance="standard" class="w-100">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
-            </mat-form-field>
-            <!-- end -->
-            
-            
-            <!-- table -->
-            <div class="mat-elevation-z8 w-100 overflow-auto">
-                <table mat-table [dataSource]="dataSource" matSort>
-                    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
-                        <!-- table header -->
-                        <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                            <span class="text-capitalize">
-                                {{col.replace('_',' ')}}
-                            </span>
-                        </th>
-                        <!-- table cell -->
-                        <td mat-cell *matCellDef="let element">
-                            <span>
-                                <label for="" *ngIf=" col!=='createdAt' && col!=='updatedAt' ">
-                                    {{element[col] }}
-                                </label>
-                                <label *ngIf="col==='createdAt'">
-                                    {{element[col] |date :'short' }}
-                                </label>
-                                <label *ngIf="col==='updatedAt'">
-                                    {{element[col] |date :'short' }}
-                                </label>
-            
-                            </span>
-                        </td>
-                    </ng-container>
-            
-            
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <!--End Table-->
-            
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-                </mat-paginator>
-            </div>
-        </div>
-        <div *ngSwitchCase="2">
+ -->
+    <!-- end -->
 
-        </div>
-        <div *ngSwitchCase="3">
-            <app-logs-dashboard></app-logs-dashboard>
-        </div>
-        <div *ngSwitchDefault>
-            <!-- table control  -->
-            <div class="row justify-content-end">
-                <!-- loglevel quick filter -->
-                <mat-button-toggle-group (change)="applyFilter_buttonGroup(selectedLogLevel.value)"
-                    #selectedLogLevel="matButtonToggleGroup" appearance="legacy" aria-label="label">
-                    <mat-button-toggle value="">ALL</mat-button-toggle>
-                    <mat-button-toggle value="INFO">INFO</mat-button-toggle>
-                    <mat-button-toggle value="ERROR">ERROR</mat-button-toggle>
-                </mat-button-toggle-group>
-            </div>
-            
-            <!-- filter control -->
-            <mat-form-field appearance="standard" class="w-100">
-                <mat-label>Filter</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
-            </mat-form-field>
-            <!-- end -->
-            
-            
-            <!-- table -->
-            <div class="mat-elevation-z8 w-100 overflow-auto">
-                <table mat-table [dataSource]="dataSource" matSort>
-                    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
-                        <!-- table header -->
-                        <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                            <span class="text-capitalize">
-                                {{col.replace('_',' ')}}
-                            </span>
-                        </th>
-                        <!-- table cell -->
-                        <td mat-cell *matCellDef="let element">
-                            <span>
-                                <label for="" *ngIf=" col!=='createdAt' && col!=='updatedAt' ">
-                                    {{element[col] }}
-                                </label>
-                                <label *ngIf="col==='createdAt'">
-                                    {{element[col] |date :'short' }}
-                                </label>
-                                <label *ngIf="col==='updatedAt'">
-                                    {{element[col] |date :'short' }}
-                                </label>
-            
-                            </span>
-                        </td>
-                    </ng-container>
-            
-            
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <!--End Table-->
-            
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-                </mat-paginator>
-            </div>
-        </div>
+
+    <!-- table -->
+    <div class="mat-elevation-z8 w-100 overflow-auto">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+                <!-- table header -->
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                    <span class="text-capitalize">
+                        {{col.replace('_',' ')}}
+                    </span>
+                </th>
+                <!-- table cell -->
+                <td mat-cell *matCellDef="let element">
+                    <span>
+                        <label for="" *ngIf=" col!=='createdAt' && col!=='updatedAt' ">
+                            {{element[col] }}
+                        </label>
+                        <label *ngIf="col==='createdAt'">
+                            {{element[col] |date :'short' }}
+                        </label>
+                        <label *ngIf="col==='updatedAt'">
+                            {{element[col] |date :'short' }}
+                        </label>
+
+                    </span>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <!--End Table-->
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
     </div>
 
 

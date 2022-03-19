@@ -56,10 +56,43 @@ const TREE_DATA: listItems[] = [
             icon: "playlist_add",
             routerLink: "/addSensor",
 
-          },
+          }
+          
         ]
 
       },
+      ,
+      {
+        labelText: "sensorType",
+        icon: "device_hub",
+        routerLink: "",
+        children: [
+          {
+            labelText: "list sensor type",
+            icon: "list",
+            routerLink: "/listsensortype",
+
+          }
+          
+        ]
+
+      },
+      ,
+      {
+        labelText: "mqttUser",
+        icon: "person",
+        routerLink: "",
+        children: [
+          {
+            labelText: "list Mqtt User",
+            icon: "list",
+            routerLink: "/listmqttuser",
+
+          }
+          
+        ]
+
+      }
 
     ],
   },
@@ -79,6 +112,60 @@ const TREE_DATA: listItems[] = [
 
     ],
   },
+  {
+
+    icon: " lock_icon",
+    labelText: "Adminstration",
+    routerLink: "",
+    children: [
+      ,
+      {
+        labelText: "usergroups",
+        icon: "group",
+        routerLink: "",
+        children: [
+          {
+            labelText: "list groups",
+            icon: "list",
+            routerLink: "/listUgroup",
+
+          },
+          {
+            labelText: "add group",
+            icon: "playlist_add",
+            routerLink: "/addUgroup",
+
+          }
+        ]
+
+      },
+      {
+        labelText: "User Accounts",
+        icon: "person",
+        routerLink: "/usersManagement",
+
+      }
+
+    ],
+  },
+  {
+
+    icon: " account_circle_icon",
+    labelText: "Profile",
+    routerLink: "",
+    children: [
+
+      {
+        labelText: "Settings",
+        icon: "settings_icon",
+        routerLink: "/userProfile",
+
+      },
+
+    ],
+
+  }
+
 
 ];
 /** Flat node with expandable and level information */

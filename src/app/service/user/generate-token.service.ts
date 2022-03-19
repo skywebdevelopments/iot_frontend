@@ -12,15 +12,13 @@ export class GenerateTokenService {
 
   // generate token function.
   service_generate_token(formData: any) {
-
-
     let promise = new Promise((resolve, reject) => {
       let apiURL = `${environment.backend.api_url}/api/v1/users/token`;
       this.http.post(apiURL, formData)
         .toPromise()
         .then(
           res => { // Success
-            if (res['code'] !== 404) {
+            if (res['code'] !== 404 && res['code'] !== 1105) {
               localStorage.setItem('token', res["token"]); //to store token in local storage 
             }
             resolve(res);

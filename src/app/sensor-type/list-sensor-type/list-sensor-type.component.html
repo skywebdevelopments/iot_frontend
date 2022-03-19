@@ -1,4 +1,5 @@
 <div class="row">
+    <h1 style="font-weight: bold; margin-left: 0.3cm;">List Sensor type</h1>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -17,7 +18,7 @@
                             <div [formGroup]="Formsensor">
                                 <input type="text" matInput formControlName="type" class="form-control">
                                 <mat-checkbox formControlName="active" class="example-margin">
-                                    Active Sensor
+                                    Active
                                 </mat-checkbox>
                             </div>
                         </div>
@@ -33,7 +34,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -99,37 +100,31 @@
                             <div class="container">
                                 <div class="row">
                                     <!-- refresh -->
-                                    <div class="col-4">
-                                        <button (click)="get_sensor_type_list(true)" mat-fab class="mb-4 mr-1 right"
-                                            color="primary" aria-label="Example icon button with a home icon"
-                                            matTooltip="Click to Refresh Data">
-                                            <mat-icon>refresh</mat-icon>
-                                            <!-- <span>Refresh Data</span> -->
-                                        </button>
-                                    </div>
+                                    <button (click)="get_sensor_type_list(true)" mat-menu-item>
+                                        <mat-icon>refresh</mat-icon>
+                                        <span>refresh</span>
+                                    </button>
+
 
                                     <!-- Create sensor type button -->
-                                    <div class="col-4">
-                                        <button data-toggle="modal" data-target="#exampleModal" mat-fab
-                                            class="mb-4 mr-1 right" color="primary"
-                                            aria-label="Example icon button with a home icon"
-                                            matTooltip="Click to Create sensor type">
-                                            <mat-icon>add</mat-icon>
+                                    <div *ngIf='authorize(["sensortype:create"])'>
+                                        <button data-toggle="modal" data-target="#exampleModal" mat-menu-item>
+                                            <mat-icon>playlist_add</mat-icon>
+                                            <span>add</span>
                                         </button>
                                     </div>
-
-
                                     <!-- end -->
+
                                     <!-- delete -->
-                                    <div class="col-auto">
-                                        <button data-toggle="modal" *ngIf="selection.hasValue()"
-                                            data-target="#exampleModal" (click)="get_sensor_type_list(true)" mat-fab
-                                            class="mb-4 mr-1 right" color="primary"
-                                            aria-label="Example icon button with a home icon"
-                                            matTooltip="Click to Delete Selected sensor types">
-                                            <mat-icon>delete</mat-icon>
-                                        </button>
+                                    <div *ngIf='authorize(["sensortype:delete"])'>
+                                    <button data-toggle="modal" *ngIf="selection.hasValue()"
+                                        data-target="#exampleModall" (click)="get_sensor_type_list(true)" mat-menu-item>
+                                        <mat-icon>delete</mat-icon>
+                                        <span>delete</span>
+                                    </button>
                                     </div>
+                                    <!-- end -->
+
                                 </div>
                             </div>
                         </mat-menu>
@@ -176,18 +171,20 @@
                                             <mat-menu #menuu="matMenu">
                                                 <div>
                                                     <!-- edit -->
+                                                    <div *ngIf='authorize(["sensortype:update"])'>
                                                     <button
                                                         (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
                                                         mat-menu-item>
                                                         <mat-icon>edit</mat-icon>
                                                         <span>edit {{element.type}}</span>
                                                     </button>
+                                                </div>
                                                     <!-- slide type cell -->
 
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div>
+                                                <div *ngIf='authorize(["sensortype:delete"])'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.type}}</span>

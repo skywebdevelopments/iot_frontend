@@ -5,14 +5,14 @@ import { environment } from '../../../environments/environment.prod'
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateUserRolesService {
+export class UpdateMqttuserService {
 
   constructor(private http: HttpClient) { }
-   // update user permissions function.
-   service_update_user_roles(formData: any) {
+
+  service_update_mqtt_user(formData: any) {
+
     let promise = new Promise((resolve, reject) => {
-      //let apiURL = `${environment.backend.api_url}/api/v1/users/create`;
-      let apiURL = `${environment.backend.api_url}/api/v1/users/updaterole`;
+      let apiURL = `${environment.backend.api_url}/api/v1/mqttuser/update`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
@@ -24,9 +24,9 @@ export class UpdateUserRolesService {
 
             resolve(res);
           }
-        ).catch((err)=> {
+        ).catch((err) => {
           reject(err);
-      });
+        });
     });
     return promise;
 

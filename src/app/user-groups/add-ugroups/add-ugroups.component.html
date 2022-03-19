@@ -1,0 +1,75 @@
+<div class="row">
+
+  <!--Start Modal-->
+  <div id="RoleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="content">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Create Role </h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-row">
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your Role Name</mat-label>
+                <input matInput [formControl]="role" required>
+                <mat-error *ngIf="role.invalid">{{getErrorMessageRole()}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-row">
+              <button type="button" class="btn btn-danger btn-sm ml-auto" data-dismiss="modal">Cancel</button>
+              <button [disabled]="role.invalid" type="submit" class="btn btn-success btn-sm ml-1"
+                (click)="saveRole()">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Modal-->
+  <div class="col-auto  w-100">
+    <h1>Add User Group</h1>
+    <div class="example-container">
+      <button mat-raised-button color="primary" style="margin-left: 23cm;" data-toggle="modal" data-target="#RoleModal">
+        <mat-icon>playlist_add</mat-icon>
+        <span>add Role</span>
+      </button>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your Group Name</mat-label>
+        <input matInput [formControl]="groupname" required>
+        <mat-error *ngIf="groupname.invalid">{{getErrorMessageGroup()}}</mat-error>
+      </mat-form-field>
+      <div>
+        <mat-checkbox [formControl]="active">Active</mat-checkbox>
+      </div>
+
+    </div>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Group Roles
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div cdkDropListGroup>
+        <div class="example-container">
+          <h3 class="heading avaliable">Avaliable Roles</h3>
+          <div cdkDropList [cdkDropListData]="avaliableRoles" class="example-list" cdkDropListSortingDisabled
+            (cdkDropListDropped)="onDrop($event)">
+            <div class="example-box" *ngFor="let item of avaliableRoles" cdkDrag>{{item}}</div>
+          </div>
+        </div>
+        <div class="example-container">
+          <h3 class="heading assigned">Assigned Roles</h3>
+          <div cdkDropList [cdkDropListData]="assignedRoles" class="example-list" (cdkDropListDropped)="onDrop($event)">
+            <div class="example-box" *ngFor="let item of assignedRoles" cdkDrag>{{item}}</div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <br>
+    <button style="margin-left: 23.5cm;" [disabled]="groupname.invalid || assignedRoles.length===0" mat-raised-button
+      (click)="saveResults()" color="primary">Add Group</button>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-auto  w-100">
+        <!-- end -->
+        <div class="container-fluid mt-1">
+            <!-- table control  -->
+            <div class="row justify-content-end">
+                    <!-- save div -->
+                    <div class="col-auto">
+                        <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
+                            <mat-icon>save</mat-icon>
+                            <span>Save Changes</span>
+                        </button>
+                        <button (click)=" get_user_list(true)" *ngIf="!enable_save_all;" mat-raised-button color="primary">
+                            <mat-icon>refresh</mat-icon>
+                            <span>refresh</span>
+                        </button>
+                    </div>
+                <!-- filter control -->
+                <mat-form-field appearance="standard" class="w-100">
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- table -->
+                <div class="mat-elevation-z8 w-100">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                        <!-- Checkbox Column -->
+                        <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
+                            <!-- table header -->
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                                <span class="text-capitalize" *ngIf="col !== 'isEdit'">
+                                    {{col.replace('_',' ')}}
+                                </span>
+                            </th>
+                            <!-- table cell -->
+                            <td mat-cell *matCellDef="let element">
+                                <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+
+                                    <!-- edit button -->
+                                    <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                                        <div *ngIf='authorize(["user:update"])'>
+                                            <!-- edit -->
+                                            <button  *ngIf="!enable_save_all;" (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                                mat-icon-button 
+                                                aria-label="Example icon-button with a heart icon">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- row: view mode -->
+                                    <span *ngSwitchDefault>
+                                        <!-- text cell -->
+                                        <label *ngIf="!isBool(element[col]) && !isobject(element[col])">
+                                            {{element[col]}}
+                                        </label>
+                                        <label *ngIf="isobject(element[col])">
+                                            {{element[col].groupname}}
+                                        </label>
+                                        <!-- slide type cell -->
+                                        <mat-slide-toggle disabled="true" [checked]="element[col]"
+                                            *ngIf="isBool(element[col])">
+                                        </mat-slide-toggle>
+
+                                        <!-- end -->
+                                    </span>
+                                </div>
+
+
+                                <!-- edit mode -->
+                                <div *ngIf="element.isEdit">
+                                    <!-- done -->
+                                    <div class="btn-edit" *ngIf="col === 'isEdit'; else dataField">
+                                    </div>
+
+                                    <!-- col with edit -->
+                                    <ng-template #dataField>
+                                        <!-- input text -->
+                                        <div *ngIf="!isBool(element[col]) && !isobject(element[col])">
+                                            <div>{{element[col]}}</div>
+                                        </div>
+                                        <div *ngIf="isobject(element[col])">
+                                            <div *ngFor="let item of user_groups">
+                                                <input [(ngModel)]="element[col].groupname" type="radio"
+                                                    [value]="item.groupname"> {{ item.groupname }}
+                                            </div>
+                                        </div>
+                                        <!-- slide type cell -->
+                                        <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
+                                            *ngIf="isBool(element[col])">
+                                        </mat-slide-toggle>
+                                    </ng-template>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Button trigger modal -->

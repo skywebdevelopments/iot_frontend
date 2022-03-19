@@ -9,13 +9,17 @@ import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
-import { RolesComponent } from './roles/roles.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
-
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
+import { UsersComponent } from './users/user-management/users.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
+import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
+
 import { TestcomComponent } from './testcom/testcom.component';
 
 
@@ -24,13 +28,19 @@ const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   { path: "logs", component: LogsComponent },
-  { path: "rolesUser", component: RolesComponent },
   { path: "addGroup", component: AddGroupComponent },
   { path: "listGroup", component: ListGroupComponent },
   { path: "addGroup", component: AddGroupComponent },
   { path: "addSensor", component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
   { path: "sensor-group", component: GroupSensorComponent },
+  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
+  { path: "listsensortype", component: ListSensorTypeComponent },
+  { path: "listmqttuser", component: MqttUserComponent },
+  { path: "usersManagement", component: UsersComponent },
+  { path: "userProfile", component: UserProfileComponent },
+  { path: "addUgroup", component: AddUgroupsComponent },
+  { path: "listUgroup", component: ListUgroupsComponent },
   { path: "test123", component: TestcomComponent },
   { path: "sensor-group-tree", component: GroupSensorTreeComponent }
 ]
