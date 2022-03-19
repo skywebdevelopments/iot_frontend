@@ -120,7 +120,7 @@ export class UsersComponent implements OnInit {
         delete item['isEdit']
         this.service_updateUser.service_update_user_active(item).then(()=> {
           this.service_updateUser.service_update_user_role(item).then(res => {
-            this.openSnackBar(`Saved successfully`, '', 2000)
+            this.openSnackBar(`Saved successfully`, 'Ok', 2000)
           })
         })
       }

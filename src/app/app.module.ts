@@ -61,7 +61,7 @@ import { LoginComponent } from './login/login/login.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ListSensorsComponent } from './groups/add-group/list-sensors/list-sensors.component';
 
-import {EncrDecrService} from './service/encr-decr.service';
+import { EncrDecrService } from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopNavBarComponent } from './shared/top-nav-bar/top-nav-bar.component';
@@ -78,10 +78,8 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
-<<<<<<< HEAD
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
-=======
 import { TestcomComponent } from './testcom/testcom.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TableComponent } from './test/table/table.component';
@@ -91,7 +89,8 @@ import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
 import { TesttreeComponent } from './test/testtree/testtree.component';
 import { DragComponent } from './test/drag/drag.component';
 import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
->>>>>>> 59417fd68d3c80913acaab6a4543ab2c3fe8f0b6
+import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
+import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
 
 
 
@@ -134,30 +133,30 @@ import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.com
     LogsComponent,
     GroupSensorComponent,
     GroupSensorTreeComponent,
-   
+
     ListSensorTypeComponent,
-   
-<<<<<<< HEAD
+
     UsersComponent,
-   
+
     UserProfileComponent,
-=======
     TestcomComponent,
-   
+
     TableComponent,
-   
+
     AddressFormComponent,
-   
+
     NavigationComponent,
-   
+
     Dashboard2Component,
-   
+
     TesttreeComponent,
-   
+
     DragComponent,
-   
+
     LogsDashboardComponent,
->>>>>>> 59417fd68d3c80913acaab6a4543ab2c3fe8f0b6
+
+    AddUgroupsComponent,
+    ListUgroupsComponent,
 
   ],
   imports: [

@@ -1,0 +1,78 @@
+.example-container {
+    width: 400px;
+    max-width: 100%;
+    margin: 0 25px 25px 0;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .example-list {
+    border: solid 1px rgb(17, 11, 11);
+    height: 5cm;
+    background: white;
+    border-radius:10px;
+    overflow: scroll;
+    display: block;
+  }
+
+  .example-box {
+    padding: 0.75em 1.5em 0.75em 1em;
+    margin-bottom: 0.3em;
+    background: #cfcfcf;
+    cursor: pointer;
+    font-family: "Roboto Slab", sans-serif;
+    font-size: 14px;
+  }
+  .example-box:hover {
+    outline: 3px solid #050b11;
+  }
+
+  .heading {
+    padding: 0.5em 0;
+    font-weight: bolder;
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto Slab", sans-serif;
+    border-radius: 2cm;
+  }
+  .assigned {
+    background: #46c45f;
+}
+.avaliable {
+  background: #4952cf;
+}
+
+
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .example-box:last-child {
+    border: none;
+  }
+
+  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  } 
+
+
+  .mat-form-field{
+    width:500px !important;
+  }
+
+  
+.modal-header {
+  background-color: #512DA8; }
+  .modal-header 
+  .modal-title {
+    color: floralwhite; 
+    margin-top: 0.2cm;
+  }
+  .modal-header 
+  .close {
+    color: floralwhite; }
+

@@ -16,6 +16,9 @@ import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sen
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
+import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
+
 import { TestcomComponent } from './testcom/testcom.component';
 
 
@@ -33,6 +36,8 @@ const routes: Routes = [
   { path: "sensor-group-tree", component: GroupSensorTreeComponent },
   { path: "usersManagement", component: UsersComponent },
   { path: "userProfile", component: UserProfileComponent },
+  { path: "addUgroup", component: AddUgroupsComponent },
+  { path: "listUgroup", component: ListUgroupsComponent },
   { path: "test123", component: TestcomComponent },
   { path: "sensor-group-tree", component: GroupSensorTreeComponent }
 ]

@@ -10,26 +10,25 @@
                 <!--Email Field-->
                 <div class="container mt-4">
                     <mat-form-field class="example-full-width">
-                        <label for="email">Email</label>
-                        <input class="form-group" [disabled]="true" type="email" matInput [value]="get_user.email">
+                        <label>Email</label>
+                        <input matInput [formControl]="email">
                     </mat-form-field>
                 </div>
                 <!--End Email Field-->
                 <!--Role Field-->
                 <div class="container mt-4">
                     <mat-form-field class="example-full-width">
-                        <label for="role">Role</label>
-                        <input class="form-group" [disabled]="true" type="role" matInput
-                            [value]="get_user.u_group.groupname">
+                        <label>Role</label>
+                        <input matInput [formControl]="role">
                     </mat-form-field>
                 </div>
                 <!--End Role Field-->
                 <!--username Field-->
                 <div class="container mt-4">
                     <mat-form-field class="example-full-width">
-                        <label for="email">Username</label>
-                        <input class="form-group" type="text" matInput [value]="get_user.username"
-                            (change)="onChangeusername($event.target.value)">
+                        <label>Username</label>
+                        <input matInput [formControl]="username" required>
+                        <mat-error *ngIf="username.invalid">{{getErrorMessagename()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <!--End username Field-->
@@ -37,28 +36,34 @@
                 <!--Password Field-->
                 <div class="container mt-4">
                     <mat-form-field class="example-full-width">
-                        <label for="password">Current Password</label>
-                        <input type="password" matInput (change)="onChangepassword($event.target.value)"> 
+                        <label>Current Password</label>
+                        <input type="password" id="password" required matInput [formControl]="password"
+                            (change)="onChangepassword($event.target.value) ">
+                        <mat-error *ngIf="password.invalid">{{getErrorMessagepass()}}</mat-error>
                     </mat-form-field>
+                    <mat-error *ngIf="password_validation===false && !password.invalid">You entered inncorrect
+                        password.</mat-error>
                 </div>
                 <!--End Password Field-->
 
                 <!--New Password Field-->
                 <div class="container mt-4">
                     <mat-form-field class="example-full-width">
-                        <label for="newpassword">New Password</label>
-                        <input type="newpassword" matInput>
+                        <label>New Password</label>
+                        <input type="password" matInput [formControl]="newpassword">
+                        <mat-error *ngIf="newpassword.invalid">{{getErrorMessagenewpass()}}</mat-error>
                     </mat-form-field>
                 </div>
                 <!--End New Password Field-->
             </form>
             <div class=" button-edit">
-                <button (click)="submit_all()" class=" btn-success btn btn-sm" mat-raised-button
+                <button [disabled]="!password_validation||password.invalid||newpassword.invalid||username.invalid"
+                    (click)="submit_all()" class=" btn-success btn btn-sm" mat-raised-button
                     style="margin-right: 0.5cm;">
                     <mat-icon>check_circle_outline</mat-icon>
                     <span>Save</span>
                 </button>
-                <button (click)="delete_dialog()" class=" btn btn-danger btn-sm" mat-raised-button>
+                <button [disabled]="!password_validation" (click)="delete_dialog()" class=" btn btn-danger btn-sm" mat-raised-button>
                     <mat-icon>delete</mat-icon>
                     <span> Delete</span>
                 </button>

@@ -85,13 +85,33 @@ const TREE_DATA: listItems[] = [
     labelText: "Adminstration",
     routerLink: "",
     children: [
-
+      ,
       {
-        labelText: "Users Management",
+        labelText: "usergroups",
         icon: "group",
-        routerLink: "/usersManagement",
+        routerLink: "",
+        children: [
+          {
+            labelText: "list groups",
+            icon: "list",
+            routerLink: "/listUgroup",
+
+          },
+          {
+            labelText: "add group",
+            icon: "playlist_add",
+            routerLink: "/addUgroup",
+
+          }
+        ]
 
       },
+      {
+        labelText: "User Accounts",
+        icon: "person",
+        routerLink: "/usersManagement",
+
+      }
 
     ],
   },

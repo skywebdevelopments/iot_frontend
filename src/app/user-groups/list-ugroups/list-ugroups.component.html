@@ -1,5 +1,5 @@
 <div class="row">
-    <!-- Modal -->
+    <!-- Modal Delete -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -19,87 +19,124 @@
 
                                 <ol>
                                     <li *ngFor="let item of selection.selected">
-                                        {{item.name}}
+                                        {{item.groupname}}
                                     </li>
                                 </ol>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="delete_group()" data-dismiss="modal" class="btn btn-danger">yes,
+                    <button type="button" (click)="delete_ugroup()" data-dismiss="modal" class="btn btn-danger">yes,
                         Delete</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- end -->
 
+    <!--Start Edit Modal-->
+    <div id="EditModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" role="content">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Edit Group </h2>
+                    <button type="button" class="close" data-dismiss="modal"
+                        (click)="get_ugroup_list(true)">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <mat-form-field appearance="fill">
+                                <mat-label> Group Name</mat-label>
+                                <input matInput [formControl]="groupname" required>
+                                <mat-error *ngIf="groupname.invalid">{{getErrorMessageGroup()}}</mat-error>
+                            </mat-form-field>
+                            <mat-slide-toggle [formControl]="active" [checked]="active"
+                                style="margin-left: 5cm; margin-top: 0.3cm;">
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="form-row">
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Group Roles
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div cdkDropListGroup>
+                                    <div class="example-container">
+                                        <h3 class="heading avaliable">Avaliable Roles</h3>
+                                        <div cdkDropList [cdkDropListData]="avaliableRoles" class="example-list"
+                                            cdkDropListSortingDisabled (cdkDropListDropped)="onDrop($event)">
+                                            <div class="example-box" *ngFor="let item of avaliableRoles" cdkDrag>
+                                                {{item}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="example-container">
+                                        <h3 class="heading assigned">Assigned Roles</h3>
+                                        <div cdkDropList [cdkDropListData]="assignedRoles" class="example-list"
+                                            (cdkDropListDropped)="onDrop($event)">
+                                            <div class="example-box" *ngFor="let item of assignedRoles" cdkDrag>{{item}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </div>
+                        <div class="form-row" style="padding-top: 0.5cm;">
+                            <button type="button" class="btn btn-danger btn-sm ml-auto" data-dismiss="modal"
+                                (click)="get_ugroup_list(true)">Cancel</button>
+                            <button type="submit" [disabled]="groupname.invalid || assignedRoles.length===0"
+                                (click)="save_changes()" class="btn btn-success btn-sm ml-1">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End-->
 
     <div class="col-auto  w-100">
-        <!-- end -->
+
         <div class="container-fluid mt-1">
             <!-- table control  -->
-            <div class="row justify-content-end">
-                <div class="col-auto">
-                    <!-- save div -->
-                    <div class="col-auto">
-                        <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
-                            <mat-icon>save</mat-icon>
-                            <span>Save Changes</span>
-                        </button>
-                    </div>
+            <!-- filter control -->
 
+            <div>
+                <div class="row justify-content-end">
                     <!-- menu div -->
                     <div class="col-auto">
-
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                             <mat-icon>more_horizontal</mat-icon>
                         </button>
-
                         <mat-menu class="p-2" #menu="matMenu">
-
-                            <button (click)="get_group_list(true)" mat-menu-item>
+                            <button (click)="get_ugroup_list(true)" mat-menu-item>
                                 <mat-icon>refresh</mat-icon>
                                 <span>refresh</span>
                             </button>
-
                             <!-- Create sensor button -->
-
-                            <button [routerLink]="['/addGroup']" *ngIf='authorize(["s_group:create"])'
+                            <button [routerLink]="['/addUgroup']" *ngIf='authorize(["ugroup:create"])'
                                 routerLinkActive="router-link-active" mat-menu-item>
                                 <mat-icon>playlist_add</mat-icon>
                                 <span>add</span>
                             </button>
-                            <div *ngIf='authorize(["s_group:delete"])'>
+                            <div *ngIf='authorize(["ugroup:delete"])'>
                                 <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
                                     mat-menu-item>
                                     <mat-icon>delete</mat-icon>
                                     <span>delete</span>
                                 </button>
-
-
                             </div>
-
-
                         </mat-menu>
                     </div>
-
                 </div>
-
-                <!-- filter control -->
+                <!-- end -->
                 <mat-form-field appearance="standard" class="w-100">
                     <mat-label>Filter</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
                 </mat-form-field>
-
-
-
-                <!-- end -->
-
                 <!-- table -->
                 <div class="mat-elevation-z8 w-100">
                     <table mat-table [dataSource]="dataSource" matSort>
@@ -120,28 +157,27 @@
                                         <!-- edit button -->
                                         <div class="btn-edit" *ngSwitchCase="'isEdit'">
 
-                                            <div *ngIf='authorize(["s_group:delete"]) || authorize(["s_group:update"])'>
+                                            <div *ngIf='authorize(["ugroup:delete"]) || authorize(["ugroup:update"])'>
                                                 <button mat-icon-button [matMenuTriggerFor]="menuu"
                                                     aria-label="Example icon-button with a menu">
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
                                             </div>
-                                            <mat-menu  class="p-2" #menuu="matMenu">
-                                                <div *ngIf='authorize(["s_group:update"])'>
+                                            <mat-menu class="p-2" #menuu="matMenu">
+                                                <div *ngIf='authorize(["ugroup:update"])'>
                                                     <!-- edit -->
-                                                    <button
-                                                        (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
-                                                        mat-menu-item>
+                                                    <button (click)=" edit_ugroup(element)" data-toggle="modal"
+                                                        data-target="#EditModal" mat-menu-item>
                                                         <mat-icon>edit</mat-icon>
-                                                        <span>edit {{element.name}}</span>
+                                                        <span>edit {{element.groupname}}</span>
                                                     </button>
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["s_group:delete"])'>
+                                                <div *ngIf='authorize(["ugroup:delete"])'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
-                                                        <span>delete {{element.name}}</span>
+                                                        <span>delete {{element.groupname}}</span>
                                                     </button>
                                                 </div>
                                             </mat-menu>
@@ -151,10 +187,18 @@
                                         <!-- row: view mode -->
                                         <span *ngSwitchDefault>
                                             <!-- text cell -->
-                                            <label for="" *ngIf="!isBool(element[col])">
+                                            <label for="" *ngIf="col==='groupname'">
                                                 {{element[col]}}
                                             </label>
-
+                                            <mat-expansion-panel *ngIf="col==='roles'" class="mat-elevation-z0">
+                                                <mat-expansion-panel-header>
+                                                </mat-expansion-panel-header>
+                                                <div style="height: 100px; overflow-y: auto;">
+                                                    <p *ngFor="let item of element[col]">
+                                                        <label> {{ item }} </label>
+                                                    </p>
+                                                </div>
+                                            </mat-expansion-panel>
                                             <!-- slide type cell -->
                                             <mat-slide-toggle disabled="true" [checked]="element[col]"
                                                 *ngIf="isBool(element[col])">
@@ -163,33 +207,6 @@
                                             <!-- dropdown cell -->
                                             <!-- end -->
                                         </span>
-                                    </div>
-
-
-                                    <!-- edit mode -->
-                                    <div *ngIf="element.isEdit">
-                                        <!-- done -->
-                                        <div class="btn-edit"
-                                            *ngIf="col === 'isEdit'|| col === 'isDelete'; else dataField">
-
-
-                                        </div>
-
-                                        <!-- col with edit -->
-                                        <ng-template #dataField>
-                                            <!-- input text -->
-                                            <mat-form-field *ngIf="!isBool(element[col])">
-                                                <mat-label>{{col}}</mat-label>
-                                                <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
-                                            </mat-form-field>
-
-
-                                            <!-- slide type cell -->
-                                            <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
-                                                *ngIf="isBool(element[col])">
-                                            </mat-slide-toggle>
-
-                                        </ng-template>
                                     </div>
                                 </td>
                             </div>
@@ -226,8 +243,3 @@
 
         </div>
     </div>
-
-
-
-
-    <!-- Button trigger modal -->

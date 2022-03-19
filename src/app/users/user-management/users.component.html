@@ -10,6 +10,10 @@
                             <mat-icon>save</mat-icon>
                             <span>Save Changes</span>
                         </button>
+                        <button (click)=" get_user_list(true)" *ngIf="!enable_save_all;" mat-raised-button color="primary">
+                            <mat-icon>refresh</mat-icon>
+                            <span>refresh</span>
+                        </button>
                     </div>
                 <!-- filter control -->
                 <mat-form-field appearance="standard" class="w-100">
