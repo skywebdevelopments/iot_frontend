@@ -13,6 +13,7 @@ import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
@@ -34,6 +35,8 @@ const routes: Routes = [
   { path: "listSensor", component: ListSensorComponent },
   { path: "sensor-group", component: GroupSensorComponent },
   { path: "sensor-group-tree", component: GroupSensorTreeComponent },
+  { path: "listsensortype", component: ListSensorTypeComponent },
+  { path: "listmqttuser", component: MqttUserComponent },
   { path: "usersManagement", component: UsersComponent },
   { path: "userProfile", component: UserProfileComponent },
   { path: "addUgroup", component: AddUgroupsComponent },

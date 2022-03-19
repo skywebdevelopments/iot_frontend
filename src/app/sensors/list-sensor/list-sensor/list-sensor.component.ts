@@ -35,8 +35,8 @@ export interface sensorElement {
   sim_serial: "text",
   sim_msidm: "text",
   flags: "text",
-  mqttUserId: "number",
-  sensortypeId: "number",
+  mqttuserId: "number",
+  sensorTypeId: "number",
   rec_id: "text"
 }
 
@@ -198,112 +198,102 @@ export class ListSensorComponent implements OnInit {
   enable_edit_mode() {
     this.replace_with_input = !this.replace_with_input;
   }
-  edit_sensor(e: any) {
+  edit_sensor(selectedTableRecord: any) {
+    this.form_updateSensor = this.fb.group({
+      mac_address: [selectedTableRecord.mac_address, Validators.compose([
+        Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$')
+      ])],
 
-    let rec_id = e.rec_id
-    this.dataSource.data.forEach(item => {
+      client_id: [selectedTableRecord.client_id, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      sensorTypeId: [selectedTableRecord.sensorTypeId, Validators.compose([
+        Validators.minLength(1),
+      ])],
+      static_ip: [selectedTableRecord.static_ip, Validators.compose([
+        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
+      ])],
+      dns1: [selectedTableRecord.dns1, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      dns2: [selectedTableRecord.dns2, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      gateway: [selectedTableRecord.gateway, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      subnet: [selectedTableRecord.subnet, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      serial_number: [selectedTableRecord.serial_number, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      sleep_time: [selectedTableRecord.sleep_time, Validators.compose([
+        Validators.minLength(3),
+      ])],
+      ap_name: [selectedTableRecord.ap_name, Validators.compose([
+        Validators.minLength(4),
+      ])],
+      ap_ip: [selectedTableRecord.ap_ip, Validators.compose([
 
-      this.form_updateSensor = this.fb.group({
-        mac_address: [item.mac_address, Validators.compose([
-          Validators.required,
-          Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$')
-        ])],
+        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+      ])],
 
-        client_id: [item.client_id, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        sensortypeId: [item.sensortypeId, Validators.compose([
-          Validators.required,
-          Validators.minLength(1),
-        ])],
-        static_ip: [item.static_ip, Validators.compose([
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'),
-          Validators.required,
-        ])],
-        dns1: [item.dns1, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        dns2: [item.dns2, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        gateway: [item.gateway, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        subnet: [item.subnet, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        serial_number: [item.serial_number, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        sleep_time: [item.sleep_time, Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-        ])],
-        ap_name: [item.ap_name, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        ap_ip: [item.ap_ip, Validators.compose([
-          Validators.required,
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
-        ])],
+      node_profile: [selectedTableRecord.node_profile, Validators.compose([
 
-        node_profile: [item.node_profile, Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-        ])],
-        host_ip: [item.host_ip, Validators.compose([
-          Validators.required,
-          Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
-        ])],
-        board_name: [item.board_name, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        board_model: [item.board_model, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        sim_serial: [item.sim_serial, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        sim_msidm: [item.sim_msidm, Validators.compose([
-          Validators.required,
-          Validators.pattern('[0-9]{11}')
-        ])],
-        flags: [item.flags, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-        ])],
-        mqttUserId: [item.mqttUserId, Validators.compose([
-          Validators.required,
-          Validators.minLength(1),
-        ])]
-      });
+        Validators.minLength(3),
+      ])],
+      host_ip: [selectedTableRecord.host_ip, Validators.compose([
+
+        Validators.pattern('(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')
+      ])],
+      board_name: [selectedTableRecord.board_name, Validators.compose([
+
+        Validators.minLength(4),
+      ])],
+      board_model: [selectedTableRecord.board_model, Validators.compose([
+
+        Validators.minLength(4),
+      ])],
+      sim_serial: [selectedTableRecord.sim_serial, Validators.compose([
+
+        Validators.minLength(4),
+      ])],
+      sim_msidm: [selectedTableRecord.sim_msidm, Validators.compose([
+
+        Validators.pattern('[0-9]{11}')
+      ])],
+      flags: [selectedTableRecord.flags, Validators.compose([
+
+        Validators.minLength(4),
+      ])],
+      mqttuserId: [selectedTableRecord.mqttuserId, Validators.compose([
+
+        Validators.minLength(1),
+      ])],
+      rec_id: [selectedTableRecord.rec_id, Validators.compose([
+        Validators.minLength(1),
+      ])],
+      ota_password: [selectedTableRecord.ota_password, Validators.compose([
+        Validators.minLength(1),
+      ])],
+      ap_password: [selectedTableRecord.ap_password, Validators.compose([
+        Validators.minLength(1),
+      ])],
+      active: [selectedTableRecord.active],
     });
+
   }
   submit_all() {
-    // flag the 
-    this.dataSource.data.forEach(item => {
-      if (item['isEdit'] !== undefined && item['isEdit'] == true) {
-        // 1. delete the flag
-        delete item['isEdit']
-        // 2. post to the update API
-        this.service_updateSensor.service_update_sensor(item).then(res => {
-          this.openSnackBar(`Saved successfully`, '', 2000)
-          this.get_sensor_list(true);
-        })
-
-      }
-      this.enable_save_all = false;
+    console.log(this.form_updateSensor.value)
+    this.service_updateSensor.service_update_sensor(this.form_updateSensor.value).then(res => {
+      this.openSnackBar(`Saved successfully`, '', 2000)
+      this.get_sensor_list(true);
     })
+
+
+    this.enable_save_all = false;
+
   }
 
 
@@ -355,7 +345,7 @@ export class ListSensorComponent implements OnInit {
     return sensorType;
   }
 
-  selectTableRow(row:any){
+  selectTableRow(row: any) {
     this.selectedTableRecord = row;
   }
 

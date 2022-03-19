@@ -78,6 +78,9 @@ import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+
+import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
+
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { TestcomComponent } from './testcom/testcom.component';
@@ -91,6 +94,7 @@ import { DragComponent } from './test/drag/drag.component';
 import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
 import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
+
 
 
 
@@ -135,10 +139,15 @@ import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.co
     GroupSensorTreeComponent,
 
     ListSensorTypeComponent,
+   
+
+    MqttUserComponent,
+
 
     UsersComponent,
 
     UserProfileComponent,
+
     TestcomComponent,
 
     TableComponent,

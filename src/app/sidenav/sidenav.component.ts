@@ -56,10 +56,43 @@ const TREE_DATA: listItems[] = [
             icon: "playlist_add",
             routerLink: "/addSensor",
 
-          },
+          }
+          
         ]
 
       },
+      ,
+      {
+        labelText: "sensorType",
+        icon: "device_hub",
+        routerLink: "",
+        children: [
+          {
+            labelText: "list sensor type",
+            icon: "list",
+            routerLink: "/listsensortype",
+
+          }
+          
+        ]
+
+      },
+      ,
+      {
+        labelText: "mqttUser",
+        icon: "person",
+        routerLink: "",
+        children: [
+          {
+            labelText: "list Mqtt User",
+            icon: "list",
+            routerLink: "/listmqttuser",
+
+          }
+          
+        ]
+
+      }
 
     ],
   },

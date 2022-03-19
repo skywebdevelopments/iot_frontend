@@ -1,5 +1,5 @@
 <div class="row">
-
+    <h1 style="font-weight: bold; margin-left: 0.3cm;">List Sensor</h1>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -44,13 +44,7 @@
     <div class="container-fluid mt-1">
         <!-- table control  -->
         <div class="row justify-content-end">
-            <!-- save div -->
-            <div class="col-auto">
-                <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
-                    <mat-icon>save</mat-icon>
-                    <span>Save Changes</span>
-                </button>
-            </div>
+       
             <!-- menu div -->
             <div class="col-auto">
 
@@ -94,10 +88,10 @@
     </div>
 </div>
 
-<mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
-</mat-form-field>
+<div class="input-group rounded" style="width: 9cm;margin-bottom: 0.4cm;">
+    <input type="search" (keyup)="applyFilter($event)" class="form-control rounded" placeholder="Search"
+        aria-label="Search" aria-describedby="search-addon" />
+</div>
 
 
 <div class="mat-elevation-z8 overflow-auto">
@@ -120,7 +114,7 @@
 
                 <!-- table cell -->
                 <td mat-cell *matCellDef="let element">
-                    <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit && !element.isDelete">
+                    <div [ngSwitch]="dataSchema[col]">
 
                         <!-- edit button -->
                         <div class="btn-edit" *ngSwitchCase="'isEdit'">
@@ -142,100 +136,22 @@
                                     </button>
                                 </div>
 
-
-                                <!-- edit -->
-                                <div *ngIf='authorize(["sensor:update"])'>
-                                    <!-- delete -->
-                                    <button (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
-                                        mat-menu-item>
-                                        <mat-icon>edit</mat-icon>
-                                        <span>edit {{element.mac_address}}</span>
-                                    </button>
-                                </div>
-
-                                <div *ngIf='authorize(["sensor:delete"])'>
-                                    <button (click)="delete_dialog(element)" mat-menu-item>
-                                        <mat-icon>delete</mat-icon>
-                                        <span>delete {{element.mac_address}}</span>
-                                    </button>
-                                </div>
-
                             </mat-menu>
-
-
                         </div>
 
 
                         <!-- row: view mode -->
                         <span *ngSwitchDefault>
                             <!-- text cell -->
-                            <label for=""
-                                *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensor_type'">
+                            <label for="" *ngIf="!isBool(element[col]) && col!=='sensor_type'">
                                 {{element[col]}}
                             </label>
-                            <label *ngIf="col==='sleep_time'">
-                                {{element[col]}} Sec
-                            </label>
-                            <div *ngIf="col==='mqtt_user'">
-                                <label>
-                                    {{ element[col]['username']}}
-                                </label>
-                            </div>
                             <div *ngIf="col==='sensor_type'">
                                 <label>
                                     {{ element[col]['type']}}
                                 </label>
                             </div>
-                            <!-- slide type cell -->
-                            <mat-slide-toggle disabled="true" [checked]="element[col]" *ngIf="isBool(element[col])">
-                            </mat-slide-toggle>
-
-                            <!-- dropdown cell -->
-                            <!-- end -->
                         </span>
-                    </div>
-
-
-                    <!-- edit mode -->
-                    <div *ngIf="element.isEdit">
-                        <!-- done -->
-                        <div class="btn-edit" *ngIf="col === 'isEdit' || col === 'isDelete'; else dataField">
-
-
-                        </div>
-
-                        <!-- col with edit -->
-                        <ng-template #dataField>
-                            <!-- input text -->
-                            <mat-form-field *ngIf="!isBool(element[col]) && col!=='mqtt_user' && col!=='sensor_type'">
-                                <mat-label>{{col}}</mat-label>
-                                <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
-                            </mat-form-field>
-
-                            <!-- mqttUserId -->
-                            <mat-form-field *ngIf="col==='mqtt_user'">
-                                <mat-select [(ngModel)]="element['mqttUserId']">
-                                    <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id">
-                                        {{mqtt_user.username}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <!-- end -->
-
-                            <!-- sensortype -->
-                            <mat-form-field *ngIf="col==='sensor_type'">
-                                <mat-select [(ngModel)]="element['sensortypeId']">
-                                    <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id">
-                                        {{typee.type}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <!-- end -->
-
-                            <!-- slide type cell -->
-                            <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
-                                *ngIf="isBool(element[col])">
-                            </mat-slide-toggle>
-
-                        </ng-template>
                     </div>
                 </td>
             </div>
@@ -258,25 +174,271 @@
 
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+       
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>
 
-<div class="mt-5" *ngIf="selectedTableRecord">
+<div class="mt-5"  *ngIf="selectedTableRecord">
     <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
-            <mat-panel-title class="text-uppercase">
-                {{selectedTableRecord.board_name}}
+            <mat-panel-title>
+                Board Model
             </mat-panel-title>
             <mat-panel-description class="text-uppercase">
                 {{selectedTableRecord.board_model}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-  
+        <div *ngIf="!selectedTableRecord.isEdit">
+            Macaddress: {{ selectedTableRecord.mac_address}} <span style="margin-left:192px;"></span>
+            Client Id: {{ selectedTableRecord.client_id}} <br>
+            Static IP: {{ selectedTableRecord.static_ip}}<span style="margin-left:228px;"></span>
+            Active: {{ selectedTableRecord.active}} <br>
+            DNS 1: {{ selectedTableRecord.dns1}} <span style="margin-left:270px;"></span>
+            DNS 2: {{ selectedTableRecord.dns2}} <br>
+            Gateway: {{ selectedTableRecord.gateway}}<span style="margin-left:230px;"></span>
+            Subnet: {{ selectedTableRecord.subnet}} <br>
+            Serial Number: {{ selectedTableRecord.serial_number}} <span style="margin-left:180px;"></span>
+            Sleep Time: {{ selectedTableRecord.sleep_time}} <br>
+            Access Point Name: {{ selectedTableRecord.ap_name}} <span style="margin-left:216px;"></span>
+            Access Point IP: {{ selectedTableRecord.ap_ip}} <br>
+            Node Profile: {{ selectedTableRecord.node_profile}}<span style="margin-left:272px;"></span>
+            Host IP: {{ selectedTableRecord.host_ip}} <br>
+            Board Name: {{ selectedTableRecord.board_name}} <span style="margin-left:238px;"></span>
+            Board Model: {{ selectedTableRecord.board_model}} <br>
+            Sim Serial: {{ selectedTableRecord.sim_serial}} <span style="margin-left:167px;"></span>
+            Sim Msidm: {{ selectedTableRecord.sim_msidm}} <br>
+            Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<span style="margin-left:266px;"></span>
+            Sensor Type: {{ selectedTableRecord.sensor_type.type}} <br>
+            Flags: {{ selectedTableRecord.flags}} <br>
+            
+            <div *ngIf='authorize(["sensor:delete"])' style="margin-left: 22cm;  position:absolute; bottom: 0.48cm;">
+                <button mat-raised-button color="warn" (click)="delete_dialog(selectedTableRecord)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </div>
+
+            <div *ngIf='authorize(["sensor:update"])' style="margin-left: 19.5cm;">
+                <!-- delete -->
+                <button mat-raised-button color="primary"
+                    (click)="enable_save_all = true ;selectedTableRecord.isEdit = !selectedTableRecord.isEdit ; edit_sensor(selectedTableRecord)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+            </div>
+        </div>
+   
+
+        <div *ngIf="selectedTableRecord.isEdit" [formGroup]="form_updateSensor">
+
+            <div class=" full-name-inputs">
+                <!-- Mac_address -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Mac address</mat-label>
+                    <input matInput formControlName="mac_address" placeholder="Enter a mac_address" >
+                       
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- Client Id -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Client Id</mat-label>
+                    <input type="text" matInput formControlName="client_id" placeholder="Enter a Client Id">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="  full-name-inputs">
+                <!-- serial_number -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Serial Number</mat-label>
+                    <input type="text" matInput formControlName="serial_number" placeholder="Enter a Serial Number">
+                </mat-form-field>
+                <!-- end -->
+                <!-- sensor_type -->
+                <mat-form-field class="example-full-width" appearance="fill" >
+                    <mat-select placeholder="Sensor Type" formControlName="sensorTypeId">
+                        <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id"> {{typee.type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="row">
+                <!-- static_ip -->
+                <mat-form-field appearance="fill" style=" width:12.2cm ; margin-left:2.2cm;">
+                    <mat-label>Static Ip</mat-label>
+                    <input type="text" matInput formControlName="static_ip" placeholder="Enter a Static IP">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class=" full-name-inputs">
+                <!-- dns1 -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Dns1</mat-label>
+                    <input type="text" matInput formControlName="dns1" placeholder="Enter a Dns1">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- dns2 -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Dns2</mat-label>
+                    <input type="text" matInput formControlName="dns2" placeholder="Enter a Dns2">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class=" full-name-inputs">
+                <!-- gateway -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Gateway</mat-label>
+                    <input type="text" matInput formControlName="gateway" placeholder="Enter a Gateway">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- subnet -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Subnet</mat-label>
+                    <input type="text" matInput formControlName="subnet" placeholder="Enter a Subnet">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class=" full-name-inputs">
+                <!-- sleep_time -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>sleep Time</mat-label>
+                    <input type="number" matInput formControlName="sleep_time" placeholder="Enter a Sleep Time">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- host_ip -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Host IP</mat-label>
+                    <input type="text" matInput formControlName="host_ip" placeholder="Enter a Host Host">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+
+            <div class="  full-name-inputs">
+                <!-- sim_serial -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Sim Serial </mat-label>
+                    <input type="text" matInput formControlName="sim_serial" placeholder="Enter a Sim Serial">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- sim_msidm -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Sim Msidm </mat-label>
+                    <input type="text" matInput formControlName="sim_msidm" placeholder="Enter a Sim Msidm">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="  full-name-inputs">
+                <!-- Ota_password -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Ota Password</mat-label>
+                    <input type="password" matInput formControlName="ota_password" placeholder="Enter a Ota Password">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- flags -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Flags </mat-label>
+                    <input type="text" matInput formControlName="flags" placeholder="Enter a Flags">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="  full-name-inputs">
+                <!-- ap_name -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Access Point Name</mat-label>
+                    <input type="text" matInput formControlName="ap_name" placeholder="Enter a Access Point Name">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- ap_ip -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Access Point IP</mat-label>
+                    <input type="text" matInput formControlName="ap_ip" placeholder="Enter a Access Point IP">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="  full-name-inputs">
+                <!-- ap_password -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Access Point Password</mat-label>
+                    <input type="password" matInput formControlName="ap_password"
+                        placeholder="Enter a Access Point Password">
+                </mat-form-field>
+
+                <!-- node_profile -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Node Profile</mat-label>
+                    <input type="number" matInput formControlName="node_profile" placeholder="Enter a Node Profile">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="  full-name-inputs">
+                <!-- board_name -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Board Name</mat-label>
+                    <input type="text" matInput formControlName="board_name" placeholder="Enter a Board Name">
+                </mat-form-field>
+                <!-- end -->
+
+                <!-- board_model -->
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Board Model </mat-label>
+                    <input type="text" matInput formControlName="board_model" placeholder="Enter a Board Model">
+                </mat-form-field>
+                <!-- end -->
+            </div>
+
+            <div class="row">
+                <!-- mqttUserId -->
+                <mat-form-field class="example-full-width" appearance="fill" style=" width:12cm ; margin-left:2.5cm;">
+                    <mat-select placeholder="MQTT user name" formControlName="mqttuserId">
+                        <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id"> {{mqtt_user.username}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <!-- end -->
+            </div>
+            <div class="row" style="margin-left: 2cm;">
+                <!-- active -->
+                <mat-checkbox formControlName="active" class="example-margin">
+                  Active 
+                </mat-checkbox>
+                <!-- end -->
+              </div>
+                   <!-- save div -->
+            <div class="col-auto" style="margin-left: 10cm;">
+                <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
+                    <mat-icon>save</mat-icon>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+
+
+        </div>
+
     </mat-expansion-panel>
 </div>
+
+
 <!-- end -->
 
 <!-- table -->

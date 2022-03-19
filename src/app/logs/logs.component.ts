@@ -31,8 +31,8 @@ export class LogsComponent implements OnInit {
    authorized: boolean;
    // end
  
-  expression =true;
-   displayedColumns: string[] = ['operation', 'log_message', 'log_level', 'user_id','createdAt','updatedAt'];
+ 
+   displayedColumns: string[] = ['operation', 'log_message', 'log_level', 'user_id','createdAt'];
    dataSource = new MatTableDataSource<logElement>(ELEMENT_DATA);
    
  
