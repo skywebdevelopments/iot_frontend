@@ -51,12 +51,6 @@
     font-family: "Roboto Slab", sans-serif;
     border-radius: 2cm;
   }
-  .assigned {
-    background: #46c45f;
-}
-.avaliable {
-  background: #4952cf;
-}
 
 
   .cdk-drag-placeholder {
