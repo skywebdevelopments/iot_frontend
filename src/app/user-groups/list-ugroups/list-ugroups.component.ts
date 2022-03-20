@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListUserGroupsService } from '../../service/user/list-user-groups.service';
-//import { DeleteGroupService } from '../../service/group/delete-group.service';
+import { DeleteUgroupService } from '../../service/user/delete-ugroup.service';
 import { UpdateUgroupService } from '../../service/user/update-ugroup.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -15,10 +15,10 @@ import { ListRolesService } from '../../service/user/list-roles.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 export interface ugroupElement {
-  groupname: "text",
-  active: "boolean",
-  roles: "any",
-  rec_id: "text"
+  groupname: string,
+  active: boolean,
+  roles: any,
+  rec_id: string
 }
 
 const TABLE_SCHEMA = {
@@ -61,7 +61,7 @@ export class ListUgroupsComponent implements OnInit {
   constructor(
     private service_listUGroup: ListUserGroupsService,
 
-    //private service_deleteGroup: DeleteGroupService,
+    private service_deleteUGroup: DeleteUgroupService,
     private service_updateUgroup: UpdateUgroupService,
     private service_List_Roles: ListRolesService,
     private _snackBar: MatSnackBar,
@@ -111,6 +111,7 @@ export class ListUgroupsComponent implements OnInit {
     this.service_listUGroup.service_list_usergroups().then(res => {
       if (res['data']) {
         // add data to the table (data source)
+        console.log(res['data'])
         this.dataSource.data = res['data']
         // control the sort
         // TODO: switch to an input
@@ -137,7 +138,6 @@ export class ListUgroupsComponent implements OnInit {
 
 
   /// for Edit Modal
-
   //return all roles
   get_roles(Roles_group: any) {
     this.service_List_Roles.service_list_usergroups().then(res => {
@@ -203,24 +203,22 @@ export class ListUgroupsComponent implements OnInit {
 
   // delete group
   delete_ugroup() {
-
-    /*this.selection.selected.forEach(group => {
-      let formData = {
-        rec_id: group.rec_id
+    this.selection.selected.forEach(group => {
+      if (group.groupname == "public") {
+        this.openSnackBar("public group is forbidden to be deleted", 'Ok', 4000);
       }
-
-      this.service_deleteGroup.service_delete_group(formData).then(res => {
-        console.log(res);
-
-        this.openSnackBar(res['message'], '', 4000);
-
-        // recall refresh
-        this.get_group_list(true);
-
-      })
+      else {
+        let formData = {
+          rec_id: group.rec_id
+        }
+        this.service_deleteUGroup.service_delete_ugroup(formData).then(res => {
+          this.openSnackBar(res['message'], 'OK', 4000);
+          this.get_ugroup_list(true);
+        })
+      }
     })
-    // !important: clear all the current selections after delete requests
-    this.selection.clear();*/
+    //!important: clear all the current selections after delete requests
+    this.selection.clear();
   }
 
   openSnackBar(message: string, action: string, interval: number) {
@@ -234,17 +232,15 @@ export class ListUgroupsComponent implements OnInit {
 
   // delete group
   delete_ugroup_onerec(e: any) {
-
-    /*if (e['isDelete'] !== undefined && e['isDelete'] == true) {
+    if (e['isDelete'] !== undefined && e['isDelete'] == true) {
       // 1. delete the flag
       delete e['isDelete']
-      this.service_deleteGroup.service_delete_group(e).then(res => {
-        console.log(res);
-        this.openSnackBar(res['message'], '', 4000);
+      this.service_deleteUGroup.service_delete_ugroup(e).then(res => {
+        this.openSnackBar(res['message'], 'Ok', 4000);
         // recall refresh
-        this.get_group_list(true);
+        this.get_ugroup_list(true);
       })
-    }*/
+    }
   }
 
   delete_dialog(e: any) {

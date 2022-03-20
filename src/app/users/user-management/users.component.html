@@ -1,20 +1,31 @@
 <div class="row">
     <div class="col-auto  w-100">
+        <h1 style="font-weight: bold; margin-left: 0.3cm;">User Accounts</h1>
         <!-- end -->
         <div class="container-fluid mt-1">
             <!-- table control  -->
             <div class="row justify-content-end">
+                <div class="col-auto">
                     <!-- save div -->
                     <div class="col-auto">
                         <button *ngIf="enable_save_all;" (click)="submit_all()" mat-raised-button color="primary">
                             <mat-icon>save</mat-icon>
                             <span>Save Changes</span>
                         </button>
-                        <button (click)=" get_user_list(true)" *ngIf="!enable_save_all;" mat-raised-button color="primary">
-                            <mat-icon>refresh</mat-icon>
-                            <span>refresh</span>
-                        </button>
                     </div>
+                    <!-- menu div -->
+                    <div class="col-auto">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_horizontal</mat-icon>
+                        </button>
+                        <mat-menu class="p-2" #menu="matMenu">
+                            <button (click)= "get_user_list(true)" mat-menu-item>
+                                <mat-icon>refresh</mat-icon>
+                                <span>refresh</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
                 <!-- filter control -->
                 <mat-form-field appearance="standard" class="w-100">
                     <mat-label>Filter</mat-label>
@@ -40,13 +51,23 @@
                                     <!-- edit button -->
                                     <div class="btn-edit" *ngSwitchCase="'isEdit'">
                                         <div *ngIf='authorize(["user:update"])'>
-                                            <!-- edit -->
-                                            <button  *ngIf="!enable_save_all;" (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
-                                                mat-icon-button 
-                                                aria-label="Example icon-button with a heart icon">
-                                                <mat-icon>edit</mat-icon>
+                                            <button mat-icon-button [matMenuTriggerFor]="menuu"
+                                                aria-label="Example icon-button with a menu">
+                                                <mat-icon>more_vert</mat-icon>
                                             </button>
                                         </div>
+                                        <mat-menu class="p-2" #menuu="matMenu">
+                                            <div *ngIf='authorize(["user:update"])'>
+                                                <!-- edit -->
+
+                                                <button *ngIf="!enable_save_all;"
+                                                    (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
+                                                    mat-menu-item>
+                                                    <mat-icon>edit</mat-icon>
+                                                    <span>edit {{element.username}}</span>
+                                                </button>
+                                            </div>
+                                        </mat-menu>
                                     </div>
                                     <!-- row: view mode -->
                                     <span *ngSwitchDefault>

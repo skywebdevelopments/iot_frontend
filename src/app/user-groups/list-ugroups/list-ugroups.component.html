@@ -99,7 +99,7 @@
     <!--End-->
 
     <div class="col-auto  w-100">
-
+        <h1 style="font-weight: bold; margin-left: 0.3cm;">List User Groups</h1>
         <div class="container-fluid mt-1">
             <!-- table control  -->
             <!-- filter control -->
@@ -174,7 +174,7 @@
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["ugroup:delete"])'>
+                                                <div *ngIf='authorize(["ugroup:delete"]) && element.groupname!=="public"'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.groupname}}</span>
