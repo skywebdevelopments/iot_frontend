@@ -140,8 +140,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     GroupSensorTreeComponent,
 
     ListSensorTypeComponent,
-<<<<<<< HEAD
-=======
    
 
     MqttUserComponent,
@@ -150,7 +148,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     UsersComponent,
 
     UserProfileComponent,
->>>>>>> cf68507af6d6b9263bc429a8de7a1f58910b39cc
 
     TestcomComponent,
 
