@@ -80,12 +80,12 @@
     width:500px !important;
   }
 
-  
-.modal-header {
-  background-color: #512DA8; }
+  ::ng-deep .cdk-overlay-container {
+    z-index: 10000 !important;
+  }
+
   .modal-header 
   .modal-title {
-    color: floralwhite; 
     margin-top: 0.2cm;
   }
   .modal-header 

@@ -76,6 +76,7 @@ export class UsersComponent implements OnInit {
   get_user_list(showSnackBar: boolean) {
     this.service_listUser.service_list_users().then(res => {
       if (res['data']) {
+        //console.log(res['data'])
         // add data to the table (data source)
         this.dataSource.data = res['data']
         // control the sort
