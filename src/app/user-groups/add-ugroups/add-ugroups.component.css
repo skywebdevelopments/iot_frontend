@@ -65,14 +65,9 @@
   }
 
   
-.modal-header {
-  background-color: #512DA8; }
+
   .modal-header 
   .modal-title {
-    color: floralwhite; 
     margin-top: 0.2cm;
   }
-  .modal-header 
-  .close {
-    color: floralwhite; }
 
