@@ -12,8 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
-
+import { ListGroupService } from '../../../service/group/list-group.service';
 import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
+import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
 
 export interface sensorElement {
   mac_address: "text",
@@ -56,11 +57,15 @@ export class ListSensorComponent implements OnInit {
   // form controls.
   enable_save_all = false
   form_updateSensor: any;
+  formData = {}
+  formDataa :any
   replace_with_input = false;
   authorized = false;
   mqtt: any;
+  group: any;
   sensor_typee: any;
   selectedTableRecord: any;
+  selected = '';
   // end
   displayedColumns: string[] =
     ['select',
@@ -70,6 +75,7 @@ export class ListSensorComponent implements OnInit {
       'isEdit',
       'isDelete'];
 
+ 
   dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensorElement>(true, []);
 
@@ -89,9 +95,11 @@ export class ListSensorComponent implements OnInit {
     private service_authorize: AuthorizeRoleService,
     private service_ListMqtt_User: ListMqqtUserService,
     private service_sensor_type: SensorTypeService,
+    private service_mapSensor: MapGroupSensorService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private service_listGroup: ListGroupService,
   ) { }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -349,11 +357,36 @@ export class ListSensorComponent implements OnInit {
     this.selectedTableRecord = row;
   }
 
+  // get group list
+  get_group_list() {
+    var group = []
+    this.service_listGroup.service_list_group().then(res => {
+      res['data'].forEach(function (group_name) {
+        group.push(group_name)
+      });
+    });
+    return group;
+  };
+
+  assign_sensors() {
+    
+    this.selection.selected.forEach(Sensor_data => {
+      this.formData["sensorId"] = Sensor_data['id'];
+      this.formData["rec_id"] = this.selected
+      this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
+        this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);
+      }).catch((err) => {
+        this.openSnackBar(err, "Ok", 2000);
+      })
+    })
+  }
+
   ngOnInit(): void {
     // get the data table on init.
     this.get_sensor_list(false);
     this.mqtt = this.Get_mqqtuser();
     this.sensor_typee = this.Get_sensorType();
+    this.group = this.get_group_list();
     // end
   }
 

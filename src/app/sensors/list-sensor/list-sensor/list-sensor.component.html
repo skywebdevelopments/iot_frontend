@@ -39,6 +39,46 @@
     </div>
 
 
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h3 class="modal-title" id="exampleModalLabel">Assign sensor to group</h3>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                 <!-- delete confirmation -->
+                 <div class="m-5">
+                     <div class="row">
+                         <div class="col-auto">
+                             <h3>Selected Sensors</h3>
+                             <ol>
+                                 <li *ngFor="let item of selection.selected">
+                                     {{item.board_name}}
+                                 </li>
+                             </ol>
+                             <mat-form-field appearance="fill">
+                                <mat-label>Group Name</mat-label>
+                                <mat-select  [(value)]="selected">
+                                  <mat-option *ngFor="let group_name of group" [value]="group_name.rec_id">{{group_name.name}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button type="button" (click)="assign_sensors()" data-dismiss="modal" class="btn btn-primary">Assign</button>
+             </div>
+         </div>
+     </div>
+ </div>
+
 
     <!-- end -->
     <div class="container-fluid mt-1">
@@ -78,7 +118,10 @@
 
                     </div>
 
-                    <!-- save -->
+                    <button data-toggle="modal" data-target="#exampleModall"  *ngIf="selection.hasValue()"  mat-menu-item>
+                        <mat-icon>playlist_add_check</mat-icon>
+                        <span>Assign sensor</span>
+                    </button>
 
 
                 </mat-menu>
@@ -174,7 +217,6 @@
 
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-       
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 

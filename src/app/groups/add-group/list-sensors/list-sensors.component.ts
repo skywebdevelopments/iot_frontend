@@ -182,6 +182,7 @@ export class ListSensorsComponent implements OnInit {
     this.selection.selected.forEach(Sensor_data => {
       this.formData["sensorId"] = Sensor_data['id'];
       this.formData["rec_id"] = this.id;
+      console.log(this.formData)
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
         this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);
       }).catch((err) => {
@@ -199,6 +200,7 @@ export class ListSensorsComponent implements OnInit {
    // this.get_sensor_list(false);
 
     // end
+
   }
 
 }

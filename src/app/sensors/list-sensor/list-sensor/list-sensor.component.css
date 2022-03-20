@@ -21,4 +21,6 @@ th {
   .example-full-width{
     margin-left: 2cm;
   }
-  
+  ::ng-deep .cdk-overlay-container {
+    z-index: 10000 !important;
+  }

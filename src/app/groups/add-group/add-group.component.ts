@@ -81,6 +81,7 @@ export class AddGroupComponent implements OnInit {
   ngOnInit(): void {
     // init_form on page load
     this.init_form();
+   
   }
 
 }
