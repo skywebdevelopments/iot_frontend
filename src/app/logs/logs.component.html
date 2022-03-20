@@ -1,6 +1,6 @@
 <div class="container-fluid mt-1">
     <!-- table control  -->
-<h1 style="font-weight: bold;">Logs</h1>
+    <h1 style="font-weight: bold;">Logs</h1>
     <div class="input-group rounded" style="width: 9cm; margin-left: 16.2cm; position:absolute;">
         <input type="search" (keyup)="applyFilter($event)" class="form-control rounded" placeholder="Search"
             aria-label="Search" aria-describedby="search-addon" />
@@ -31,24 +31,45 @@
             <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
                 <!-- table header -->
                 <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                    <span class="text-capitalize">
+                    <span class="text-capitalize" *ngIf="col !== 'isEdit' ">
                         {{col.replace('_',' ')}}
                     </span>
                 </th>
                 <!-- table cell -->
                 <td mat-cell *matCellDef="let element">
-                    <span>
-                        <label for="" *ngIf=" col!=='createdAt' && col!=='updatedAt' ">
-                            {{element[col] }}
-                        </label>
-                        <label *ngIf="col==='createdAt'">
-                            {{element[col] |date :'short' }}
-                        </label>
-                        <label *ngIf="col==='updatedAt'">
-                            {{element[col] |date :'short' }}
-                        </label>
 
-                    </span>
+                    <div [ngSwitch]="dataSchema[col]">
+
+                        <!-- edit button -->
+                        <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                            <button mat-icon-button [matMenuTriggerFor]="menuu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+
+
+                            <mat-menu class="p-2" #menuu="matMenu">
+                                <!-- details -->
+
+                                <div>
+                                    <button (click)="selectTableRow(element); get_log_list_parentRecid(selectedTableRecord.parent_rec_id)" mat-menu-item>
+                                        <mat-icon>list</mat-icon>
+                                        <span>View {{element.user_email}}</span>
+                                    </button>
+                                </div>
+
+                            </mat-menu>
+                        </div>
+
+                        <span>
+                            <label for="" *ngIf=" col!=='createdAt' && col!=='updatedAt' ">
+                                {{element[col] }}
+                            </label>
+                            <label *ngIf="col==='createdAt'">
+                                {{element[col] |date :'short' }}
+                            </label>
+                        </span>
+                    </div>
                 </td>
             </ng-container>
 
@@ -66,7 +87,26 @@
 
 </div>
 
+<div class="mt-5" *ngIf="selectedTableRecord">
+    <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Parent Rec Id
+            </mat-panel-title>
+            <mat-panel-description class="text-uppercase">
+                {{selectedTableRecord.parent_rec_id}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngFor="let log of logss" >
+            Log Details <br> <br>
+            {{ log.operation}}- 
+            {{ log.log_level}}-
+            {{ log.log_message}}-
+            {{ log.user_email}}-
+            {{ log.child_rec_id}}-
+            {{ log.createdAt}}
+            <br><br>
+        </div>
+    </mat-expansion-panel>
+</div>
 
-
-
-<!-- Button trigger modal -->
