@@ -44,16 +44,28 @@ export class UserProfileComponent implements OnInit {
       let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
       let decoded_user = jwt_decode(token)
       this.service_listUser.service_list_user_by_id(decoded_user).then(res => {
-        this.username = new FormControl(res['username'], [Validators.required, Validators.minLength(4)]);
+        this.username = new FormControl({value: res['username'], disabled: true}, [Validators.required, Validators.minLength(4)]);
         this.email = new FormControl({value: res['email'], disabled: true});
         this.role = new FormControl({value: res['u_group']['groupname'], disabled: true});
         this.password_user=res['password']
         this.password = new FormControl("",[Validators.required]);
         this.newpassword = new FormControl("",[ Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]);
         this.id =res['id']
-
       })
     }
+  }
+  update(){
+    let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
+    let decoded_user = jwt_decode(token)
+    this.service_listUser.service_list_user_by_id(decoded_user).then(res => {
+        this.username = new FormControl({value: res['username']}, [Validators.required, Validators.minLength(4)]);
+        this.email = new FormControl({value: res['email']});
+        this.role = new FormControl({value: res['u_group']['groupname']});
+        this.password_user=res['password']
+        this.password = new FormControl("",[Validators.required]);
+        this.newpassword = new FormControl("",[ Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]);
+        this.id =res['id']
+    })
   }
 
   delete_dialog() {
@@ -106,7 +118,7 @@ openSnackBar(message: string, action: string, interval: number) {
       if (this.newpassword.hasError('pattern'))
       return 'Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.';
   }
-  
+
   submit_all() {
     var get_user;
     if(this.newpassword.value.length!==0){
