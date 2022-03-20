@@ -33,7 +33,7 @@
                         <div class="container mt-4">
                             <mat-form-field class="example-full-width">
                                 <label>Username</label>
-                                <input matInput disabled="true" [value]="username">
+                                <input matInput disabled="true" [value]="name">
                             </mat-form-field>
                         </div>
                         <!--End username Field-->
@@ -51,6 +51,7 @@
                             <mat-form-field class="example-full-width">
                                 <label>Username</label>
                                 <input type="text" matInput formControlName="name">
+                                <mat-error *ngIf="form_update.controls['name'].invalid">{{getErrorMessagename()}}</mat-error>
                             </mat-form-field>
                         </div>
                         <!-- end -->
@@ -70,6 +71,7 @@
                             <mat-form-field class="example-full-width">
                                 <label>New Password</label>
                                 <input type="password" matInput formControlName="newpassword">
+                                <mat-error *ngIf="form_update.controls['newpassword'].invalid">{{getErrorMessagenewpass()}}</mat-error>
                             </mat-form-field>
                         </div>
                         <!-- end -->
