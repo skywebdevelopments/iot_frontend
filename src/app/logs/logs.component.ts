@@ -13,7 +13,7 @@ export interface logElement {
   operation: "text",
   log_Message: "text",
   log_Level: "text",
-  user_id:"integer",
+  user_email:"text",
   createdAt:"text",
   updatedAt:"text"
 }
@@ -32,7 +32,7 @@ export class LogsComponent implements OnInit {
    // end
  
  
-   displayedColumns: string[] = ['operation', 'log_message', 'log_level', 'user_id','createdAt'];
+   displayedColumns: string[] = ['operation', 'log_message', 'log_level', 'user_email','createdAt'];
    dataSource = new MatTableDataSource<logElement>(ELEMENT_DATA);
    
  
