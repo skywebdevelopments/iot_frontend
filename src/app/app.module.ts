@@ -96,6 +96,7 @@ import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.compo
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
 
 
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 @NgModule({
@@ -139,6 +140,8 @@ import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.co
     GroupSensorTreeComponent,
 
     ListSensorTypeComponent,
+<<<<<<< HEAD
+=======
    
 
     MqttUserComponent,
@@ -147,6 +150,7 @@ import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.co
     UsersComponent,
 
     UserProfileComponent,
+>>>>>>> cf68507af6d6b9263bc429a8de7a1f58910b39cc
 
     TestcomComponent,
 
@@ -223,8 +227,7 @@ import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.co
     NgbModule,
     AppRoutingModule,
     LayoutModule,
-
-
+    GoogleChartsModule
   ],
   providers: [EncrDecrService],
   bootstrap: [AppComponent]
