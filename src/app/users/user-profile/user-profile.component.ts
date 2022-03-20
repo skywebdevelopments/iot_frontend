@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router'
 import { UpdateUserService } from '../../../app/service/user/update-user.service';
 import { SHA256, enc } from "crypto-js";
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service'
 
@@ -19,15 +19,21 @@ import { CookieService } from 'ngx-cookie-service'
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  email = new FormControl("");
-  role = new FormControl("");
-  username = new FormControl("");
-  password = new FormControl("");
-  password_user:any;
-  newpassword = new FormControl("");
+
+  email: any;
+  role: any;
+  username = "";
+  password: any;
+  password_user: any;
+  newpassword: any;
   id: any;
+  form_update: FormGroup;
+  form_delete: FormGroup;
   password_validation = false;
-  constructor(private service_enc_dec: EncrDecrService,
+  decoded_user: any;
+  constructor(
+    private formBuilder: FormBuilder,
+    private service_enc_dec: EncrDecrService,
     private service_listUser: ListUsersService,
     private service_deleteUser: DeleteUserService,
     private service_updateUser: UpdateUserService,
@@ -37,39 +43,32 @@ export class UserProfileComponent implements OnInit {
     public cookieService: CookieService) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === null || !localStorage.getItem('token')) {
-      alert("You are not authorized");
-    }
-    else {
-      let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
-      let decoded_user = jwt_decode(token)
-      this.service_listUser.service_list_user_by_id(decoded_user).then(res => {
-        this.username = new FormControl({value: res['username'], disabled: true}, [Validators.required, Validators.minLength(4)]);
-        this.email = new FormControl({value: res['email'], disabled: true});
-        this.role = new FormControl({value: res['u_group']['groupname'], disabled: true});
-        this.password_user=res['password']
-        this.password = new FormControl("",[Validators.required]);
-        this.newpassword = new FormControl("",[ Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]);
-        this.id =res['id']
-      })
-    }
-  }
-  update(){
+    //form edit 
+    this.form_update = this.formBuilder.group({
+      name: ["", Validators.compose([Validators.required, Validators.minLength(4)])],
+      password: ["", Validators.compose([Validators.required])],
+      newpassword: ["", Validators.compose([Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')])]
+    })
+    //end
+     //form delete 
+     this.form_delete = this.formBuilder.group({
+      password: ["", Validators.compose([Validators.required])]
+    })
+    //end
     let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
-    let decoded_user = jwt_decode(token)
-    this.service_listUser.service_list_user_by_id(decoded_user).then(res => {
-        this.username = new FormControl({value: res['username']}, [Validators.required, Validators.minLength(4)]);
-        this.email = new FormControl({value: res['email']});
-        this.role = new FormControl({value: res['u_group']['groupname']});
-        this.password_user=res['password']
-        this.password = new FormControl("",[Validators.required]);
-        this.newpassword = new FormControl("",[ Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]);
-        this.id =res['id']
+    this.decoded_user = jwt_decode(token)
+    this.service_listUser.service_list_user_by_id(this.decoded_user).then(res => {
+      this.username = res['username']
+      this.email = res['email']
+      this.role = res['u_group']['groupname']
+      this.id = res['id']
+      this.password_user = res['password']
+      this.form_update.controls['name'].setValue(this.username)
     })
   }
 
   delete_dialog() {
-    var get_user={"id":this.id}
+    var get_user = { "id": this.id }
     let dialogRef = this.dialog.open(DeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'confirm') {
@@ -82,14 +81,14 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
-//snackbar
-openSnackBar(message: string, action: string, interval: number) {
-  this._snackBar.open(message, action);
+  //snackbar
+  openSnackBar(message: string, action: string, interval: number) {
+    this._snackBar.open(message, action);
 
-  setTimeout(() => {
-    this._snackBar.dismiss()
-  }, interval);
-}
+    setTimeout(() => {
+      this._snackBar.dismiss()
+    }, interval);
+  }
 
   onChangepassword(password: string) {
     const hashedPass = SHA256(password).toString(enc.Base64);
@@ -99,7 +98,7 @@ openSnackBar(message: string, action: string, interval: number) {
       this.password_validation = false;
   }
 
-  getErrorMessagename() {
+  /*getErrorMessagename() {
     if (this.username.hasError('required')) {
       return 'You must enter a username.';
     }
@@ -115,17 +114,17 @@ openSnackBar(message: string, action: string, interval: number) {
   }
 
   getErrorMessagenewpass() {
-      if (this.newpassword.hasError('pattern'))
+    if (this.newpassword.hasError('pattern'))
       return 'Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.';
-  }
+  }*/
 
   submit_all() {
     var get_user;
-    if(this.newpassword.value.length!==0){
-    get_user={"id":this.id,"username":this.username.value,"password":this.newpassword.value}
+    if (this.form_update.controls['newpassword'].value.length !== 0) {
+      get_user = { "id": this.id, "username": this.form_update.controls['name'].value, "password": this.form_update.controls['newpassword'].value }
     }
-    else{
-    get_user={"id":this.id,"username":this.username.value,"password":this.password.value}
+    else {
+      get_user = { "id": this.id, "username": this.form_update.controls['name'].value, "password": this.form_update.controls['password'].value }
     }
     this.service_updateUser.service_update_user(get_user).then(res => {
       this.openSnackBar(`Saved successfully`, 'Ok', 2000)
