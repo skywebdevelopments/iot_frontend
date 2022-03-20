@@ -96,8 +96,6 @@ import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.compo
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
 
 
-import { GoogleChartsModule } from 'angular-google-charts';
-
 
 @NgModule({
   declarations: [
@@ -140,7 +138,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     GroupSensorTreeComponent,
 
     ListSensorTypeComponent,
-   
+
 
     MqttUserComponent,
 
@@ -224,7 +222,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     NgbModule,
     AppRoutingModule,
     LayoutModule,
-    GoogleChartsModule
   ],
   providers: [EncrDecrService],
   bootstrap: [AppComponent]
