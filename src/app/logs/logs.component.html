@@ -91,14 +91,14 @@
     <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Parent Rec Id
+                Parent Log Id
             </mat-panel-title>
             <mat-panel-description class="text-uppercase">
                 {{selectedTableRecord.parent_rec_id}}
             </mat-panel-description>
         </mat-expansion-panel-header>
         <div *ngFor="let log of logss" >
-            Log Details <br> <br>
+          Child Log Details <br> <br>
             {{ log.operation}}- 
             {{ log.log_level}}-
             {{ log.log_message}}-
