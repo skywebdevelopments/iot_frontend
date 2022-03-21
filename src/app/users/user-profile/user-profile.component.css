@@ -9,9 +9,9 @@
   .mat-card-title{
       margin-top: 0.35cm;
   }
-  .button-edit{
-      margin-left:9cm;
-  }
+ form{
+   margin-left: 2cm;
+ }
   .btn{
       max-width:6cm;
   }

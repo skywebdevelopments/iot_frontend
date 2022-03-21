@@ -155,7 +155,7 @@ export class ListUgroupsComponent implements OnInit {
       this.assignedRoles.push(item)
     this.active = new FormControl(ugroup.active);
     this.get_roles(this.assignedRoles)
-    ugroup.isEdit = !ugroup.isEdit
+    //ugroup.isEdit = !ugroup.isEdit
     this.rec_id = ugroup.rec_id;
   }
   getErrorMessageGroup() {

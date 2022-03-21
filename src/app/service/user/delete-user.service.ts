@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient ,HttpHeaders} from '@angular/common/http'
 import { environment } from '../../../environments/environment.prod'
+import { CookieService } from 'ngx-cookie-service'
+
 @Injectable({
   providedIn: 'root'
 })
 export class DeleteUserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public cookieService: CookieService) { }
   service_delete_user(formData: any) {
 
     let promise = new Promise((resolve, reject) => {
@@ -20,8 +22,9 @@ export class DeleteUserService {
         .toPromise()
         .then(
           res => { // Success
-
             resolve(res);
+            localStorage.removeItem("token");
+            this.cookieService.deleteAll();
           }
         ).catch((err)=> {
           reject(err);
