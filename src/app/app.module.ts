@@ -75,6 +75,8 @@ import { IndexComponent } from './index/index.component';
 import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
+import { NgxContentLoadingModule } from 'ngx-content-loading';
+
 
 
 import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
@@ -94,6 +96,7 @@ import { DragComponent } from './test/drag/drag.component';
 import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.component';
 import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
+import { SensorProvisionComponent } from './sensor-provision/sensor-provision.component';
 
 
 
@@ -165,6 +168,7 @@ import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.co
 
     AddUgroupsComponent,
     ListUgroupsComponent,
+    SensorProvisionComponent,
 
   ],
   imports: [
@@ -198,6 +202,7 @@ import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.co
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,
+    NgxContentLoadingModule,
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,

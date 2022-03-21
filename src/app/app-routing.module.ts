@@ -1,3 +1,4 @@
+import { SensorProvisionComponent } from './sensor-provision/sensor-provision.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -42,7 +43,8 @@ const routes: Routes = [
   { path: "addUgroup", component: AddUgroupsComponent },
   { path: "listUgroup", component: ListUgroupsComponent },
   { path: "test123", component: TestcomComponent },
-  { path: "sensor-group-tree", component: GroupSensorTreeComponent }
+  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
+  {path: "provision", component: SensorProvisionComponent}
 ]
 // const routes: Routes = [
 //   { path: "Login", component: LoginComponent, outlet: "first" },

@@ -1,0 +1,65 @@
+<div class="content container-fluid mt-1">
+  <mat-card class="example-card">
+    <mat-card-title>Hardware Provisioning</mat-card-title>
+    <br>
+    <mat-divider inset></mat-divider>
+    <br>
+    <button mat-flat-button color="primary"><mat-icon class="example-tab-icon">refresh</mat-icon>Refresh</button>
+    <br>
+    <mat-card-content>
+      <h2>Searching for a new hardware..</h2>
+      <div id="box">
+        <ngx-content-loading width="250" height="90">
+          <svg:g ngx-list-preset></svg:g>
+        </ngx-content-loading>
+      </div>
+      <div *ngIf="hidden">
+        <mat-card>
+          <mat-card-title>LightBoard</mat-card-title>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-card-content>
+                <div>
+                  <p>{{data.mac_address}}</p>
+                  <p>{{data.client_id}}</p>
+                  <p>{{data.active}}</p>
+                  <p>{{data.sensor_type}}</p>
+                  <p>{{data.serial_number}}</p>
+                  <p>{{data.static_ip}}</p>
+                  <p>{{data.dns1}}</p>
+                  <p>{{data.dns2}}</p>
+                  <p>{{data.gateway}}</p>
+                  <p>{{data.subnet}}</p>
+                  <p>{{data.sleep_time}}</p>
+                  <p>{{data.sim_serial}}</p>
+                  <p>{{data.ota_password}}</p>
+                  <p>{{data.sim_msidn}}</p>
+                  <p>{{data.ap_name}}</p>
+                  <p>{{data.ap_ip}}</p>
+                  <p>{{data.ap_password}}</p>
+                  <p>{{data.node_profile}}</p>
+                  <p>{{data.mqttUserId}}</p>
+                  <p>{{data.board_name}}</p>
+                  <p>{{data.board_model}}</p>
+                  <p>{{data.flags}}</p>
+                </div>
+              </mat-card-content>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+              <mat-card-actions align="end">
+                <div class="row">
+                  <button mat-raised-button color="primary" class="d-flex text-align-center align-items-center" (click)="trust()">Trust</button>
+                  <button mat-raised-button color="warn" class="d-flex text-align-center align-items-center">Reject</button>
+                </div>
+              </mat-card-actions>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card-content>
+    
+    
+  </mat-card>
+
+</div>
+
