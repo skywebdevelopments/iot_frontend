@@ -52,7 +52,9 @@
                                 <!-- details -->
 
                                 <div>
-                                    <button (click)="selectTableRow(element); get_log_list_parentRecid(selectedTableRecord.parent_rec_id)" mat-menu-item>
+                                    <button
+                                        (click)="selectTableRow(element); get_log_list_parentRecid(selectedTableRecord.parent_rec_id)"
+                                        mat-menu-item>
                                         <mat-icon>list</mat-icon>
                                         <span>View {{element.user_email}}</span>
                                     </button>
@@ -97,16 +99,16 @@
                 {{selectedTableRecord.parent_rec_id}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div *ngFor="let log of logss" >
-          Child Log Details <br> <br>
-            {{ log.operation}}- 
-            {{ log.log_level}}-
-            {{ log.log_message}}-
-            {{ log.user_email}}-
-            {{ log.child_rec_id}}-
-            {{ log.createdAt}}
+        <div *ngFor="let log of logss">
+            Child Log Details <br> <br><span style="color:green ;">
+            [ {{ log.createdAt}} ]</span>
+            [ {{ log.log_level}} ] - <span style="color:blue ;">
+            {{ log.child_rec_id}}</span> -
+            {{ log.operation}} -
+            {{ log.log_message}} -
+            {{ log.user_email}} 
+           
             <br><br>
         </div>
     </mat-expansion-panel>
 </div>
-
