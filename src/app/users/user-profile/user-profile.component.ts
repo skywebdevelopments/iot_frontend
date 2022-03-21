@@ -11,7 +11,6 @@ import { UpdateUserService } from '../../../app/service/user/update-user.service
 import { SHA256, enc } from "crypto-js";
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'app-user-profile',
@@ -22,7 +21,7 @@ export class UserProfileComponent implements OnInit {
 
   email: any;
   role: any;
-  username = "";
+  name :any;
   password: any;
   password_user: any;
   newpassword: any;
@@ -39,8 +38,7 @@ export class UserProfileComponent implements OnInit {
     private service_updateUser: UpdateUserService,
     private router: Router,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar,
-    public cookieService: CookieService) { }
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     //form edit 
@@ -58,12 +56,12 @@ export class UserProfileComponent implements OnInit {
     let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
     this.decoded_user = jwt_decode(token)
     this.service_listUser.service_list_user_by_id(this.decoded_user).then(res => {
-      this.username = res['username']
+      this.name = res['username']
       this.email = res['email']
       this.role = res['u_group']['groupname']
       this.id = res['id']
       this.password_user = res['password']
-      this.form_update.controls['name'].setValue(this.username)
+      this.form_update.controls['name'].setValue(this.name)
     })
   }
 
@@ -73,8 +71,6 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'confirm') {
         this.service_deleteUser.service_delete_user(get_user).then(() => {
-          localStorage.removeItem("token");
-          this.cookieService.deleteAll();
           this.router.navigateByUrl('Login')
         })
       }
@@ -98,25 +94,19 @@ export class UserProfileComponent implements OnInit {
       this.password_validation = false;
   }
 
-  /*getErrorMessagename() {
-    if (this.username.hasError('required')) {
+  getErrorMessagename() {
+    if ( this.form_update.controls['name'].hasError('required')) {
       return 'You must enter a username.';
     }
-    if (this.username.hasError('minlength')) {
+    if ( this.form_update.controls['name'].hasError('minlength')) {
       return 'Username must be at least 4 characters long.';
     }
   }
 
-  getErrorMessagepass() {
-    if (this.password.hasError('required')) {
-      return 'You must enter a password.';
-    }
-  }
-
   getErrorMessagenewpass() {
-    if (this.newpassword.hasError('pattern'))
+    if ( this.form_update.controls['newpassword'].hasError('pattern'))
       return 'Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.';
-  }*/
+  }
 
   submit_all() {
     var get_user;
