@@ -12,7 +12,7 @@ export class UpdateSensorTypeService {
   service_update_sensor_type(formData: any) {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/sensortype/update`;
+      let apiURL = `${environment.backend.api_url}/api/v1/entity/update`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

@@ -12,7 +12,7 @@ export class DeleteSensorService {
   service_delete_sensor(formData: any) {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/sensor/delete`;
+      let apiURL = `${environment.backend.api_url}/api/v1/node/delete`;
       var headers = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

@@ -1,5 +1,5 @@
 <div class="container mt-6 w-80">
-  <h1 style="font-weight: bold; margin-left: 0.3cm;">Add Sensor</h1>
+  <h1 style="font-weight: bold; margin-left: 0.3cm;">Add Node</h1>
   <div style="display: flex;justify-content: flex-end;">
     <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
     <button (click)="fileInput.click()" mat-raised-button color="primary">
@@ -28,6 +28,13 @@
             <input type="text" matInput formControlName="client_id" placeholder="Enter a Client Id">
           </mat-form-field>
           <!-- end -->
+
+            <!-- Friendly name -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Friendly name</mat-label>
+              <input type="text" matInput formControlName="friendly_name" placeholder="Enter a Friendly name">
+            </mat-form-field>
+            <!-- end -->
         </div>
 
         <div class="row  full-name-inputs">
@@ -39,7 +46,7 @@
           <!-- end -->
           <!-- sensor_type -->
           <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
-            <mat-select placeholder="Sensor Type" formControlName="sensortypeId">
+            <mat-select placeholder="Entity" formControlName="entityId">
               <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id"> {{typee.type}}</mat-option>
             </mat-select>
           </mat-form-field>
