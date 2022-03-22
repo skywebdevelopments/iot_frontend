@@ -9,12 +9,14 @@
   .mat-card-title{
       margin-top: 0.35cm;
   }
- form{
-   margin-left: 2cm;
- }
+
   .btn{
       max-width:6cm;
   }
   .mat-form-field{
-    width:400px ;
+    width:320px ;
+  }
+  .mat-tab-group{
+    width: 9.2cm;
+    margin-left: 2cm;
   }

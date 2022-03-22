@@ -59,11 +59,9 @@
                         <div class="container mt-4">
                             <mat-form-field class="example-full-width">
                                 <label>Current Password</label>
-                                <input type="password" matInput formControlName="password"
-                                    (change)="onChangepassword($event.target.value)">
+                                <input type="password" matInput formControlName="password">
+                                <mat-error *ngIf="form_update.controls['password'].invalid">{{getErrorMessagepass()}}</mat-error>
                             </mat-form-field>
-                            <mat-error *ngIf="password_validation===false && !form_update.invalid">You entered inncorrect
-                                password.</mat-error>
                         </div>
                         <!-- end -->
                         <!-- new password field-->
@@ -75,8 +73,8 @@
                             </mat-form-field>
                         </div>
                         <!-- end -->
-                        <button [disabled]="!password_validation||form_update.invalid" (click)="submit_all()"
-                            class=" btn-success btn btn-sm" mat-raised-button style="margin-left: 9.5cm;">
+                        <button [disabled]="form_update.invalid" (click)="submit_all()"
+                            class=" btn-success btn btn-sm" mat-raised-button style="margin-left: 7.2cm;">
                             <span>Save</span>
                         </button>
                     </form>
