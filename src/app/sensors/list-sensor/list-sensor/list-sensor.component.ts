@@ -18,6 +18,7 @@ import { MapGroupSensorService } from '../../../service/group/map-group-sensor.s
 
 export interface sensorElement {
   mac_address: "text",
+  friendly_name: "text",
   client_id: "text",
   active: "boolean",
   static_ip: "text",
@@ -37,7 +38,7 @@ export interface sensorElement {
   sim_msidm: "text",
   flags: "text",
   mqttuserId: "number",
-  sensorTypeId: "number",
+  entityId: "number",
   rec_id: "text"
 }
 
@@ -69,9 +70,9 @@ export class ListSensorComponent implements OnInit {
   // end
   displayedColumns: string[] =
     ['select',
-      'board_name',
+      'friendly_name',
       'board_model',
-      'sensor_type',
+      'entity',
       'isEdit',
       'isDelete'];
 
@@ -141,6 +142,7 @@ export class ListSensorComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
+      console.log(res['data'])
       //check if list is not empty
       if (res['data']) {
         // add data to the table (data source)
@@ -215,7 +217,7 @@ export class ListSensorComponent implements OnInit {
       client_id: [selectedTableRecord.client_id, Validators.compose([
         Validators.minLength(4),
       ])],
-      sensorTypeId: [selectedTableRecord.sensorTypeId, Validators.compose([
+      entityId: [selectedTableRecord.entityId, Validators.compose([
         Validators.minLength(1),
       ])],
       static_ip: [selectedTableRecord.static_ip, Validators.compose([
@@ -289,6 +291,9 @@ export class ListSensorComponent implements OnInit {
         Validators.minLength(1),
       ])],
       active: [selectedTableRecord.active],
+      friendly_name: [selectedTableRecord.friendly_name, Validators.compose([
+        Validators.minLength(1),
+      ])]
     });
 
   }

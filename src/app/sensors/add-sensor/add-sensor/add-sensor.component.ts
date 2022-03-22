@@ -54,6 +54,13 @@ export class AddSensorComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
       ])],
+      // validators 
+      // Min length 4 
+      // required.
+      friendly_name: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+      ])],
       active: [
         false,
       ],
@@ -61,7 +68,7 @@ export class AddSensorComponent implements OnInit {
       // validators 
       // Min length 4  
       // required.
-      sensortypeId: [null, Validators.compose([
+     entityId: [null, Validators.compose([
         Validators.required,
         Validators.minLength(1),
       ])],

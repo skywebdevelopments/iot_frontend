@@ -10,7 +10,7 @@ export class SensorTypeService {
   constructor(private http: HttpClient) { }
   service_list_sensor_type() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/sensortype`;
+      let apiURL = `${environment.backend.api_url}/api/v1/entity`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)

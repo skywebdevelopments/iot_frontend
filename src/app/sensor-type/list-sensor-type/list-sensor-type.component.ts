@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 export interface sensortypeElement {
   type: "text",
   rec_id: "text",
-  active: "boolean",
+  name: "text",
 }
 
 const TABLE_SCHEMA = {
@@ -40,7 +40,7 @@ export class ListSensorTypeComponent implements OnInit {
   Formsensor: FormGroup;
   formData: any;
 
-  displayedColumns: string[] = ['select', 'type','active', 'isEdit', 'isDelete'];
+  displayedColumns: string[] = ['select', 'type','name', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<sensortypeElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensortypeElement>(true, []);
 
@@ -79,7 +79,10 @@ export class ListSensorTypeComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
       ])],
-      active:[false]
+      name: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+      ])]
     });
   }
 
@@ -178,7 +181,11 @@ export class ListSensorTypeComponent implements OnInit {
     this.dataSource.data.forEach(item => {
 
       this.form_updatesensor_type = this.fb.group({
-        name: [item.type, Validators.compose([
+        type: [item.type, Validators.compose([
+          Validators.required,
+          Validators.minLength(3)
+        ])],
+        name: [item.name, Validators.compose([
           Validators.required,
           Validators.minLength(3)
         ])]
