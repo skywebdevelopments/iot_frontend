@@ -69,8 +69,8 @@ export class AddGroupComponent implements OnInit {
     this._snackBar.open(message, action);
   }
 
-  get_sensors() {
-    this.child.get_sensor_list(true);
+  get_nodes() {
+    this.child.get_node_list(true);
   }
   ngAfterViewInit() {
     this.child.assign_sensors();

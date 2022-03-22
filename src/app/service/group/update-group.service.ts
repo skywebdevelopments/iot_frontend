@@ -12,7 +12,7 @@ export class UpdateGroupService {
   service_update_group(formData: any) {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/s_group/update`;
+      let apiURL = `${environment.backend.api_url}/api/v1/n_group/update`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

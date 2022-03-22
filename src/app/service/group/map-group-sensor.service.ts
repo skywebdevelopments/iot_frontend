@@ -10,7 +10,7 @@ export class MapGroupSensorService {
   // Assign sensor to group function.
   service_assign_sensor(formData: any) {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/s_group/sensormap`;
+      let apiURL = `${environment.backend.api_url}/api/v1/n_group/nodemap`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

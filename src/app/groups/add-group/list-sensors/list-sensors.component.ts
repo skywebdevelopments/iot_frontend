@@ -2,50 +2,23 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListSensorService } from '../../../service/sensor/list-sensor.service';
-import { UpdateSensorService } from '../../../service/sensor/update-sensor.service';
-import { DeleteSensorService } from '../../../service/sensor/delete-sensor.service';
 import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
-import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ListSensorComponent } from 'src/app/sensors/list-sensor/list-sensor/list-sensor.component';
 import { AuthorizeRoleService } from 'src/app/service/user/authorize-role.service';
 
-export interface sensorElement {
-  mac_address: "text",
-  client_id: "text",
-  active: "boolean",
-  sensor_type: "text",
-  static_ip: "text",
-  dns1: "text",
-  dns2: "text",
-  gateway: "text",
-  subnet: "text",
-  serial_number: "text",
-  sleep_time: "number",
-  ap_name: "text",
-  ap_ip: "text",
-  node_profile: "number",
-  host_ip: "text",
+export interface nodeElement {
+  friendly_name: "text",
   board_name: "text",
   board_model: "text",
-  sim_serial: "text",
-  sim_msidm: "text",
-  flags: "text",
-  mqttUserId: "number",
   rec_id: "text"
 
 }
 
-const TABLE_SCHEMA = {
-  "isEdit": "isEdit",
-  "isDelete": "isDelete"
-}
 // to be filled from the service
-const ELEMENT_DATA: sensorElement[] = [];
+const ELEMENT_DATA: nodeElement[] = [];
 
 @Component({
   selector: 'app-list-sensors',
@@ -59,32 +32,13 @@ export class ListSensorsComponent implements OnInit {
   isEmpty = true;
   displayedColumns: string[] =
     ['select',
-      'mac_address',
-      'client_id',
-      'active',
-      'sensor_type',
-      'static_ip',
-      'dns1',
-      'dns2',
-      'gateway',
-      'subnet',
-      'serial_number',
-      'sleep_time',
-      'ap_name',
-      'ap_ip',
-      'node_profile',
-      'host_ip',
-      'board_name',
-      'board_model',
-      'sim_serial',
-      'sim_msidm',
-      'flags',
-      'mqtt_user'];
+    'friendly_name',
+    'board_name',
+    'board_model'];
 
-  dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
-  selection = new SelectionModel<sensorElement>(true, []);
+  dataSource = new MatTableDataSource<nodeElement>(ELEMENT_DATA);
+  selection = new SelectionModel<nodeElement>(true, []);
 
-  dataSchema = TABLE_SCHEMA;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -95,13 +49,9 @@ export class ListSensorsComponent implements OnInit {
   }
   constructor(
     private service_listSensor: ListSensorService,
-    private service_updateSensor: UpdateSensorService,
-    private service_deleteSensor: DeleteSensorService,
     private service_mapSensor: MapGroupSensorService,
-    private service_ListMqtt_User: ListMqqtUserService,
     private service_authorize: AuthorizeRoleService,
     private _snackBar: MatSnackBar,
-    private fb: FormBuilder,
     public dialog: MatDialog
   ) { }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -125,11 +75,11 @@ export class ListSensorsComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: sensorElement): string {
+  checkboxLabel(row?: nodeElement): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.mac_address}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.friendly_name}`;
   }
 
   applyFilter(event: any) {
@@ -142,7 +92,7 @@ export class ListSensorsComponent implements OnInit {
   }
 
   // get Sensor list
-  get_sensor_list(showSnackBar: boolean) {
+  get_node_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
       //check if list is not empty
       if (res['data']) {
@@ -151,14 +101,14 @@ export class ListSensorsComponent implements OnInit {
         this.isEmpty = false;
         // control the sort
         // TODO: switch to an input
-        this.sort.sort({ id: 'client_id', start: 'asc' } as MatSortable)
+        this.sort.sort({ id: 'friendly_name', start: 'asc' } as MatSortable)
         this.dataSource.sort = this.sort;
         // end
       }
       else {
         this.dataSource.data = [];
         this.isEmpty = true;
-        this.openSnackBar("No sensors available", "Ok", 2000);
+        this.openSnackBar("No nodes available", "Ok", 2000);
       }
 
     });
@@ -179,12 +129,11 @@ export class ListSensorsComponent implements OnInit {
   }
 
   assign_sensors() {
-    this.selection.selected.forEach(Sensor_data => {
-      this.formData["sensorId"] = Sensor_data['id'];
+    this.selection.selected.forEach(Node_data => {
+      this.formData["nodeId"] = Node_data['id'];
       this.formData["rec_id"] = this.id;
-      console.log(this.formData)
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
-        this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);
+        this.openSnackBar("Nodes assigned successfully ", "Ok", 2000);
       }).catch((err) => {
         this.openSnackBar(err, "Ok", 2000);
       })

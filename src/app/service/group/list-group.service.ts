@@ -13,7 +13,7 @@ export class ListGroupService {
   service_list_group() {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/s_group`;
+      let apiURL = `${environment.backend.api_url}/api/v1/n_group`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

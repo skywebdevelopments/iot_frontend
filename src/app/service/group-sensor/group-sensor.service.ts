@@ -13,7 +13,7 @@ export class GroupSensorService {
   service_list_group_sensor() {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/s_group/sensors`;
+      let apiURL = `${environment.backend.api_url}/api/v1/n_group/nodes`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
