@@ -205,14 +205,14 @@ export class ListUgroupsComponent implements OnInit {
   delete_ugroup() {
     this.selection.selected.forEach(group => {
       if (group.groupname == "public") {
-        this.openSnackBar("public group is forbidden to be deleted", 'Ok', 4000);
+        this.openSnackBar("public group is forbidden to be deleted", 'Ok',2000);
       }
       else {
         let formData = {
           rec_id: group.rec_id
         }
         this.service_deleteUGroup.service_delete_ugroup(formData).then(res => {
-          this.openSnackBar(res['message'], 'OK', 4000);
+          this.openSnackBar(res['message'], 'OK', 2000);
           this.get_ugroup_list(true);
         })
       }
@@ -222,11 +222,12 @@ export class ListUgroupsComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string, interval: number) {
-    this._snackBar.open(message, action);
-
+    this._snackBar.dismiss()
     setTimeout(() => {
-      this._snackBar.dismiss()
-    }, interval);
+      this._snackBar.open(message, action, {
+        duration: 2000,
+      })}, interval);
+
   }
 
 
