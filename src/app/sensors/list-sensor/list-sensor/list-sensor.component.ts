@@ -70,6 +70,7 @@ export class ListSensorComponent implements OnInit {
   group: any;
   sensor_typee: any;
   selectedTableRecord: any;
+  selectedTableRecorde: any;
   selected = '';
   // end
   displayedColumns: string[] =
@@ -371,6 +372,13 @@ export class ListSensorComponent implements OnInit {
 
   selectTableRow(row: any) {
     this.selectedTableRecord = row;
+
+  }
+
+  selectTableRowe(row: any) {
+    
+    this.selectedTableRecorde = row;
+    console.log(  this.selectedTableRecorde )
 
   }
 

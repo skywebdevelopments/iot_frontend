@@ -174,10 +174,17 @@
                             <mat-menu class="p-2" #menuu="matMenu">
                                 <!-- details -->
 
-                                <div>
+                                <div *ngIf='authorize(["node:list"]) '>
                                     <button (click)="selectTableRow(element)" mat-menu-item>
                                         <mat-icon>list</mat-icon>
                                         <span>View {{element.board_model}}</span>
+                                    </button>
+                                </div>
+                                
+                                <div  *ngIf='authorize(["entity:list"]) '>
+                                    <button (click)="selectTableRowe(element)" mat-menu-item>
+                                        <mat-icon>list</mat-icon>
+                                        <span>Entities</span>
                                     </button>
                                 </div>
 
@@ -247,7 +254,7 @@
                 Sim Serial: {{ selectedTableRecord.sim_serial}}<br>
                 Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<br>
                 Flags: {{ selectedTableRecord.flags}}<br>
-                Friendly name: {{ selectedTableRecord.friendly_name}}<br>
+          
             </div>
             <div class="col-6">
                 Client Id: {{ selectedTableRecord.client_id}}<br>
@@ -260,6 +267,7 @@
                 Board Model: {{ selectedTableRecord.board_model}}<br>
                 Sim Msidm: {{ selectedTableRecord.sim_msidm}}<br>
                 Entity: {{ selectedTableRecord.entity.length}}<br>
+                Friendly name: {{ selectedTableRecord.friendly_name}}<br>
             </div>
         </div>
             <div *ngIf='authorize(["node:delete"])' style="margin-left: 22cm;  position:absolute; bottom: 0.48cm;">
@@ -301,18 +309,12 @@
 
             <div class="  full-name-inputs">
                 <!-- serial_number -->
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="example-full-width" appearance="fill" >
                     <mat-label>Serial Number</mat-label>
                     <input type="text" matInput formControlName="serial_number" placeholder="Enter a Serial Number">
                 </mat-form-field>
                 <!-- end -->
-                <!-- sensor_type -->
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-select placeholder="Sensor Type" formControlName="entityId">
-                        <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id"> {{typee.type}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <!-- end -->
+
             </div>
 
             <div class="full-name-inputs">
@@ -490,5 +492,19 @@
 
         </div>
 
+    </mat-expansion-panel>
+</div>
+
+<div  class="mt-5" *ngIf="selectedTableRecorde">
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{selectedTableRecorde.friendly_name}}</mat-panel-title>
+        <mat-panel-description>Assigned Entities</mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <ul>
+        <li *ngFor="let entityy of selectedTableRecorde.entity;">Name : {{ entityy.name}} <span
+            style="margin-left:50px;"></span> Type : {{entityy.type}}</li>
+      </ul>
     </mat-expansion-panel>
 </div>
