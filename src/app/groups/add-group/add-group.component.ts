@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AddGroupService } from '../../service/group/add-group.service'
-import { ListGroupService } from '../../service/group/list-group.service';
+import { AddGroupService } from '../../service/n_group/add-group.service'
+import { ListGroupService } from '../../service/n_group/list-group.service';
 import { ListSensorsComponent } from './list-sensors/list-sensors.component';
 import { MatStepper } from '@angular/material/stepper';
 

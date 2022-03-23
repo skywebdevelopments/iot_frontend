@@ -73,16 +73,8 @@ import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
 import { IndexComponent } from './index/index.component';
 import { LogsComponent } from './logs/logs.component';
-import { GroupSensorComponent } from './group-sensor/group-sensor.component';
-import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 import { NgxContentLoadingModule } from 'ngx-content-loading';
-
-
-
-import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
-
 import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
-
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { TestcomComponent } from './testcom/testcom.component';
@@ -97,6 +89,7 @@ import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.com
 import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
 import { SensorProvisionComponent } from './sensor-provision/sensor-provision.component';
+import { ListEntityComponent } from './entity/list-entity/list-entity.component';
 
 
 
@@ -135,14 +128,7 @@ import { SensorProvisionComponent } from './sensor-provision/sensor-provision.co
     ErrorDialogComponent,
 
     IndexComponent,
-
     LogsComponent,
-    GroupSensorComponent,
-    GroupSensorTreeComponent,
-
-    ListSensorTypeComponent,
-
-
     MqttUserComponent,
 
 
@@ -169,6 +155,7 @@ import { SensorProvisionComponent } from './sensor-provision/sensor-provision.co
     AddUgroupsComponent,
     ListUgroupsComponent,
     SensorProvisionComponent,
+    ListEntityComponent,
 
   ],
   imports: [

@@ -43,7 +43,6 @@ export class ListUgroupsComponent implements OnInit {
   active = new FormControl(false);
   rec_id: any;
   authorized: boolean;
-
   displayedColumns: string[] = ['select', 'groupname', 'active', 'roles', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<ugroupElement>(ELEMENT_DATA);
   selection = new SelectionModel<ugroupElement>(true, []);
@@ -111,7 +110,6 @@ export class ListUgroupsComponent implements OnInit {
     this.service_listUGroup.service_list_usergroups().then(res => {
       if (res['data']) {
         // add data to the table (data source)
-        console.log(res['data'])
         this.dataSource.data = res['data']
         // control the sort
         // TODO: switch to an input
@@ -126,12 +124,12 @@ export class ListUgroupsComponent implements OnInit {
           this.groupname = new FormControl("");
           this.active = new FormControl(false);
           this.rec_id = ""
-          this.openSnackBar("list is updated", "Ok", 4000);
+          this.openSnackBar("list is updated", "Ok", 950);
         }
       }
       else {
         this.dataSource.data = [];
-        this.openSnackBar("list is Empty!", "Ok", 2000);
+        this.openSnackBar("list is Empty!", "Ok", 500);
       }
     });
   };
@@ -150,6 +148,9 @@ export class ListUgroupsComponent implements OnInit {
   };
 
   edit_ugroup(ugroup: any) {
+    if(ugroup.groupname=='public')
+    this.groupname = new FormControl({value:ugroup.groupname, disabled: true}, [Validators.required, Validators.minLength(4)]);
+    else
     this.groupname = new FormControl(ugroup.groupname, [Validators.required, Validators.minLength(4)]);
     for (var item of ugroup.roles)
       this.assignedRoles.push(item)
@@ -170,10 +171,10 @@ export class ListUgroupsComponent implements OnInit {
     var formdata = { "groupname": this.groupname.value, "active": this.active.value, "roles": this.assignedRoles, "rec_id": this.rec_id }
     this.service_updateUgroup.service_update_ugroup(formdata).then(res => {
       if (res['code'] === 3100) {
-        this.openSnackBar("Group Name is already exist", "Ok", 2000);
+        this.openSnackBar("Group Name is already exist", "Ok", 500);
       }
       else {
-        this.openSnackBar(`Saved successfully`, 'Ok', 2000)
+        this.openSnackBar(`Saved successfully`, 'Ok', 500)
         location.reload();
       }
     })
@@ -205,14 +206,11 @@ export class ListUgroupsComponent implements OnInit {
   delete_ugroup() {
     this.selection.selected.forEach(group => {
       if (group.groupname == "public") {
-        this.openSnackBar("public group is forbidden to be deleted", 'Ok',2000);
+        this.openSnackBar("public group is forbidden to be deleted", 'Ok',500);
       }
       else {
-        let formData = {
-          rec_id: group.rec_id
-        }
+        let formData = {rec_id: group.rec_id}
         this.service_deleteUGroup.service_delete_ugroup(formData).then(res => {
-          this.openSnackBar(res['message'], 'OK', 2000);
           this.get_ugroup_list(true);
         })
       }
@@ -225,7 +223,7 @@ export class ListUgroupsComponent implements OnInit {
     this._snackBar.dismiss()
     setTimeout(() => {
       this._snackBar.open(message, action, {
-        duration: 2000,
+        duration: 3000,
       })}, interval);
 
   }
@@ -237,7 +235,7 @@ export class ListUgroupsComponent implements OnInit {
       // 1. delete the flag
       delete e['isDelete']
       this.service_deleteUGroup.service_delete_ugroup(e).then(res => {
-        this.openSnackBar(res['message'], 'Ok', 4000);
+        this.openSnackBar(res['message'], 'Ok', 500);
         // recall refresh
         this.get_ugroup_list(true);
       })

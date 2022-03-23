@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListGroupService } from '../../service/group/list-group.service';
-import { DeleteGroupService } from '../../service/group/delete-group.service';
-import { UpdateGroupService } from '../../service/group/update-group.service';
+import { ListGroupService } from '../../service/n_group/list-group.service';
+import { DeleteGroupService } from '../../service/n_group/delete-group.service';
+import { UpdateGroupService } from '../../service/n_group/update-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';

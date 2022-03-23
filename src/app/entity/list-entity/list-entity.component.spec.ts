@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupSensorTreeComponent } from './group-sensor-tree.component';
+import { ListEntityComponent } from './list-entity.component';
 
-describe('GroupSensorTreeComponent', () => {
-  let component: GroupSensorTreeComponent;
-  let fixture: ComponentFixture<GroupSensorTreeComponent>;
+describe('ListEntityComponent', () => {
+  let component: ListEntityComponent;
+  let fixture: ComponentFixture<ListEntityComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GroupSensorTreeComponent ]
+      declarations: [ ListEntityComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupSensorTreeComponent);
+    fixture = TestBed.createComponent(ListEntityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

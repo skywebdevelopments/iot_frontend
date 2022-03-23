@@ -12,9 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
-import { ListGroupService } from '../../../service/group/list-group.service';
-import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
-import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
+import { ListGroupService } from '../../../service/n_group/list-group.service';
+import { ListEntityService } from '../../../service/entity/list-entity.service';
+import { MapGroupSensorService } from '../../../service/n_group/map-group-sensor.service';
 
 export interface sensorElement {
   mac_address: "text",
@@ -99,7 +99,7 @@ export class ListSensorComponent implements OnInit {
     private service_deleteSensor: DeleteSensorService,
     private service_authorize: AuthorizeRoleService,
     private service_ListMqtt_User: ListMqqtUserService,
-    private service_sensor_type: SensorTypeService,
+    private service_entity: ListEntityService,
     private service_mapSensor: MapGroupSensorService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
@@ -361,7 +361,7 @@ export class ListSensorComponent implements OnInit {
 
   Get_sensorType() {
     var sensorType = []
-    this.service_sensor_type.service_list_sensor_type().then(res => {
+    this.service_entity.service_list_entity().then(res => {
       res['data'].forEach(function (sensor_type) {
         sensorType.push(sensor_type)
       });
