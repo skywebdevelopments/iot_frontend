@@ -55,11 +55,15 @@ const ELEMENT_DATA: sensorElement[] = [];
   styleUrls: ['./list-sensor.component.css']
 })
 export class ListSensorComponent implements OnInit {
+ 
+
+
+
   // form controls.
   enable_save_all = false
   form_updateSensor: any;
   formData = {}
-  formDataa :any
+  formDataa: any
   replace_with_input = false;
   authorized = false;
   mqtt: any;
@@ -72,11 +76,11 @@ export class ListSensorComponent implements OnInit {
     ['select',
       'friendly_name',
       'board_model',
-      'entity',
+      'board_name',
       'isEdit',
       'isDelete'];
 
- 
+
   dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensorElement>(true, []);
 
@@ -101,7 +105,12 @@ export class ListSensorComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     private service_listGroup: ListGroupService,
-  ) { }
+
+  ) {
+  }
+
+
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -146,6 +155,8 @@ export class ListSensorComponent implements OnInit {
       //check if list is not empty
       if (res['data']) {
         // add data to the table (data source)
+
+
         this.dataSource.data = res['data']
         // control the sort
         // TODO: switch to an input
@@ -360,6 +371,7 @@ export class ListSensorComponent implements OnInit {
 
   selectTableRow(row: any) {
     this.selectedTableRecord = row;
+
   }
 
   // get group list
@@ -374,9 +386,9 @@ export class ListSensorComponent implements OnInit {
   };
 
   assign_sensors() {
-    
+
     this.selection.selected.forEach(Sensor_data => {
-      this.formData["sensorId"] = Sensor_data['id'];
+      this.formData["nodeId"] = Sensor_data['id'];
       this.formData["rec_id"] = this.selected
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
         this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);

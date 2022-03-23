@@ -188,14 +188,10 @@
                         <!-- row: view mode -->
                         <span *ngSwitchDefault>
                             <!-- text cell -->
-                            <label for="" *ngIf="!isBool(element[col]) && col!=='entity'">
+                            <label for="" *ngIf="!isBool(element[col]) ">
                                 {{element[col]}}
                             </label>
-                            <div *ngIf="col==='entity'">
-                                <label>
-                                    {{ element[col]['type']}}
-                                </label>
-                            </div>
+
                         </span>
                     </div>
                 </td>
@@ -238,29 +234,34 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <div *ngIf="!selectedTableRecord.isEdit">
-            Macaddress: {{ selectedTableRecord.mac_address}} <span style="margin-left:192px;"></span>
-            Client Id: {{ selectedTableRecord.client_id}} <br>
-            Static IP: {{ selectedTableRecord.static_ip}}<span style="margin-left:228px;"></span>
-            Active: {{ selectedTableRecord.active}} <br>
-            DNS 1: {{ selectedTableRecord.dns1}} <span style="margin-left:270px;"></span>
-            DNS 2: {{ selectedTableRecord.dns2}} <br>
-            Gateway: {{ selectedTableRecord.gateway}}<span style="margin-left:230px;"></span>
-            Subnet: {{ selectedTableRecord.subnet}} <br>
-            Serial Number: {{ selectedTableRecord.serial_number}} <span style="margin-left:180px;"></span>
-            Sleep Time: {{ selectedTableRecord.sleep_time}} <br>
-            Access Point Name: {{ selectedTableRecord.ap_name}} <span style="margin-left:216px;"></span>
-            Access Point IP: {{ selectedTableRecord.ap_ip}} <br>
-            Node Profile: {{ selectedTableRecord.node_profile}}<span style="margin-left:272px;"></span>
-            Host IP: {{ selectedTableRecord.host_ip}} <br>
-            Board Name: {{ selectedTableRecord.board_name}} <span style="margin-left:238px;"></span>
-            Board Model: {{ selectedTableRecord.board_model}} <br>
-            Sim Serial: {{ selectedTableRecord.sim_serial}} <span style="margin-left:167px;"></span>
-            Sim Msidm: {{ selectedTableRecord.sim_msidm}} <br>
-            Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<span style="margin-left:266px;"></span>
-            Entity: {{ selectedTableRecord.entity.type}} <br>
-            Flags: {{ selectedTableRecord.flags}} <br>
-            Friendly name: {{ selectedTableRecord.friendly_name}} <br>
-
+         <div class="row">
+            <div class="col-6">
+                Macaddress: {{ selectedTableRecord.mac_address}}<br>
+                Static IP: {{ selectedTableRecord.static_ip}}<br>
+                DNS 1: {{ selectedTableRecord.dns1}}<br>
+                Gateway: {{ selectedTableRecord.gateway}}<br>
+                Serial Number: {{ selectedTableRecord.serial_number}}<br>
+                Access Point Name: {{ selectedTableRecord.ap_name}}<br>
+                Node Profile: {{ selectedTableRecord.node_profile}}<br>
+                Board Name: {{ selectedTableRecord.board_name}}<br>
+                Sim Serial: {{ selectedTableRecord.sim_serial}}<br>
+                Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<br>
+                Flags: {{ selectedTableRecord.flags}}<br>
+                Friendly name: {{ selectedTableRecord.friendly_name}}<br>
+            </div>
+            <div class="col-6">
+                Client Id: {{ selectedTableRecord.client_id}}<br>
+                Active: {{ selectedTableRecord.active}}<br>
+                DNS 2: {{ selectedTableRecord.dns2}}<br>
+                Subnet: {{ selectedTableRecord.subnet}}<br>
+                Sleep Time: {{ selectedTableRecord.sleep_time}}<br>
+                Access Point IP: {{ selectedTableRecord.ap_ip}}<br>
+                Host IP: {{ selectedTableRecord.host_ip}}<br>
+                Board Model: {{ selectedTableRecord.board_model}}<br>
+                Sim Msidm: {{ selectedTableRecord.sim_msidm}}<br>
+                Entity: {{ selectedTableRecord.entity.length}}<br>
+            </div>
+        </div>
             <div *ngIf='authorize(["node:delete"])' style="margin-left: 22cm;  position:absolute; bottom: 0.48cm;">
                 <button mat-raised-button color="warn" (click)="delete_dialog(selectedTableRecord)">
                     <mat-icon>delete</mat-icon>

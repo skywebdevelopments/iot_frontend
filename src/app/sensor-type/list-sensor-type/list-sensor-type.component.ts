@@ -133,7 +133,7 @@ export class ListSensorTypeComponent implements OnInit {
   get_sensor_type_list(showSnackBar: boolean) {
 
     this.service_listsensortype.service_list_sensor_type().then(res => {
-
+console.log(res['data'])
       if (res['data']) {
         // add data to the table (data source)
         this.dataSource.data = res['data']
