@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SensorTypeService } from './sensor-type.service';
+import { ListEntityService } from './list-entity.service';
 
-describe('SensorTypeService', () => {
-  let service: SensorTypeService;
+describe('ListEntityService', () => {
+  let service: ListEntityService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SensorTypeService);
+    service = TestBed.inject(ListEntityService);
   });
 
   it('should be created', () => {

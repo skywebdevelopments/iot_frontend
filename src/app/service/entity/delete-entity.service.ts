@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../../environments/environment.prod'
-
 @Injectable({
   providedIn: 'root'
 })
-export class DeleteSensorTypeService {
-
+export class DeleteEntityService {
   constructor(private http: HttpClient) { }
-
-    
-    service_delete_sensor_type(formData: any) {
-
+    service_delete_entity(formData: any) {
       let promise = new Promise((resolve, reject) => {
         let apiURL = `${environment.backend.api_url}/api/v1/entity/delete`;
         var headers = {
@@ -33,5 +28,4 @@ export class DeleteSensorTypeService {
       return promise;
   
     };
-  
 }

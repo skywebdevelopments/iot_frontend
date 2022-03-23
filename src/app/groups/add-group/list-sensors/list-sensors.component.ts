@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListSensorService } from '../../../service/sensor/list-sensor.service';
-import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
+import { MapGroupSensorService } from '../../../service/n_group/map-group-sensor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';

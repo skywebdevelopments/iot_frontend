@@ -15,7 +15,7 @@
                     <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Entity</label>
-                            <div [formGroup]="Formsensor">
+                            <div [formGroup]="Formentity">
                                 <input type="text" matInput formControlName="name" placeholder="Name" class="form-control">
                                 <input type="text" matInput formControlName="type"  placeholder="Type" class="form-control">
                             </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="save_sensor_type()">Create</button>
+                    <button type="button" class="btn btn-primary" (click)=" save_entity()">Create</button>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="delete_sensor_type()" data-dismiss="modal"
+                    <button type="button" (click)="delete_entity()" data-dismiss="modal"
                         class="btn btn-danger">yes,
                         Delete</button>
                 </div>
@@ -98,13 +98,13 @@
                             <div class="container">
                                 <div class="row">
                                     <!-- refresh -->
-                                    <button (click)="get_sensor_type_list(true)" mat-menu-item>
+                                    <button (click)="get_entity_list(true)" mat-menu-item>
                                         <mat-icon>refresh</mat-icon>
                                         <span>refresh</span>
                                     </button>
 
 
-                                    <!-- Create sensor type button -->
+                                    <!-- Create Entity type button -->
                                     <div *ngIf='authorize(["entity:create"])'>
                                         <button data-toggle="modal" data-target="#exampleModal" mat-menu-item>
                                             <mat-icon>playlist_add</mat-icon>
@@ -116,7 +116,7 @@
                                     <!-- delete -->
                                     <div *ngIf='authorize(["entity:delete"])'>
                                     <button data-toggle="modal" *ngIf="selection.hasValue()"
-                                        data-target="#exampleModall" (click)="get_sensor_type_list(true)" mat-menu-item>
+                                        data-target="#exampleModall" (click)="get_entity_list(true)" mat-menu-item>
                                         <mat-icon>delete</mat-icon>
                                         <span>delete</span>
                                     </button>
@@ -259,8 +259,3 @@
 
         </div>
     </div>
-
-
-
-
-    <!-- Button trigger modal -->

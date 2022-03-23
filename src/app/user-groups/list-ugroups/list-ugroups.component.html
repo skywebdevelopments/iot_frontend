@@ -172,7 +172,8 @@
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["ugroup:delete"]) && element.groupname!=="public"'>
+                                                <div
+                                                    *ngIf='authorize(["ugroup:delete"]) && element.groupname!=="public"'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.groupname}}</span>

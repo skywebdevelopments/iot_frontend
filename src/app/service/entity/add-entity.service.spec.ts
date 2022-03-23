@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GroupSensorService } from './group-sensor.service';
+import { AddEntityService } from './add-entity.service';
 
-describe('GroupSensorService', () => {
-  let service: GroupSensorService;
+describe('AddEntityService', () => {
+  let service: AddEntityService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GroupSensorService);
+    service = TestBed.inject(AddEntityService);
   });
 
   it('should be created', () => {

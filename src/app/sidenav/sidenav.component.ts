@@ -52,7 +52,7 @@ const TREE_DATA: listItems[] = [
 
           },
           {
-            labelText: "Sensor Provisioning",
+            labelText: "Node Provisioning",
             icon: "list",
             routerLink: "/provision",
           },
@@ -75,7 +75,7 @@ const TREE_DATA: listItems[] = [
           {
             labelText: "list entity",
             icon: "list",
-            routerLink: "/listsensortype",
+            routerLink: "/listentity",
 
           }
           
