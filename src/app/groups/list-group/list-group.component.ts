@@ -18,12 +18,19 @@ export interface groupElement {
   rec_id: "text"
 }
 
+export interface nodeElement {
+  friendly_name: "text",
+  board_name: "text",
+  board_model: "text"
+}
+
 const TABLE_SCHEMA = {
   "isEdit": "isEdit",
   "isDelete": "isDelete"
 }
 // to be filled from the service
 const ELEMENT_DATA: groupElement[] = [];
+const Node_DATA: nodeElement[] = [];
 @Component({
   selector: 'app-list-group',
   templateUrl: './list-group.component.html',
@@ -37,12 +44,21 @@ export class ListGroupComponent implements OnInit {
   form_updateGroup: any;
   replace_with_input = false;
   authorized: boolean;
+  selectedTableRecord: any;
   // end
 
 
   displayedColumns: string[] = ['select', 'name', 'active', 'isEdit', 'isDelete'];
+
+  //node Table
+  displayedColumnss: string[] = ['select', 'friendly_name', 'board_name','board_model'];
+
   dataSource = new MatTableDataSource<groupElement>(ELEMENT_DATA);
   selection = new SelectionModel<groupElement>(true, []);
+
+//Node Table
+  dataSourcee = new MatTableDataSource<nodeElement>(Node_DATA);
+  selectionn = new SelectionModel<nodeElement>(true, []);
 
 
   dataSchema = TABLE_SCHEMA;
@@ -109,8 +125,8 @@ export class ListGroupComponent implements OnInit {
   get_group_list(showSnackBar: boolean) {
 
     this.service_listGroup.service_list_group().then(res => {
-
       if (res['data']) {
+        console.log(res['data'])
         // add data to the table (data source)
         this.dataSource.data = res['data']
 
@@ -237,6 +253,12 @@ export class ListGroupComponent implements OnInit {
     })
   }
 
+  
+  selectTableRow(row: any) {
+    this.selectedTableRecord = row;
+    this.dataSourcee.data= this.selectedTableRecord.node
+
+  }
 
   ngOnInit(): void {
     // get the data table on init.

@@ -18,6 +18,7 @@
                             <div [formGroup]="Formentity">
                                 <input type="text" matInput formControlName="name" placeholder="Name" class="form-control" style="margin-bottom: 0.5cm;">
                                 <input type="text" matInput formControlName="type"  placeholder="Type" class="form-control"  style="margin-bottom: 0.5cm;">
+
                                 <mat-form-field appearance="fill" >
                                     <mat-label>Node Name</mat-label>
                                     <mat-select formControlName="nodeId" >
@@ -156,9 +157,10 @@
                             <div *ngIf="col !=='select' ">
                                 <!-- table header -->
                                 <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                                    <span *ngIf=" col !== 'isEdit' && col!== 'isDelete' ">
+                                    <span *ngIf=" col !== 'isEdit' && col!== 'isDelete'   ">
                                         {{col}}
                                     </span>
+                               
                                 </th>
 
                                 <!-- table cell -->
@@ -203,9 +205,14 @@
                                         <!-- row: view mode -->
                                         <span *ngSwitchDefault>
                                             <!-- text cell -->
-                                            <label for="">
+                                            <label for=""  *ngIf=" col!=='node'">
                                                 {{element[col]}}
                                             </label>
+                                            <div *ngIf="col==='node'">
+                                                <label>
+                                                    {{ element[col]['friendly_name']}}
+                                                </label>
+                                            </div>
                                             
                                         </span>
                                     </div>
@@ -223,11 +230,20 @@
                                         <!-- col with edit -->
                                         <ng-template #dataField>
                                             <!-- input text -->
-                                            <mat-form-field>
+                                            <mat-form-field *ngIf="col!=='node'">
                                                 <mat-label>{{col}}</mat-label>
                                                 <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
                                             </mat-form-field>
                                             <!-- slide type cell -->
+
+                                             <!-- mqttUserId -->
+                                        <mat-form-field *ngIf="col==='node'">
+                                            <mat-select [(ngModel)]="element['nodeId']">
+                                                <mat-option *ngFor="let node_data of node" [value]="node_data.id">
+                                                    {{node_data.friendly_name}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <!-- end -->
                                            
 
                                         </ng-template>

@@ -145,6 +145,13 @@
                                                         <span>delete {{element.name}}</span>
                                                     </button>
                                                 </div>
+
+                                                <div *ngIf='authorize(["n_group:list"]) '>
+                                                    <button (click)="selectTableRow(element)" mat-menu-item>
+                                                        <mat-icon>list</mat-icon>
+                                                        <span>View {{element.name}}</span>
+                                                    </button>
+                                                </div>
                                             </mat-menu>
 
                                         </div>
@@ -227,6 +234,94 @@
 
         </div>
     </div>
+
+    <div  class="mt-5" *ngIf="selectedTableRecord">
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{selectedTableRecord.name}}</mat-panel-title>
+        <mat-panel-description>Assigned Nodes</mat-panel-description>
+      </mat-expansion-panel-header>
+  
+
+      <div class="row">
+
+        <div class="col-auto  w-100">
+            <!-- end -->
+            <div class="container-fluid mt-1">
+    
+                <!-- filter control -->
+                <mat-form-field appearance="standard" style="width: 25%;">
+    
+                    <mat-label>
+                        <mat-icon>search</mat-icon> Search
+                    </mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="type to filter" #input>
+    
+                </mat-form-field>
+                <!-- end -->
+    
+    
+                <!-- table -->
+                <div class="mat-elevation-z8 ">
+                    <table mat-table [dataSource]="dataSourcee" matSort>
+    
+                        <!-- Checkbox Column -->
+                        <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumnss">
+    
+                            <div *ngIf="col !=='select' ">
+    
+    
+                                <!-- table header -->
+                                <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                                    <span class="text-capitalize">
+                                        {{col.replace('_',' ')}}
+                                    </span>
+                                </th>
+    
+                                <!-- table cell -->
+                                <td mat-cell *matCellDef="let element">
+                                    <div>
+                                        <!-- row: view mode -->
+                                        <span>
+                                            <!-- text cell -->
+                                            <label>
+                                                {{element[col]}}
+                                            </label>
+                                            <!-- end -->
+                                        </span>
+                                    </div>
+                                </td>
+                            </div>
+    
+                            <!-- for checkboxes -->
+                            <div *ngIf="col ==='select'">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                        [aria-label]="checkboxLabel()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle(row) : null"
+                                        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </div>
+    
+    
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
+                    </table>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    </mat-expansion-panel>
+</div>
 
 
 

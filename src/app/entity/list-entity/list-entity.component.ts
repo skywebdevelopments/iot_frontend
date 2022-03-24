@@ -18,7 +18,7 @@ export interface EntityElement {
   type: "text",
   rec_id: "text",
   name: "text",
-  nodeId:"text"
+  node:"text"
 }
 
 const TABLE_SCHEMA = {
@@ -42,7 +42,7 @@ export class ListEntityComponent implements OnInit {
   formData: any;
   node:any
 
-  displayedColumns: string[] = ['select', 'name', 'type', 'isEdit', 'isDelete'];
+  displayedColumns: string[] = ['select', 'name', 'type', 'node', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<EntityElement>(ELEMENT_DATA);
   selection = new SelectionModel<EntityElement>(true, []);
 
@@ -137,6 +137,7 @@ export class ListEntityComponent implements OnInit {
   // get entity list
   get_entity_list(showSnackBar: boolean) {
     this.service_listentity.service_list_entity().then(res => {
+      console.log(res['data'])
       if (res['data']) {
         // add data to the table (data source)
         this.dataSource.data = res['data']

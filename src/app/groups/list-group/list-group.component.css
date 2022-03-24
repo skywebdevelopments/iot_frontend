@@ -13,3 +13,21 @@
   overflow: hidden;
   vertical-align: middle;
 }
+ 
+
+.mat-tablee {
+  overflow-x: scroll;
+  max-width: 99%;
+}
+.mat-cell,
+.mat-header-celll {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  width:25%;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+ 

@@ -506,5 +506,12 @@
         <li *ngFor="let entityy of selectedTableRecorde.entity;">Name : {{ entityy.name}} <span
             style="margin-left:50px;"></span> Type : {{entityy.type}}</li>
       </ul>
+      <div *ngIf='authorize(["node:update"])' style="margin-left: 21cm;">
+        <!-- delete -->
+        <button mat-raised-button color="primary"   [routerLink]="['/listentity']" routerLinkActive="router-link-active" >
+            <mat-icon>edit</mat-icon>
+            <span>Edit Entity</span>
+        </button>
+    </div>
     </mat-expansion-panel>
 </div>
