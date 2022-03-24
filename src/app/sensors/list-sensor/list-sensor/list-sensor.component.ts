@@ -12,12 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
-import { ListGroupService } from '../../../service/group/list-group.service';
-import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
-import { MapGroupSensorService } from '../../../service/group/map-group-sensor.service';
+import { ListGroupService } from '../../../service/n_group/list-group.service';
+import { ListEntityService } from '../../../service/entity/list-entity.service';
+import { MapGroupSensorService } from '../../../service/n_group/map-group-sensor.service';
 
 export interface sensorElement {
   mac_address: "text",
+  friendly_name: "text",
   client_id: "text",
   active: "boolean",
   static_ip: "text",
@@ -37,7 +38,7 @@ export interface sensorElement {
   sim_msidm: "text",
   flags: "text",
   mqttuserId: "number",
-  sensorTypeId: "number",
+  entityId: "number",
   rec_id: "text"
 }
 
@@ -54,28 +55,33 @@ const ELEMENT_DATA: sensorElement[] = [];
   styleUrls: ['./list-sensor.component.css']
 })
 export class ListSensorComponent implements OnInit {
+ 
+
+
+
   // form controls.
   enable_save_all = false
   form_updateSensor: any;
   formData = {}
-  formDataa :any
+  formDataa: any
   replace_with_input = false;
   authorized = false;
   mqtt: any;
   group: any;
   sensor_typee: any;
   selectedTableRecord: any;
+  selectedTableRecorde: any;
   selected = '';
   // end
   displayedColumns: string[] =
     ['select',
-      'board_name',
+      'friendly_name',
       'board_model',
-      'sensor_type',
+      'board_name',
       'isEdit',
       'isDelete'];
 
- 
+
   dataSource = new MatTableDataSource<sensorElement>(ELEMENT_DATA);
   selection = new SelectionModel<sensorElement>(true, []);
 
@@ -94,13 +100,18 @@ export class ListSensorComponent implements OnInit {
     private service_deleteSensor: DeleteSensorService,
     private service_authorize: AuthorizeRoleService,
     private service_ListMqtt_User: ListMqqtUserService,
-    private service_sensor_type: SensorTypeService,
+    private service_entity: ListEntityService,
     private service_mapSensor: MapGroupSensorService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog,
     private service_listGroup: ListGroupService,
-  ) { }
+
+  ) {
+  }
+
+
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -141,9 +152,12 @@ export class ListSensorComponent implements OnInit {
   // get Sensor list
   get_sensor_list(showSnackBar: boolean) {
     this.service_listSensor.service_list_sensor().then(res => {
+      console.log(res['data'])
       //check if list is not empty
       if (res['data']) {
         // add data to the table (data source)
+
+
         this.dataSource.data = res['data']
         // control the sort
         // TODO: switch to an input
@@ -215,7 +229,7 @@ export class ListSensorComponent implements OnInit {
       client_id: [selectedTableRecord.client_id, Validators.compose([
         Validators.minLength(4),
       ])],
-      sensorTypeId: [selectedTableRecord.sensorTypeId, Validators.compose([
+      entityId: [selectedTableRecord.entityId, Validators.compose([
         Validators.minLength(1),
       ])],
       static_ip: [selectedTableRecord.static_ip, Validators.compose([
@@ -289,6 +303,9 @@ export class ListSensorComponent implements OnInit {
         Validators.minLength(1),
       ])],
       active: [selectedTableRecord.active],
+      friendly_name: [selectedTableRecord.friendly_name, Validators.compose([
+        Validators.minLength(1),
+      ])]
     });
 
   }
@@ -345,7 +362,7 @@ export class ListSensorComponent implements OnInit {
 
   Get_sensorType() {
     var sensorType = []
-    this.service_sensor_type.service_list_sensor_type().then(res => {
+    this.service_entity.service_list_entity().then(res => {
       res['data'].forEach(function (sensor_type) {
         sensorType.push(sensor_type)
       });
@@ -355,6 +372,14 @@ export class ListSensorComponent implements OnInit {
 
   selectTableRow(row: any) {
     this.selectedTableRecord = row;
+
+  }
+
+  selectTableRowe(row: any) {
+    
+    this.selectedTableRecorde = row;
+    console.log(  this.selectedTableRecorde )
+
   }
 
   // get group list
@@ -369,9 +394,9 @@ export class ListSensorComponent implements OnInit {
   };
 
   assign_sensors() {
-    
+
     this.selection.selected.forEach(Sensor_data => {
-      this.formData["sensorId"] = Sensor_data['id'];
+      this.formData["nodeId"] = Sensor_data['id'];
       this.formData["rec_id"] = this.selected
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
         this.openSnackBar("Sensors assigned successfully ", "Ok", 2000);

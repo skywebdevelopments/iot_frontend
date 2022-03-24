@@ -11,9 +11,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
 import { IndexComponent } from './index/index.component';
 import { LogsComponent } from './logs/logs.component';
-import { GroupSensorComponent } from './group-sensor/group-sensor.component';
-import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
-import { ListSensorTypeComponent } from './sensor-type/list-sensor-type/list-sensor-type.component';
+import { ListEntityComponent } from './entity/list-entity/list-entity.component';
 import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
 import { UsersComponent } from './users/user-management/users.component';
@@ -36,16 +34,13 @@ const routes: Routes = [
   { path: "addGroup", component: AddGroupComponent },
   { path: "addSensor", component: AddSensorComponent },
   { path: "listSensor", component: ListSensorComponent },
-  { path: "sensor-group", component: GroupSensorComponent },
-  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
-  { path: "listsensortype", component: ListSensorTypeComponent },
+  { path: "listentity", component: ListEntityComponent },
   { path: "listmqttuser", component: MqttUserComponent },
   { path: "usersManagement", component: UsersComponent },
   { path: "userProfile", component: UserProfileComponent },
   { path: "addUgroup", component: AddUgroupsComponent },
   { path: "listUgroup", component: ListUgroupsComponent },
   { path: "test123", component: TestcomComponent },
-  { path: "sensor-group-tree", component: GroupSensorTreeComponent },
   {path: "provision", component: SensorProvisionComponent}
 ]
 // const routes: Routes = [

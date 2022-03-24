@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router'
 import { UpdateUserService } from '../../../app/service/user/update-user.service';
 import { SHA256, enc } from "crypto-js";
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -21,13 +21,12 @@ export class UserProfileComponent implements OnInit {
 
   email: any;
   role: any;
-  name :any;
+  name: any;
   password: any;
   password_user: any;
   newpassword: any;
   id: any;
   form_update: FormGroup;
-  form_delete: FormGroup;
   password_validation = false;
   decoded_user: any;
   constructor(
@@ -44,13 +43,8 @@ export class UserProfileComponent implements OnInit {
     //form edit 
     this.form_update = this.formBuilder.group({
       name: ["", Validators.compose([Validators.required, Validators.minLength(4)])],
-      password: ["", Validators.compose([Validators.required])],
+      password: ["", Validators.compose([Validators.required, this.checkPasswords()])],
       newpassword: ["", Validators.compose([Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')])]
-    })
-    //end
-     //form delete 
-     this.form_delete = this.formBuilder.group({
-      password: ["", Validators.compose([Validators.required])]
     })
     //end
     let token = this.service_enc_dec.get(localStorage.getItem('token'), environment.backend.t_secret);
@@ -86,25 +80,35 @@ export class UserProfileComponent implements OnInit {
     }, interval);
   }
 
-  onChangepassword(password: string) {
-    const hashedPass = SHA256(password).toString(enc.Base64);
-    if (hashedPass.localeCompare(this.password_user) === 0)
-      this.password_validation = true;
-    else
-      this.password_validation = false;
+  //custom validation for password
+  checkPasswords(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const pass = control.value;
+      const hashedPass = SHA256(pass).toString(enc.Base64);
+      return hashedPass === this.password_user ? null : { notSame: true }
+    }
+  }
+
+  getErrorMessagepass() {
+    if (this.form_update.controls['password'].hasError('required')) {
+      return 'You must enter a password.';
+    }
+    if (this.form_update.controls['password'].hasError('notSame')) {
+      return 'You entered incorrect password.';
+    }
   }
 
   getErrorMessagename() {
-    if ( this.form_update.controls['name'].hasError('required')) {
+    if (this.form_update.controls['name'].hasError('required')) {
       return 'You must enter a username.';
     }
-    if ( this.form_update.controls['name'].hasError('minlength')) {
+    if (this.form_update.controls['name'].hasError('minlength')) {
       return 'Username must be at least 4 characters long.';
     }
   }
 
   getErrorMessagenewpass() {
-    if ( this.form_update.controls['newpassword'].hasError('pattern'))
+    if (this.form_update.controls['newpassword'].hasError('pattern'))
       return 'Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.';
   }
 

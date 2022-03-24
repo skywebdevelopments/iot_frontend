@@ -1,12 +1,12 @@
 <div class="row">
-    <h1 style="font-weight: bold; margin-left: 0.3cm;">List Sensor type</h1>
+    <h1 style="font-weight: bold; margin-left: 0.3cm;">List Entity</h1>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Sensor type</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Entity</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -14,19 +14,17 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Senor Type</label>
-                            <div [formGroup]="Formsensor">
-                                <input type="text" matInput formControlName="type" class="form-control">
-                                <mat-checkbox formControlName="active" class="example-margin">
-                                    Active
-                                </mat-checkbox>
+                            <label for="recipient-name" class="col-form-label">Entity</label>
+                            <div [formGroup]="Formentity">
+                                <input type="text" matInput formControlName="name" placeholder="Name" class="form-control">
+                                <input type="text" matInput formControlName="type"  placeholder="Type" class="form-control">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="save_sensor_type()">Create</button>
+                    <button type="button" class="btn btn-primary" (click)=" save_entity()">Create</button>
                 </div>
             </div>
 
@@ -66,7 +64,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" (click)="delete_sensor_type()" data-dismiss="modal"
+                    <button type="button" (click)="delete_entity()" data-dismiss="modal"
                         class="btn btn-danger">yes,
                         Delete</button>
                 </div>
@@ -100,14 +98,14 @@
                             <div class="container">
                                 <div class="row">
                                     <!-- refresh -->
-                                    <button (click)="get_sensor_type_list(true)" mat-menu-item>
+                                    <button (click)="get_entity_list(true)" mat-menu-item>
                                         <mat-icon>refresh</mat-icon>
                                         <span>refresh</span>
                                     </button>
+                                </div>
 
-
-                                    <!-- Create sensor type button -->
-                                    <div *ngIf='authorize(["sensortype:create"])'>
+                                    <!-- Create Entity type button -->
+                                    <div *ngIf='authorize(["entity:create"])'>
                                         <button data-toggle="modal" data-target="#exampleModal" mat-menu-item>
                                             <mat-icon>playlist_add</mat-icon>
                                             <span>add</span>
@@ -116,16 +114,16 @@
                                     <!-- end -->
 
                                     <!-- delete -->
-                                    <div *ngIf='authorize(["sensortype:delete"])'>
+                                    <div *ngIf='authorize(["entity:delete"])'>
                                     <button data-toggle="modal" *ngIf="selection.hasValue()"
-                                        data-target="#exampleModall" (click)="get_sensor_type_list(true)" mat-menu-item>
+                                        data-target="#exampleModall" (click)="get_entity_list(true)" mat-menu-item>
                                         <mat-icon>delete</mat-icon>
                                         <span>delete</span>
                                     </button>
                                     </div>
                                     <!-- end -->
 
-                                </div>
+                               
                             </div>
                         </mat-menu>
                     </div>
@@ -171,7 +169,7 @@
                                             <mat-menu #menuu="matMenu">
                                                 <div>
                                                     <!-- edit -->
-                                                    <div *ngIf='authorize(["sensortype:update"])'>
+                                                    <div *ngIf='authorize(["entity:update"])'>
                                                     <button
                                                         (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
                                                         mat-menu-item>
@@ -184,7 +182,7 @@
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["sensortype:delete"])'>
+                                                <div *ngIf='authorize(["entity:delete"])'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.type}}</span>
@@ -197,15 +195,10 @@
                                         <!-- row: view mode -->
                                         <span *ngSwitchDefault>
                                             <!-- text cell -->
-                                            <label for="" *ngIf="!isBool(element[col])">
+                                            <label for="">
                                                 {{element[col]}}
                                             </label>
-                                            <!-- dropdown cell -->
-                                            <!-- slide type cell -->
-                                            <mat-slide-toggle disabled="true" [checked]="element[col]"
-                                                *ngIf="isBool(element[col])">
-                                            </mat-slide-toggle>
-                                            <!-- end -->
+                                            
                                         </span>
                                     </div>
 
@@ -222,14 +215,12 @@
                                         <!-- col with edit -->
                                         <ng-template #dataField>
                                             <!-- input text -->
-                                            <mat-form-field *ngIf="!isBool(element[col])">
+                                            <mat-form-field>
                                                 <mat-label>{{col}}</mat-label>
                                                 <input [type]="dataSchema[col]" matInput [(ngModel)]="element[col]">
                                             </mat-form-field>
                                             <!-- slide type cell -->
-                                            <mat-slide-toggle [(ngModel)]="element[col]" [checked]="element[col]"
-                                                *ngIf="isBool(element[col])">
-                                            </mat-slide-toggle>
+                                           
 
                                         </ng-template>
                                     </div>
@@ -268,8 +259,3 @@
 
         </div>
     </div>
-
-
-
-
-    <!-- Button trigger modal -->

@@ -2,7 +2,7 @@
 
 
 <div class="container mt-4 w-100">
-    <h1 style="font-weight: bold; margin-left: 0.3cm;">Add Sensor Group</h1>
+    <h1 style="font-weight: bold; margin-left: 0.3cm;">Add Node Group</h1>
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
         <!--First form group------------------------------------>
@@ -25,27 +25,20 @@
                     </mat-checkbox>
                     <!-- end -->
                 </div>
-
                 <div>
-                    <button mat-button (click)="save_group();get_sensors();">Next</button>
+                    <button mat-button (click)="save_group();get_nodes();" 
+                    style=" margin-left: 22.5cm; background-color: rgb(216, 221, 221);">Next</button>
                 </div>
             </form>
         </mat-step>
 
 
-        <mat-step label="Assign sensor to group">
+        <mat-step label="Assign node to group">
             <app-list-sensors [id]="id"></app-list-sensors>
-            <button mat-button  (click)="ngAfterViewInit()">Assign sensor</button>
+            <button mat-button  (click)="ngAfterViewInit()"
+            style="margin-top: 0.5cm; margin-left: 20.4cm; background-color: rgb(216, 221, 221);"
+            >Assign sensor</button>
         </mat-step>
-
-        <!-- <mat-step>
-            <ng-template matStepLabel>Group Created Successfully</ng-template>
-           
-            <button mat-button (click)="stepper.reset()">Create new group</button>
-        </mat-step> -->
-
-
-
     </mat-horizontal-stepper>
     <!-- snack bar -->
 

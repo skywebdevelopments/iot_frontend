@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSensorService } from '../../../service/sensor/add-sensor.service';
 import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
-import { SensorTypeService } from '../../../service/sensor/sensor-type.service';
+import { ListEntityService } from '../../../service/entity/list-entity.service';
 import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
 
 @Component({
@@ -33,7 +33,7 @@ export class AddSensorComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private service_addSensor: AddSensorService,
     private service_ListMqtt_User: ListMqqtUserService,
-    private service_sensor_type: SensorTypeService,
+    private service_entity: ListEntityService,
     private _formBuilder: FormBuilder,
     private dialog: MatDialog
 
@@ -54,6 +54,13 @@ export class AddSensorComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
       ])],
+      // validators 
+      // Min length 4 
+      // required.
+      friendly_name: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+      ])],
       active: [
         false,
       ],
@@ -61,7 +68,7 @@ export class AddSensorComponent implements OnInit {
       // validators 
       // Min length 4  
       // required.
-      sensortypeId: [null, Validators.compose([
+     entityId: [null, Validators.compose([
         Validators.required,
         Validators.minLength(1),
       ])],
@@ -247,7 +254,7 @@ export class AddSensorComponent implements OnInit {
 
   Get_sensorType() {
     var sensorType = []
-    this.service_sensor_type.service_list_sensor_type().then(res => {
+    this.service_entity.service_list_entity().then(res => {
       res['data'].forEach(function (sensor_type) {
         sensorType.push(sensor_type)
       });

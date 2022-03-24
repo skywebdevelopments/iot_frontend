@@ -102,8 +102,6 @@
         <h1 style="font-weight: bold; margin-left: 0.3cm;">List User Groups</h1>
         <div class="container-fluid mt-1">
             <!-- table control  -->
-            <!-- filter control -->
-
             <div>
                 <div class="row justify-content-end">
                     <!-- menu div -->
@@ -174,7 +172,8 @@
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["ugroup:delete"]) && element.groupname!=="public"'>
+                                                <div
+                                                    *ngIf='authorize(["ugroup:delete"]) && element.groupname!=="public"'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.groupname}}</span>
@@ -195,8 +194,6 @@
                                                 </mat-expansion-panel-header>
                                                 <div style="height: 100px; overflow-y: auto;">
                                                     <p *ngFor="let item of element[col]">
-                                                      
-                                                        
                                                         <label> {{ item }} </label>
                                                     </p>
                                                 </div>
@@ -205,8 +202,6 @@
                                             <mat-slide-toggle disabled="true" [checked]="element[col]"
                                                 *ngIf="isBool(element[col])">
                                             </mat-slide-toggle>
-
-                                            <!-- dropdown cell -->
                                             <!-- end -->
                                         </span>
                                     </div>

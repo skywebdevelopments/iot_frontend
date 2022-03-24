@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-auto  w-100" style="overflow-x: scroll;">
+    <div class="col-auto  w-100">
         <!-- end -->
         <div class="container-fluid mt-1">
 
@@ -15,15 +15,15 @@
             </mat-form-field>
             <!-- end -->
 
-            <!-- create sensor button -->
-            <div class="row" *ngIf='authorize(["sensor"]) && isEmpty'>
-                <button mat-button [routerLink]="['/addSensor']">Create new sensor</button>
+            <!-- create node button -->
+            <div class="row" *ngIf='authorize(["node"]) && isEmpty'>
+                <button mat-button [routerLink]="['/addSensor']">Create new node</button>
             </div>
             <!-- end -->
 
             <!-- table -->
             <div class="mat-elevation-z8">
-                <table class="w-100" mat-table [dataSource]="dataSource" matSort>
+                <table mat-table [dataSource]="dataSource" matSort>
 
                     <!-- Checkbox Column -->
                     <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns">
@@ -33,45 +33,23 @@
 
                             <!-- table header -->
                             <th mat-sort-header mat-header-cell *matHeaderCellDef>
-                                <span>
-                                    {{col}}
+                                <span class="text-capitalize">
+                                    {{col.replace('_',' ')}}
                                 </span>
                             </th>
 
                             <!-- table cell -->
                             <td mat-cell *matCellDef="let element">
-                                <div [ngSwitch]="dataSchema[col]">
-
+                                <div>
                                     <!-- row: view mode -->
-                                    <span *ngSwitchDefault>
+                                    <span>
                                         <!-- text cell -->
-                                        <label for=""
-                                            *ngIf="!isBool(element[col]) && col!=='sleep_time' && col!=='mqtt_user' && col!=='sensor_type'">
+                                        <label>
                                             {{element[col]}}
                                         </label>
-                                        <label *ngIf="col==='sleep_time'">
-                                            {{element[col]}} Sec
-                                        </label>
-                                        <div *ngIf="col==='mqtt_user'">
-                                            <label>
-                                                {{ element[col]['username']}}
-                                            </label>
-                                        </div>
-                                        <div *ngIf="col==='sensor_type'">
-                                            <label>
-                                                {{ element[col]['type']}}
-                                            </label>
-                                        </div>
-                                        <!-- slide type cell -->
-                                        <mat-slide-toggle disabled="true" [checked]="element[col]"
-                                            *ngIf="isBool(element[col])">
-                                        </mat-slide-toggle>
-
-                                        <!-- dropdown cell -->
                                         <!-- end -->
                                     </span>
                                 </div>
-
                             </td>
                         </div>
 

@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SensorTypeService } from '../../service/sensor/sensor-type.service';
-import { DeleteSensorTypeService } from '../../service/sensor-type/delete-sensor-type.service';
-import { UpdateSensorTypeService } from '../../service//sensor-type/update-sensor-type.service';
-import { AddSensorTypeService } from '../../service/sensor-type/add-sensor-type.service';
+import { ListEntityService } from '../../service/entity/list-entity.service';
+import { DeleteEntityService } from '../../service/entity/delete-entity.service';
+import { UpdateEntityService } from '../../service/entity/update-entity.service';
+import { AddEntityService } from '../../service/entity/add-entity.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -13,10 +13,10 @@ import { AuthorizeRoleService } from '../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
-export interface sensortypeElement {
+export interface EntityElement {
   type: "text",
   rec_id: "text",
-  active: "boolean",
+  name: "text",
 }
 
 const TABLE_SCHEMA = {
@@ -24,25 +24,24 @@ const TABLE_SCHEMA = {
   "isDelete": "isDelete"
 }
 // to be filled from the service
-const ELEMENT_DATA: sensortypeElement[] = [];
+const ELEMENT_DATA: EntityElement[] = [];
 
 @Component({
-  selector: 'app-list-sensor-type',
-  templateUrl: './list-sensor-type.component.html',
-  styleUrls: ['./list-sensor-type.component.css']
+  selector: 'app-list-entity',
+  templateUrl: './list-entity.component.html',
+  styleUrls: ['./list-entity.component.css']
 })
-export class ListSensorTypeComponent implements OnInit {
-
+export class ListEntityComponent implements OnInit {
   enable_save_all = false
-  form_updatesensor_type: any;
+  form_updateentity: any;
   replace_with_input = false;
   authorized: boolean;
-  Formsensor: FormGroup;
+  Formentity: FormGroup;
   formData: any;
 
-  displayedColumns: string[] = ['select', 'type','active', 'isEdit', 'isDelete'];
-  dataSource = new MatTableDataSource<sensortypeElement>(ELEMENT_DATA);
-  selection = new SelectionModel<sensortypeElement>(true, []);
+  displayedColumns: string[] = ['select', 'name', 'type', 'isEdit', 'isDelete'];
+  dataSource = new MatTableDataSource<EntityElement>(ELEMENT_DATA);
+  selection = new SelectionModel<EntityElement>(true, []);
 
   dataSchema = TABLE_SCHEMA;
 
@@ -55,13 +54,12 @@ export class ListSensorTypeComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
 
   }
-
   constructor(
-    private service_listsensortype: SensorTypeService,
-    private service_deletesensortype: DeleteSensorTypeService,
-    private service_updatesensortype: UpdateSensorTypeService,
+    private service_listentity: ListEntityService,
+    private service_deleteentity: DeleteEntityService,
+    private service_updateentity: UpdateEntityService,
     private formBuilder: FormBuilder,
-    private service_add_sensor_type: AddSensorTypeService,
+    private service_addentity: AddEntityService,
 
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
@@ -71,7 +69,7 @@ export class ListSensorTypeComponent implements OnInit {
   ) { }
 
   init_form() {
-    this.Formsensor = this.formBuilder.group({
+    this.Formentity = this.formBuilder.group({
       // validators 
       // Min length 4  
       // required.
@@ -79,7 +77,10 @@ export class ListSensorTypeComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
       ])],
-      active:[false]
+      name: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+      ])]
     });
   }
 
@@ -103,7 +104,7 @@ export class ListSensorTypeComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: sensortypeElement): string {
+  checkboxLabel(row?: EntityElement): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -124,13 +125,11 @@ export class ListSensorTypeComponent implements OnInit {
       this._snackBar.dismiss()
     }, interval);
   }
-  
 
-  // get sensor type list
-  get_sensor_type_list(showSnackBar: boolean) {
 
-    this.service_listsensortype.service_list_sensor_type().then(res => {
-
+  // get entity list
+  get_entity_list(showSnackBar: boolean) {
+    this.service_listentity.service_list_entity().then(res => {
       if (res['data']) {
         // add data to the table (data source)
         this.dataSource.data = res['data']
@@ -140,7 +139,6 @@ export class ListSensorTypeComponent implements OnInit {
       else {
         this.dataSource.data = [];
         this.openSnackBar("list is Empty!", "Ok", 2000);
-
       }
     });
   };
@@ -148,20 +146,16 @@ export class ListSensorTypeComponent implements OnInit {
   // UI Functions
   isBool(val): boolean { return typeof val === 'boolean'; }
 
-  // delete sensortype
-  delete_sensor_type() {
-
+  // delete entity
+  delete_entity() {
     this.selection.selected.forEach(sensor_type => {
       let formData = {
         rec_id: sensor_type.rec_id
       }
-
-      this.service_deletesensortype.service_delete_sensor_type(formData).then(res => {
+      this.service_deleteentity.service_delete_entity(formData).then(res => {
         this.openSnackBar(res['status'], '', 4000);
-
         // recall refresh
-        this.get_sensor_type_list(true);
-
+        this.get_entity_list(true);
       })
     })
     // !important: clear all the current selections after delete requests
@@ -173,12 +167,16 @@ export class ListSensorTypeComponent implements OnInit {
     this.replace_with_input = !this.replace_with_input;
   }
 
-  edit_sensor_type(e: any) {
+  edit_entity(e: any) {
     let rec_id = e.rec_id
     this.dataSource.data.forEach(item => {
 
-      this.form_updatesensor_type = this.fb.group({
-        name: [item.type, Validators.compose([
+      this.form_updateentity = this.fb.group({
+        type: [item.type, Validators.compose([
+          Validators.required,
+          Validators.minLength(3)
+        ])],
+        name: [item.name, Validators.compose([
           Validators.required,
           Validators.minLength(3)
         ])]
@@ -191,7 +189,7 @@ export class ListSensorTypeComponent implements OnInit {
     this.dataSource.data.forEach(item => {
       if (item['isEdit'] !== undefined && item['isEdit'] == true) {
         // 2. post to the update API
-        this.service_updatesensortype.service_update_sensor_type(item).then(res => {
+        this.service_updateentity.service_update_entity(item).then(res => {
           // 1. delete the flag
           delete item['isEdit']
           this.openSnackBar(res['status'], '', 2000)
@@ -203,16 +201,16 @@ export class ListSensorTypeComponent implements OnInit {
     })
   }
 
-  // delete sensor type
-  delete_sensor_type_onerec(e: any) {
+  // delete entity
+  delete_entity_onerec(e: any) {
     if (e['isDelete'] !== undefined && e['isDelete'] == true) {
       // 1. delete the flag
       delete e['isDelete']
-      this.service_deletesensortype.service_delete_sensor_type(e).then(res => {
+      this.service_deleteentity.service_delete_entity(e).then(res => {
         console.log(res);
         this.openSnackBar(res['status'], '', 4000);
         // recall refresh
-        this.get_sensor_type_list(true);
+        this.get_entity_list(true);
       })
     }
   }
@@ -223,22 +221,21 @@ export class ListSensorTypeComponent implements OnInit {
       // NOTE: The result can also be nothing if the user presses the `esc` key or clicks outside the dialog
       if (result == 'confirm') {
         e['isDelete'] = !e['isDelete'];
-        this.delete_sensor_type_onerec(e);
+        this.delete_entity_onerec(e);
       }
     })
   }
 
 
-  //Create Sensor-type
-  save_sensor_type() {
-    console.log('heyyy')
-    if (this.Formsensor.valid) {
-      console.log(this.Formsensor)
-      this.formData = this.Formsensor.value
+  //Create entity
+  save_entity() {
+    if (this.Formentity.valid) {
+      console.log(this.Formentity)
+      this.formData = this.Formentity.value
       console.log(this.formData)
-      this.service_add_sensor_type.service_add_sensor_type(this.formData).then(res => {
+      this.service_addentity.service_add_entity(this.formData).then(res => {
         this.openSnackBar(res['status'], "Ok", 2000);
-        this.Formsensor.reset();
+        this.Formentity.reset();
       })
     }
     else {
@@ -251,9 +248,10 @@ export class ListSensorTypeComponent implements OnInit {
 
   ngOnInit(): void {
     this.init_form();
-    this.get_sensor_type_list(false);
+    this.get_entity_list(false);
   }
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);
   }
 }
+

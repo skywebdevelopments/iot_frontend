@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AddGroupService } from '../../service/group/add-group.service'
-import { ListGroupService } from '../../service/group/list-group.service';
+import { AddGroupService } from '../../service/n_group/add-group.service'
+import { ListGroupService } from '../../service/n_group/list-group.service';
 import { ListSensorsComponent } from './list-sensors/list-sensors.component';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -54,6 +54,7 @@ export class AddGroupComponent implements OnInit {
       this.openSnackBar("Group Name is already exist", "Ok", 2000);
      }
      else{
+       console.log( res['data']['rec_id'])
         this.id = res['data']['rec_id'];
         this.openSnackBar(res['message'], "Ok", 1000);
         this.myStepper.next();
@@ -69,8 +70,8 @@ export class AddGroupComponent implements OnInit {
     this._snackBar.open(message, action);
   }
 
-  get_sensors() {
-    this.child.get_sensor_list(true);
+  get_nodes() {
+    this.child.get_node_list(true);
   }
   ngAfterViewInit() {
     this.child.assign_sensors();

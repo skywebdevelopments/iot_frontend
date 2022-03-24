@@ -10,7 +10,7 @@ export class ListSensorService {
   //get all sensors
   service_list_sensor() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/sensor`;
+      let apiURL = `${environment.backend.api_url}/api/v1/node`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)

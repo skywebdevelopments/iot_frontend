@@ -42,7 +42,7 @@ export class LogsComponent implements OnInit {
   // end
 
 
-  displayedColumns: string[] = ['operation', 'log_message', 'log_level', 'user_email', 'createdAt', 'isEdit'];
+  displayedColumns: string[] = ['operation','log_level', 'user_email', 'parent_rec_id','createdAt', 'isEdit'];
   dataSource = new MatTableDataSource<logElement>(ELEMENT_DATA);
   dataSchema = TABLE_SCHEMA;
 

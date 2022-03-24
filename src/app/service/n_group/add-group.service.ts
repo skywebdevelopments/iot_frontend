@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient ,HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../../../environments/environment.prod'
-
 @Injectable({
   providedIn: 'root'
 })
-export class GroupSensorService {
+export class AddGroupService {
 
   constructor(private http: HttpClient) { }
 
-  // get group-sensor list.
-  service_list_group_sensor() {
+  // add group function.
+  service_add_group(formData: any) {
 
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/s_group/sensors`;
+      let apiURL = `${environment.backend.api_url}/api/v1/n_group/create`;
       var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
       }
-      this.http.get(apiURL,header)
+      this.http.post(apiURL, formData, header)
         .toPromise()
         .then(
           res => { // Success
-
             resolve(res);
           }
         ).catch((err)=> {
@@ -32,4 +30,5 @@ export class GroupSensorService {
     return promise;
 
   };
+
 }

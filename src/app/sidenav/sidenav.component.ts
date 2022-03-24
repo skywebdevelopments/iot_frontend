@@ -41,23 +41,23 @@ const TREE_DATA: listItems[] = [
 
       },
       {
-        labelText: "sensor",
+        labelText: "node",
         icon: "developer_board",
         routerLink: "",
         children: [
           {
-            labelText: "list sensors",
+            labelText: "list nodes",
             icon: "list",
             routerLink: "/listSensor",
 
           },
           {
-            labelText: "Sensor Provisioning",
+            labelText: "Node Provisioning",
             icon: "list",
             routerLink: "/provision",
           },
           {
-            labelText: "add sensor",
+            labelText: "add node",
             icon: "playlist_add",
             routerLink: "/addSensor",
 
@@ -68,14 +68,14 @@ const TREE_DATA: listItems[] = [
       },
       ,
       {
-        labelText: "sensorType",
+        labelText: "entity",
         icon: "device_hub",
         routerLink: "",
         children: [
           {
-            labelText: "list sensor type",
+            labelText: "list entity",
             icon: "list",
-            routerLink: "/listsensortype",
+            routerLink: "/listentity",
 
           }
           

@@ -40,7 +40,7 @@
 
 
     <div class="col-auto  w-100">
-        <h1 style="font-weight: bold; margin-left: 0.3cm;">List Sensor Groups</h1>
+        <h1 style="font-weight: bold; margin-left: 0.3cm;">List Node Groups</h1>
         <!-- end -->
         <div class="container-fluid mt-1">
             <!-- table control  -->
@@ -70,12 +70,12 @@
 
                             <!-- Create sensor button -->
 
-                            <button [routerLink]="['/addGroup']" *ngIf='authorize(["s_group:create"])'
+                            <button [routerLink]="['/addGroup']" *ngIf='authorize(["n_group:create"])'
                                 routerLinkActive="router-link-active" mat-menu-item>
                                 <mat-icon>playlist_add</mat-icon>
                                 <span>add</span>
                             </button>
-                            <div *ngIf='authorize(["s_group:delete"])'>
+                            <div *ngIf='authorize(["n_group:delete"])'>
                                 <button data-toggle="modal" *ngIf="selection.hasValue()" data-target="#exampleModal"
                                     mat-menu-item>
                                     <mat-icon>delete</mat-icon>
@@ -121,14 +121,14 @@
                                         <!-- edit button -->
                                         <div class="btn-edit" *ngSwitchCase="'isEdit'">
 
-                                            <div *ngIf='authorize(["s_group:delete"]) || authorize(["s_group:update"])'>
+                                            <div *ngIf='authorize(["n_group:delete"]) || authorize(["n_group:update"])'>
                                                 <button mat-icon-button [matMenuTriggerFor]="menuu"
                                                     aria-label="Example icon-button with a menu">
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
                                             </div>
                                             <mat-menu  class="p-2" #menuu="matMenu">
-                                                <div *ngIf='authorize(["s_group:update"])'>
+                                                <div *ngIf='authorize(["n_group:update"])'>
                                                     <!-- edit -->
                                                     <button
                                                         (click)="enable_save_all = true ;element.isEdit = !element.isEdit"
@@ -139,7 +139,7 @@
                                                 </div>
                                                 <!-- delete -->
 
-                                                <div *ngIf='authorize(["s_group:delete"])'>
+                                                <div *ngIf='authorize(["n_group:delete"])'>
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>
