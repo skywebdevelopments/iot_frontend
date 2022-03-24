@@ -76,6 +76,7 @@ import { LogsComponent } from './logs/logs.component';
 import { GroupSensorComponent } from './group-sensor/group-sensor.component';
 import { GroupSensorTreeComponent } from './group-sensor-tree/group-sensor-tree.component';
 import { NgxContentLoadingModule } from 'ngx-content-loading';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 
@@ -97,8 +98,6 @@ import { LogsDashboardComponent } from './logs/logs-dashboard/logs-dashboard.com
 import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
 import { SensorProvisionComponent } from './sensor-provision/sensor-provision.component';
-
-
 
 @NgModule({
   declarations: [
@@ -227,6 +226,7 @@ import { SensorProvisionComponent } from './sensor-provision/sensor-provision.co
     NgbModule,
     AppRoutingModule,
     LayoutModule,
+    GoogleChartsModule.forRoot()
   ],
   providers: [EncrDecrService],
   bootstrap: [AppComponent]
