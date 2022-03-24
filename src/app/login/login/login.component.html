@@ -10,6 +10,7 @@
                 <mat-form-field class="example-full-width">
                     <label for="email">Email</label>
                     <input class="form-group" type="email" matInput formControlName="email">
+                    <mat-error *ngIf="form_login.controls['email'].invalid">{{getErrorMessageEmail()}}</mat-error>
                 </mat-form-field>
             </div>
             <!--End Email Field-->
@@ -22,6 +23,7 @@
                     <mat-icon class="field-icon"
                         (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
                     </mat-icon>
+                    <mat-error *ngIf="form_login.controls['password'].invalid">{{getErrorMessagePass()}}</mat-error>
                 </mat-form-field>
             </div>
             <!--End Password Field-->

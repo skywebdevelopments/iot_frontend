@@ -8,6 +8,7 @@
                 <mat-form-field class="example-full-width">
                 <label for="email">Username</label>
                 <input class="form-group" type="text" matInput formControlName="username">
+                <mat-error *ngIf="form_signup.controls['username'].invalid">{{getErrorMessagusername()}}</mat-error>
             </mat-form-field>
             </div>
             <!--End username Field-->
@@ -17,6 +18,7 @@
                 <mat-form-field class="example-full-width">
                 <label for="email">Email</label>
                 <input class="form-group" type="email" matInput formControlName="email">
+                <mat-error *ngIf="form_signup.controls['email'].invalid">{{getErrorMessageEmail()}}</mat-error>
             </mat-form-field>
             </div>
             <!--End Email Field-->
@@ -25,28 +27,28 @@
             <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                 <label for="password">Password</label>
-                <input  #eye_password type="password" matInput formControlName="password">
+                <input  #eye_password type="password" matInput formControlName="password" (change)="onChangepassword($event.target.value)">
                 <mat-icon  class="field-icon" (click)="eye_password.type=eye_password.type=='password'?'text':'password'">remove_red_eye
                 </mat-icon>
+                <mat-error *ngIf="form_signup.controls['password'].invalid">{{getErrorMessagepass()}}</mat-error>
             </mat-form-field>
             </div>
             <!--End Password Field-->
 
-             <!--Password Field-->
+             <!--Confirm password Field-->
              <div class="container mt-4">
                 <mat-form-field class="example-full-width">
                 <label for="password"> Confirm Password</label>
                 <input  #eye_passwordd type="password" matInput formControlName="Confirm_password">
                 <mat-icon  class="field-icon" (click)="eye_passwordd.type=eye_passwordd.type=='password'?'text':'password'">remove_red_eye
                 </mat-icon>
+                <mat-error *ngIf="form_signup.controls['Confirm_password'].invalid">{{getErrorMessageconfirmpass()}}</mat-error>
             </mat-form-field>
             </div>
-            <!--End Password Field-->
-
-
+            <!--End Confirm password Field-->
             <div>
                 <!--Signup button -->
-                <button class="btn btn-primary btn-block" [disabled]="!form_signup.valid"  (click)="onsubmit() ">signup
+                <button class="btn btn-primary btn-block" [disabled]="form_signup.invalid"  (click)="onsubmit() ">signup
                 </button>
             </div>
         </form>
