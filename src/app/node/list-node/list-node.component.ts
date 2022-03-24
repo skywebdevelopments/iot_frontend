@@ -190,6 +190,7 @@ export class ListNodeComponent implements OnInit {
     })
     // !important: clear all the current selections after delete requests
     this.selection.clear();
+    location.reload();
 
   }
 
@@ -296,15 +297,12 @@ export class ListNodeComponent implements OnInit {
 
   }
   submit_all() {
-    console.log(this.form_updateNode.value)
     this.service_updateNode.service_update_node(this.form_updateNode.value).then(res => {
       this.openSnackBar(`Saved successfully`, '', 2000)
       this.get_node_list(true);
     })
-
-
+    location.reload();
     this.enable_save_all = false;
-
   }
 
 
@@ -320,6 +318,7 @@ export class ListNodeComponent implements OnInit {
         this.get_node_list(true);
       })
     }
+    location.reload();
   }
 
   authorize(role) {
@@ -381,8 +380,8 @@ export class ListNodeComponent implements OnInit {
 
   assign_nodes() {
 
-    this.selection.selected.forEach(Sensor_data => {
-      this.formData["nodeId"] = Sensor_data['id'];
+    this.selection.selected.forEach(node_data => {
+      this.formData["nodeId"] = node_data['id'];
       this.formData["rec_id"] = this.selected
       this.service_mapSensor.service_assign_sensor(this.formData).then(res => {
         this.openSnackBar("Nodes assigned successfully ", "Ok", 2000);
@@ -390,6 +389,7 @@ export class ListNodeComponent implements OnInit {
         this.openSnackBar(err, "Ok", 2000);
       })
     })
+  //  location.reload();
   }
 
   ngOnInit(): void {

@@ -55,7 +55,7 @@
                     <div class="m-5">
                         <div class="row">
                             <div class="col-auto">
-                                <h3>Selected Sensors</h3>
+                                <h3>Selected Nodes</h3>
                                 <ol>
                                     <li *ngFor="let item of selection.selected">
                                         {{item.board_name}}
@@ -111,7 +111,7 @@
                         <span>add</span>
                     </button>
                     <div *ngIf='authorize(["node:delete"])'>
-                        <button data-toggle="modal" *ngIf="selection.hasValue()  " data-target="#exampleModal"
+                        <button data-toggle="modal" *ngIf="selection.hasValue() " data-target="#exampleModal"
                             (click)="get_node_list(true)" mat-menu-item>
                             <mat-icon>delete</mat-icon>
                             <span>delete</span>
@@ -280,7 +280,7 @@
             <div *ngIf='authorize(["node:update"])' style="margin-left: 19.5cm;">
                 <!-- delete -->
                 <button mat-raised-button color="primary"
-                    (click)="enable_save_all = true ;selectedTableRecord.isEdit = !selectedTableRecord.isEdit ; edit_sensor(selectedTableRecord)">
+                    (click)="enable_save_all = true ;selectedTableRecord.isEdit = !selectedTableRecord.isEdit ; edit_node(selectedTableRecord)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>
                 </button>
@@ -288,7 +288,7 @@
         </div>
 
 
-        <div *ngIf="selectedTableRecord.isEdit" [formGroup]="form_updateSensor">
+        <div *ngIf="selectedTableRecord.isEdit" [formGroup]="form_updateNode">
 
             <div class=" full-name-inputs">
                 <!-- Mac_address -->
