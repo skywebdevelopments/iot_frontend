@@ -4,25 +4,20 @@ import { environment } from '../../../environments/environment.prod'
 @Injectable({
   providedIn: 'root'
 })
-export class DeleteSensorService {
-
+export class ListNodeService {
   constructor(private http: HttpClient) { }
-
-  // delete group function.
-  service_delete_sensor(formData: any) {
-
+  //get all nodes
+  service_list_node() {
     let promise = new Promise((resolve, reject) => {
-      let apiURL = `${environment.backend.api_url}/api/v1/node/delete`;
-      var headers = {
+      let apiURL = `${environment.backend.api_url}/api/v1/node`;
+      var header = {
         headers: new HttpHeaders()
           .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
       }
-      
-      this.http.post(apiURL, formData,headers)
+      this.http.get(apiURL, header)
         .toPromise()
         .then(
           res => { // Success
-
             resolve(res);
           }
         ).catch((err)=> {

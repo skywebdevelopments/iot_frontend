@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListMqqtUserService } from '../service/sensor/list-mqqt-user.service';
+import { ListMqqtUserService } from '../service/node/list-mqqt-user.service';
 import { DeleteMqttuserService } from '../service/mqtt_user/delete-mqttuser.service';
 import { UpdateMqttuserService } from '../service/mqtt_user/update-mqttuser.service';
 import { AddMqttuserService } from '../service/mqtt_user/add-mqttuser.service';

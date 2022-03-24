@@ -11,7 +11,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthorizeRoleService } from '../../../service/user/authorize-role.service'
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
-import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
+import { ListMqqtUserService } from '../../../service/node/list-mqqt-user.service';
 import { ListGroupService } from '../../../service/n_group/list-group.service';
 import { ListEntityService } from '../../../service/entity/list-entity.service';
 import { MapGroupSensorService } from '../../../service/n_group/map-group-sensor.service';

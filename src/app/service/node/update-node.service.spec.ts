@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UpdateSensorService } from './update-sensor.service';
+import { UpdateNodeService } from './update-node.service';
 
-describe('UpdateSensorService', () => {
-  let service: UpdateSensorService;
+describe('UpdateNodeService', () => {
+  let service: UpdateNodeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UpdateSensorService);
+    service = TestBed.inject(UpdateNodeService);
   });
 
   it('should be created', () => {

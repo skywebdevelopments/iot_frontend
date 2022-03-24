@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DeleteSensorService } from './delete-sensor.service';
+import { AddNodeService } from './add-node.service';
 
-describe('DeleteSensorService', () => {
-  let service: DeleteSensorService;
+describe('AddNodeService', () => {
+  let service: AddNodeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DeleteSensorService);
+    service = TestBed.inject(AddNodeService);
   });
 
   it('should be created', () => {
