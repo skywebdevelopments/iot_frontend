@@ -1,15 +1,13 @@
 .mat-table {
-    overflow-x: scroll;
-    max-width: 99%;
-  }
-  .mat-cell,
-  .mat-header-cell {
-    word-wrap: initial;
-    display: table-cell;
-    padding: 0px 10px;
-    line-break: unset;
-    width:50%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: middle;
-  }
+  width: 100%;
+}
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}

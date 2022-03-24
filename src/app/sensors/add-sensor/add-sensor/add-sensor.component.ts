@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { AddSensorService } from '../../../service/sensor/add-sensor.service';
-import { ListMqqtUserService } from '../../../service/sensor/list-mqqt-user.service';
+import { AddNodeService } from '../../../service/node/add-node.service';
+import { ListMqqtUserService } from '../../../service/node/list-mqqt-user.service';
 import { ListEntityService } from '../../../service/entity/list-entity.service';
-import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
+import { ErrorDialogComponent } from '../../../node/error-dialog/error-dialog.component'
 
 @Component({
   selector: 'app-add-sensor',
@@ -31,7 +31,7 @@ export class AddSensorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private service_addSensor: AddSensorService,
+    private service_addNode: AddNodeService,
     private service_ListMqtt_User: ListMqqtUserService,
     private service_entity: ListEntityService,
     private _formBuilder: FormBuilder,
@@ -226,7 +226,7 @@ export class AddSensorComponent implements OnInit {
         this.thirdFormGroup.value)
 
       //  console.log(this.formData)
-      this.service_addSensor.service_add_sensor(this.formData).then(res => {
+      this.service_addNode.service_add_node(this.formData).then(res => {
         //  console.log(this.formData)
         this.openSnackBar(res['status']['message'], "Ok", 4000);
         this.firstFormGroup.reset();
@@ -278,7 +278,7 @@ export class AddSensorComponent implements OnInit {
 
       for (var key in this.file_input) {
         var each_sensor = this.file_input[key];
-        this.service_addSensor.service_add_sensor(each_sensor).then(res => {
+        this.service_addNode.service_add_node(each_sensor).then(res => {
           if (res['code'] === 2102) {
 
 

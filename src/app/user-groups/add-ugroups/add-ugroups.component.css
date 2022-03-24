@@ -55,6 +55,9 @@
     width:500px !important;
   }
 
+  ::ng-deep .cdk-overlay-container {
+    z-index: 10000 !important;
+  }
   
 
   .modal-header 

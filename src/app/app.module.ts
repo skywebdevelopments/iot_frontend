@@ -48,7 +48,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { StepperComponent } from './stepper/stepper.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
 
@@ -70,7 +69,7 @@ import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
-import { ErrorDialogComponent } from './sensors/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from './node/error-dialog/error-dialog.component';
 import { IndexComponent } from './index/index.component';
 import { LogsComponent } from './logs/logs.component';
 import { NgxContentLoadingModule } from 'ngx-content-loading';
@@ -90,13 +89,14 @@ import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.compo
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
 import { SensorProvisionComponent } from './sensor-provision/sensor-provision.component';
 import { ListEntityComponent } from './entity/list-entity/list-entity.component';
+import { AddNodeComponent } from './node/add-node/add-node.component';
+import { ListNodeComponent } from './node/list-node/list-node.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    StepperComponent,
     AddGroupComponent,
     ListGroupComponent,
 
@@ -156,6 +156,8 @@ import { ListEntityComponent } from './entity/list-entity/list-entity.component'
     ListUgroupsComponent,
     SensorProvisionComponent,
     ListEntityComponent,
+    AddNodeComponent,
+    ListNodeComponent,
 
   ],
   imports: [
