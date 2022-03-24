@@ -54,6 +54,7 @@ export class AddGroupComponent implements OnInit {
       this.openSnackBar("Group Name is already exist", "Ok", 2000);
      }
      else{
+       console.log( res['data']['rec_id'])
         this.id = res['data']['rec_id'];
         this.openSnackBar(res['message'], "Ok", 1000);
         this.myStepper.next();

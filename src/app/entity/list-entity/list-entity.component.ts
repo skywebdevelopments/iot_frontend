@@ -39,7 +39,7 @@ export class ListEntityComponent implements OnInit {
   Formentity: FormGroup;
   formData: any;
 
-  displayedColumns: string[] = ['select', 'type', 'name', 'isEdit', 'isDelete'];
+  displayedColumns: string[] = ['select', 'name', 'type', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<EntityElement>(ELEMENT_DATA);
   selection = new SelectionModel<EntityElement>(true, []);
 

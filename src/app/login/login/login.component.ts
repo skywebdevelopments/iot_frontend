@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           this.form_login.reset();
         }
         else {
-          this.router.navigateByUrl('listGroup')
+          this.router.navigateByUrl('/dashboard')
           this.form_login.reset();
         }
       })

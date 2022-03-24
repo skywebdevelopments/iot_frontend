@@ -73,6 +73,8 @@ import { ErrorDialogComponent } from './node/error-dialog/error-dialog.component
 import { IndexComponent } from './index/index.component';
 import { LogsComponent } from './logs/logs.component';
 import { NgxContentLoadingModule } from 'ngx-content-loading';
+import { GoogleChartsModule } from 'angular-google-charts';
+
 import { MqttUserComponent } from './mqtt-user/mqtt-user.component';
 import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
@@ -91,8 +93,6 @@ import { SensorProvisionComponent } from './sensor-provision/sensor-provision.co
 import { ListEntityComponent } from './entity/list-entity/list-entity.component';
 import { AddNodeComponent } from './node/add-node/add-node.component';
 import { ListNodeComponent } from './node/list-node/list-node.component';
-
-
 
 @NgModule({
   declarations: [
@@ -216,6 +216,7 @@ import { ListNodeComponent } from './node/list-node/list-node.component';
     NgbModule,
     AppRoutingModule,
     LayoutModule,
+    GoogleChartsModule.forRoot()
   ],
   providers: [EncrDecrService],
   bootstrap: [AppComponent]

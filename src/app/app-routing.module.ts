@@ -18,12 +18,14 @@ import { UsersComponent } from './users/user-management/users.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { AddUgroupsComponent } from './user-groups/add-ugroups/add-ugroups.component';
 import { ListUgroupsComponent } from './user-groups/list-ugroups/list-ugroups.component';
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 import { TestcomComponent } from './testcom/testcom.component';
 
 
 const routes: Routes = [
   { path: "Login", component: LoginComponent },
+  { path: "dashboard", component: DashboardComponent },
   { path: "", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   { path: "logs", component: LogsComponent },
