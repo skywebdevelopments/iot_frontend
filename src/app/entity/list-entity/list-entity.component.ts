@@ -12,11 +12,13 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import { AuthorizeRoleService } from '../../service/user/authorize-role.service';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ListSensorService } from '../../service/sensor/list-sensor.service';
 
 export interface EntityElement {
   type: "text",
   rec_id: "text",
   name: "text",
+  nodeId:"text"
 }
 
 const TABLE_SCHEMA = {
@@ -38,6 +40,7 @@ export class ListEntityComponent implements OnInit {
   authorized: boolean;
   Formentity: FormGroup;
   formData: any;
+  node:any
 
   displayedColumns: string[] = ['select', 'name', 'type', 'isEdit', 'isDelete'];
   dataSource = new MatTableDataSource<EntityElement>(ELEMENT_DATA);
@@ -60,7 +63,7 @@ export class ListEntityComponent implements OnInit {
     private service_updateentity: UpdateEntityService,
     private formBuilder: FormBuilder,
     private service_addentity: AddEntityService,
-
+    private service_listSensor: ListSensorService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private service_authorize: AuthorizeRoleService,
@@ -80,7 +83,11 @@ export class ListEntityComponent implements OnInit {
       name: ['', Validators.compose([
         Validators.required,
         Validators.minLength(4),
-      ])]
+      ])],
+      nodeId: [null, Validators.compose([
+        Validators.minLength(1),
+      ])],
+
     });
   }
 
@@ -230,9 +237,8 @@ export class ListEntityComponent implements OnInit {
   //Create entity
   save_entity() {
     if (this.Formentity.valid) {
-      console.log(this.Formentity)
+      console.log(this.Formentity.value)
       this.formData = this.Formentity.value
-      console.log(this.formData)
       this.service_addentity.service_add_entity(this.formData).then(res => {
         this.openSnackBar(res['status'], "Ok", 2000);
         this.Formentity.reset();
@@ -245,10 +251,24 @@ export class ListEntityComponent implements OnInit {
 
   //End
 
+   // get node list
+   get_sensor_list() {
+    var node = []
+    this.service_listSensor.service_list_sensor().then(res => {
+      res['data'].forEach(function (node_name) {
+        node.push(node_name)
+      });
+    });
+    return node;
+  };
+
+
 
   ngOnInit(): void {
     this.init_form();
     this.get_entity_list(false);
+    this.node=this.get_sensor_list();
+    console.log(this.node)
   }
   authorize(role) {
     return this.service_authorize.service_authorize_user(role);

@@ -14,10 +14,18 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Entity</label>
+                            <label for="recipient-name" class="col-form-label" style="margin-bottom: 0.5cm;">Entity Data</label>
                             <div [formGroup]="Formentity">
-                                <input type="text" matInput formControlName="name" placeholder="Name" class="form-control">
-                                <input type="text" matInput formControlName="type"  placeholder="Type" class="form-control">
+                                <input type="text" matInput formControlName="name" placeholder="Name" class="form-control" style="margin-bottom: 0.5cm;">
+                                <input type="text" matInput formControlName="type"  placeholder="Type" class="form-control"  style="margin-bottom: 0.5cm;">
+                                <mat-form-field appearance="fill" >
+                                    <mat-label>Node Name</mat-label>
+                                    <mat-select formControlName="nodeId" >
+                                        <mat-option  *ngFor="let nodeId of node" [value]="nodeId.id">
+                                            {{nodeId.friendly_name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
                             </div>
                         </div>
                     </form>
