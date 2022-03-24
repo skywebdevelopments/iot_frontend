@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
 import { ListGroupComponent } from './groups/list-group/list-group.component';
-import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component';
-import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
+import { AddNodeComponent } from './node/add-node/add-node.component';
+import { ListNodeComponent } from './node/list-node/list-node.component';
 import { LoginComponent } from './login/login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SignupComponent } from './signup/signup.component';
@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: "addGroup", component: AddGroupComponent },
   { path: "listGroup", component: ListGroupComponent },
   { path: "addGroup", component: AddGroupComponent },
-  { path: "addSensor", component: AddSensorComponent },
-  { path: "listSensor", component: ListSensorComponent },
+  { path: "addNode", component: AddNodeComponent},
+  { path: "listNode", component: ListNodeComponent },
   { path: "listentity", component: ListEntityComponent },
   { path: "listmqttuser", component: MqttUserComponent },
   { path: "usersManagement", component: UsersComponent },

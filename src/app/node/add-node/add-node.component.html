@@ -1,1 +1,253 @@
-<p>add-node works!</p>
+<div class="container mt-6 w-80">
+    <h1 style="font-weight: bold; margin-left: 0.3cm;">Add Node</h1>
+    <div style="display: flex;justify-content: flex-end;">
+      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+      <button (click)="fileInput.click()" mat-raised-button color="primary">
+        <mat-icon> publish</mat-icon>
+        <span>Upload File</span>
+      </button>
+    </div>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+  
+      <!--First form group------------------------------------>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Add Node Details</ng-template>
+  
+          <div class="row full-name-inputs">
+            <!-- Mac_address -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Mac address</mat-label>
+              <input type="text" matInput formControlName="mac_address" placeholder="Enter a mac_address" class="inputs">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- Client Id -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Client Id</mat-label>
+              <input type="text" matInput formControlName="client_id" placeholder="Enter a Client Id">
+            </mat-form-field>
+            <!-- end -->
+  
+              <!-- Friendly name -->
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Friendly name</mat-label>
+                <input type="text" matInput formControlName="friendly_name" placeholder="Enter a Friendly name">
+              </mat-form-field>
+              <!-- end -->
+          </div>
+  
+          <div class="row  full-name-inputs">
+            <!-- serial_number -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Serial Number</mat-label>
+              <input type="text" matInput formControlName="serial_number" placeholder="Enter a Serial Number">
+            </mat-form-field>
+            <!-- end -->
+            <!-- sensor_type -->
+            <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
+              <mat-select placeholder="Entity" formControlName="entityId">
+                <mat-option *ngFor="let typee of sensor_typee" [value]="typee.id"> {{typee.type}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row" style=" margin-left:1.8cm">
+            <!-- checkbox: is enabled -->
+            <mat-checkbox formControlName="active" class="example-margin">
+              Active Node
+            </mat-checkbox>
+            <!-- end -->
+          </div>
+  
+  
+          <div style=" margin-left:20cm">
+            <button mat-button matStepperNext>Next</button>
+          </div>
+  
+        </form>
+      </mat-step>
+      <!--End First form group------------------------------------>
+  
+      <!--Second form group------------------------------------>
+      <mat-step [stepControl]="secondFormGroup" label="Netwrork details">
+        <form [formGroup]="secondFormGroup">
+  
+  
+          <div class="row">
+            <!-- static_ip -->
+            <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
+              <mat-label>Static Ip</mat-label>
+              <input type="text" matInput formControlName="static_ip" placeholder="Enter a Static IP">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row full-name-inputs">
+            <!-- dns1 -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Dns1</mat-label>
+              <input type="text" matInput formControlName="dns1" placeholder="Enter a Dns1">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- dns2 -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Dns2</mat-label>
+              <input type="text" matInput formControlName="dns2" placeholder="Enter a Dns2">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row full-name-inputs">
+            <!-- gateway -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Gateway</mat-label>
+              <input type="text" matInput formControlName="gateway" placeholder="Enter a Gateway">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- subnet -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Subnet</mat-label>
+              <input type="text" matInput formControlName="subnet" placeholder="Enter a Subnet">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+  
+          <div class="row full-name-inputs">
+            <!-- sleep_time -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>sleep Time</mat-label>
+              <input type="number" matInput formControlName="sleep_time" placeholder="Enter a Sleep Time">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- host_ip -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Host IP</mat-label>
+              <input type="text" matInput formControlName="host_ip" placeholder="Enter a Host Host">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+  
+          <div class="row  full-name-inputs">
+            <!-- sim_serial -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Sim Serial </mat-label>
+              <input type="text" matInput formControlName="sim_serial" placeholder="Enter a Sim Serial">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- sim_msidm -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Sim Msidm </mat-label>
+              <input type="text" matInput formControlName="sim_msidm" placeholder="Enter a Sim Msidm">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row  full-name-inputs">
+            <!-- Ota_password -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Ota Password</mat-label>
+              <input type="password" matInput formControlName="ota_password" placeholder="Enter a Ota Password">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- flags -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Flags </mat-label>
+              <input type="text" matInput formControlName="flags" placeholder="Enter a Flags">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div style=" margin-left:20cm">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <!--End Second form group------------------------------------>
+  
+      <!--Third form group------------------------------------>
+      <mat-step [stepControl]="thirdFormGroup" label="Access point details">
+        <form [formGroup]="thirdFormGroup">
+  
+          <div class="row  full-name-inputs">
+            <!-- ap_name -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Access Point Name</mat-label>
+              <input type="text" matInput formControlName="ap_name" placeholder="Enter a Access Point Name">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- ap_ip -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Access Point IP</mat-label>
+              <input type="text" matInput formControlName="ap_ip" placeholder="Enter a Access Point IP">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row  full-name-inputs">
+            <!-- ap_password -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Access Point Password</mat-label>
+              <input type="password" matInput formControlName="ap_password" placeholder="Enter a Access Point Password">
+            </mat-form-field>
+  
+            <!-- node_profile -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Node Profile</mat-label>
+              <input type="number" matInput formControlName="node_profile" placeholder="Enter a Node Profile">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row  full-name-inputs">
+            <!-- board_name -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Board Name</mat-label>
+              <input type="text" matInput formControlName="board_name" placeholder="Enter a Board Name">
+            </mat-form-field>
+            <!-- end -->
+  
+            <!-- board_model -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Board Model </mat-label>
+              <input type="text" matInput formControlName="board_model" placeholder="Enter a Board Model">
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div class="row">
+            <!-- mqttUserId -->
+            <mat-form-field class="example-full-width" appearance="fill" style=" width:12.8cm">
+              <mat-select placeholder="MQTT user name" formControlName="mqttUserId">
+                <mat-option *ngFor="let mqtt_user of mqtt" [value]="mqtt_user.id"> {{mqtt_user.username}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- end -->
+          </div>
+  
+          <div style=" margin-left:20cm">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext (click)='save_node()'>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <!--Third form group------------------------------------>
+      <mat-step>
+        <ng-template matStepLabel>Node Created Successfully</ng-template>
+        <div style=" margin-left:20cm">
+          <p style="position: absolute; left: 10cm; font-weight: bold;">Node Created Successfully</p>
+          <button mat-button (click)="stepper.reset()" mat-raised-button color="primary" class="create-button" >Create new Node</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>

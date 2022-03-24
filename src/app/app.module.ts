@@ -53,9 +53,6 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
-import { AddSensorComponent } from './sensors/add-sensor/add-sensor/add-sensor.component'
-
-import { ListSensorComponent } from './sensors/list-sensor/list-sensor/list-sensor.component';
 import { LoginComponent } from './login/login/login.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ListSensorsComponent } from './groups/add-group/list-sensors/list-sensors.component';
@@ -99,10 +96,6 @@ import { ListNodeComponent } from './node/list-node/list-node.component';
     AppComponent,
     AddGroupComponent,
     ListGroupComponent,
-
-    AddSensorComponent,
-
-    ListSensorComponent,
 
     LoginComponent,
 

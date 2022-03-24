@@ -13,13 +13,10 @@ interface listItems {
 
 const TREE_DATA: listItems[] = [
   {
-
     icon: "memory",
     labelText: "Hardware",
     routerLink: "",
     children: [
-
-
       {
         labelText: "Groups",
         icon: "group",
@@ -48,7 +45,7 @@ const TREE_DATA: listItems[] = [
           {
             labelText: "list nodes",
             icon: "list",
-            routerLink: "/listSensor",
+            routerLink: "/listNode",
 
           },
           {
@@ -59,7 +56,7 @@ const TREE_DATA: listItems[] = [
           {
             labelText: "add node",
             icon: "playlist_add",
-            routerLink: "/addSensor",
+            routerLink: "/addNode",
 
           }
           
