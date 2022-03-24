@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SignupService } from '../service/user/signup.service';
 import { SignupDialogComponent } from '../signup-dialog/signup-dialog.component';
@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SignupComponent implements OnInit {
 
   form_signup: any;
-
+  password="";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
     // required.
     this.form_signup = this.formBuilder.group({
       username: ['', Validators.compose([
-        Validators.required
+        Validators.required, Validators.minLength(4)
       ])],
       email: ['', Validators.compose([
         Validators.required,
@@ -41,12 +41,59 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
       ])],
-      Confirm_password: ['', Validators.compose([
-        Validators.required,
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-      ])]
+      Confirm_password: ['', Validators.compose([Validators.required, this.checkPasswords()])]
     })
   }
+
+  //to take input password
+  onChangepassword(password: string) {
+      this.password= password;
+  }
+  
+  getErrorMessagusername() {
+    if (this.form_signup.controls['username'].hasError('required')) {
+      return 'username field is required.';
+    }
+    if (this.form_signup.controls['username'].hasError('minlength')) {
+      return 'Username must be at least 4 characters long.';
+    }
+  }
+
+  getErrorMessageEmail() {
+    if (this.form_signup.controls['email'].hasError('required')) {
+      return 'Email field is required.';
+    }
+    if (this.form_signup.controls['email'].hasError('pattern')) {
+      return 'Invalid email format.';
+    }
+  }
+
+  getErrorMessagepass() {
+    if (this.form_signup.controls['password'].hasError('required')) {
+      return 'Password field is required.';
+    }
+    if (this.form_signup.controls['password'].hasError('pattern')) {
+      return 'Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.';
+    }
+  }
+
+  getErrorMessageconfirmpass() {
+    if (this.form_signup.controls['Confirm_password'].hasError('required')) {
+      return 'Confirm password field is required.';
+    }
+    if (this.form_signup.controls['Confirm_password'].hasError('notSame')) {
+      return "Password fields doesn't match.";
+    }
+  }
+
+  //custom validation for confirm_password
+  checkPasswords(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const confirm_pass = control.value;
+      return confirm_pass === this.password ? null : { notSame: true }
+    }
+  }
+
   openSnackBar(message: string, action: string, interval: number) {
     this._snackBar.open(message, action);
 
@@ -58,7 +105,7 @@ export class SignupComponent implements OnInit {
 
   onsubmit() {
     // check the form is valid 
-    if (this.form_signup.valid && this.form_signup.get('password').value === this.form_signup.get('Confirm_password').value) {
+    if (this.form_signup.valid) {
       this.form_signup.removeControl('Confirm_password');
 
       // submit the form
@@ -80,7 +127,7 @@ export class SignupComponent implements OnInit {
       if (result == 'confirm') {
         this.router.navigateByUrl('Login')
       }
-      else{
+      else {
         window.location.reload();
       }
 

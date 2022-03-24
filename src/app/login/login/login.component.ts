@@ -38,6 +38,21 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  getErrorMessageEmail() {
+    if (this.form_login.controls['email'].hasError('required')) {
+      return 'Email field is required.';
+    }
+    if (this.form_login.controls['email'].hasError('pattern')) {
+      return 'Invalid email format.';
+    }
+  }
+
+  getErrorMessagePass() {
+    if (this.form_login.controls['password'].hasError('required')) {
+      return 'Password field is required.';
+    }
+  }
+  
   checkToken() {
     let token_key = localStorage.getItem('token');
 
