@@ -55,7 +55,6 @@ import { ListGroupComponent } from './groups/list-group/list-group.component'
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login/login.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import { ListSensorsComponent } from './groups/add-group/list-sensors/list-sensors.component';
 
 import { EncrDecrService } from './service/encr-decr.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
@@ -90,6 +89,7 @@ import { SensorProvisionComponent } from './sensor-provision/sensor-provision.co
 import { ListEntityComponent } from './entity/list-entity/list-entity.component';
 import { AddNodeComponent } from './node/add-node/add-node.component';
 import { ListNodeComponent } from './node/list-node/list-node.component';
+import { ListNodesComponent } from './groups/add-group/list-nodes/list-nodes.component';
 
 @NgModule({
   declarations: [
@@ -100,8 +100,6 @@ import { ListNodeComponent } from './node/list-node/list-node.component';
     LoginComponent,
 
     LoginDialogComponent,
-
-    ListSensorsComponent,
 
     DeleteDialogComponent,
 
@@ -151,6 +149,7 @@ import { ListNodeComponent } from './node/list-node/list-node.component';
     ListEntityComponent,
     AddNodeComponent,
     ListNodeComponent,
+    ListNodesComponent,
 
   ],
   imports: [

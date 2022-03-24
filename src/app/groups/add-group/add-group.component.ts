@@ -3,7 +3,7 @@ import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddGroupService } from '../../service/n_group/add-group.service'
 import { ListGroupService } from '../../service/n_group/list-group.service';
-import { ListSensorsComponent } from './list-sensors/list-sensors.component';
+import { ListNodesComponent } from './list-nodes/list-nodes.component';
 import { MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -12,7 +12,7 @@ import { MatStepper } from '@angular/material/stepper';
   styleUrls: ['./add-group.component.css']
 })
 export class AddGroupComponent implements OnInit {
-  @ViewChild(ListSensorsComponent) child;
+  @ViewChild(ListNodesComponent) child;
   @ViewChild('stepper') private myStepper: MatStepper;
   form_AddGroup: FormGroup;
   id: any;
@@ -74,7 +74,7 @@ export class AddGroupComponent implements OnInit {
     this.child.get_node_list(true);
   }
   ngAfterViewInit() {
-    this.child.assign_sensors();
+    this.child.assign_nodes();
     this.myStepper.next();
   }
 

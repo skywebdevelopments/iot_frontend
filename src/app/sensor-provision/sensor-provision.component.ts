@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SensorProvisioService } from '../service/sensor-provisio.service';
-import { AddSensorService } from '../service/sensor/add-sensor.service';
+import { AddNodeService } from '../service/node/add-node.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -13,7 +13,7 @@ export class SensorProvisionComponent implements OnInit {
   hidden= false;
   data : any;
 
-  constructor(private provision: SensorProvisioService, private addSensor: AddSensorService, private _snackBar: MatSnackBar,) { }
+  constructor(private provision: SensorProvisioService, private addNode: AddNodeService, private _snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -32,7 +32,7 @@ export class SensorProvisionComponent implements OnInit {
   }
 
   trust(){
-    this.addSensor.service_add_sensor(this.data).then(res => {
+    this.addNode.service_add_node(this.data).then(res => {
       this.openSnackBar(res['status']['message'], "Ok", 4000);
     })
   }

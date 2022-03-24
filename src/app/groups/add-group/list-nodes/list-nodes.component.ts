@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ListSensorService } from '../../../service/sensor/list-sensor.service';
+import { ListNodeService } from '../../../service/node/list-node.service';
 import { MapGroupSensorService } from '../../../service/n_group/map-group-sensor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -21,11 +21,11 @@ export interface nodeElement {
 const ELEMENT_DATA: nodeElement[] = [];
 
 @Component({
-  selector: 'app-list-sensors',
-  templateUrl: './list-sensors.component.html',
-  styleUrls: ['./list-sensors.component.css']
+  selector: 'app-list-nodes',
+  templateUrl: './list-nodes.component.html',
+  styleUrls: ['./list-nodes.component.css']
 })
-export class ListSensorsComponent implements OnInit {
+export class ListNodesComponent implements OnInit {
   @Input() id: any;
   name: any
   formData = {};
@@ -48,14 +48,15 @@ export class ListSensorsComponent implements OnInit {
 
   }
   constructor(
-    private service_listSensor: ListSensorService,
+    private service_listNode: ListNodeService,
     private service_mapSensor: MapGroupSensorService,
     private service_authorize: AuthorizeRoleService,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog
   ) { }
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+
+   /** Whether the number of selected elements matches the total number of rows. */
+   isAllSelected() {
     const numSelected = this.selection.selected.length;
     if (this.dataSource.data) {
       const numRows = this.dataSource.data.length;
@@ -93,7 +94,7 @@ export class ListSensorsComponent implements OnInit {
 
   // get Sensor list
   get_node_list(showSnackBar: boolean) {
-    this.service_listSensor.service_list_sensor().then(res => {
+    this.service_listNode.service_list_node().then(res => {
       //check if list is not empty
       if (res['data']) {
         // add data to the table (data source)
@@ -128,7 +129,7 @@ export class ListSensorsComponent implements OnInit {
     }, interval);
   }
 
-  assign_sensors() {
+  assign_nodes() {
     this.selection.selected.forEach(Node_data => {
       this.formData["nodeId"] = Node_data['id'];
       this.formData["rec_id"] = this.id;
@@ -151,5 +152,4 @@ export class ListSensorsComponent implements OnInit {
     // end
 
   }
-
 }

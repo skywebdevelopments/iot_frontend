@@ -12,7 +12,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import { AuthorizeRoleService } from '../../service/user/authorize-role.service';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ListSensorService } from '../../service/sensor/list-sensor.service';
+import { ListNodeService } from '../../service/node/list-node.service';
 
 export interface EntityElement {
   type: "text",
@@ -63,7 +63,7 @@ export class ListEntityComponent implements OnInit {
     private service_updateentity: UpdateEntityService,
     private formBuilder: FormBuilder,
     private service_addentity: AddEntityService,
-    private service_listSensor: ListSensorService,
+    private service_listNode: ListNodeService,
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private service_authorize: AuthorizeRoleService,
@@ -254,7 +254,7 @@ export class ListEntityComponent implements OnInit {
    // get node list
    get_sensor_list() {
     var node = []
-    this.service_listSensor.service_list_sensor().then(res => {
+    this.service_listNode.service_list_node().then(res => {
       res['data'].forEach(function (node_name) {
         node.push(node_name)
       });
