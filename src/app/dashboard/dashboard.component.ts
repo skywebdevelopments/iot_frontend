@@ -38,23 +38,17 @@ export class DashboardComponent implements OnInit {
   height = 600;
 
   constructor(private service_log: LogService,
-    private _snackBar: MatSnackBar,
     private service_listentity: ListEntityService,
   ) { }
 
   ngOnInit(): void {
-    this.get_log_list(true);
-    this.get_entity_list(true);
+    this.get_log_list();
+    this.get_entity_list();
   }
 
-  openSnackBar(message: string, action: string, interval: number) {
-    this._snackBar.open(message, action);
-    setTimeout(() => {
-      this._snackBar.dismiss()
-    }, interval);
-  }
 
-  get_log_list(showSnackBar: boolean) {
+
+  get_log_list() {
     this.service_log.service_list_logs().then(res => {
       if (res['data']) {
         for (let i of res['data']) {
@@ -69,10 +63,6 @@ export class DashboardComponent implements OnInit {
             this.trace.push(this.element);
           }
         }
-        // display a notification
-        if (showSnackBar) {
-          this.openSnackBar("Done!", "Ok", 2000);
-        }
       }
       this.myData = [
         ['info', this.info.length],
@@ -83,7 +73,7 @@ export class DashboardComponent implements OnInit {
   };
 
 
-  get_entity_list(showSnackBar: boolean) {
+  get_entity_list() {
     this.service_listentity.service_list_entity().then(res => {
       if (res['data']) {
         for (let i of res['data']) {
@@ -98,10 +88,7 @@ export class DashboardComponent implements OnInit {
             this.Humidity.push(this.entity);
           }
         }
-        // display a notification
-        if (showSnackBar) {
-          this.openSnackBar("Done!", "Ok", 2000);
-        }
+
       }
       this.myentity = [
         ['Light', this.Light.length],
