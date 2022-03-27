@@ -1,5 +1,6 @@
 <div class="container">
     <div class="row">
+        <h3>Log chart</h3>
         <div class="card">
             <div class="card-body">
                 <google-chart 
@@ -11,6 +12,20 @@
                     [height]="height">
                 </google-chart>
             </div>
-        </div>    
+        </div>  
+        <br>
+        <h3>Node Types</h3>
+        <div class="card">
+            <div class="card-body">
+                <google-chart 
+                    [title]="'Node Types Chart'" 
+                    [type]="myType" 
+                    [data]="myentity"
+                    [options]="options"
+                    [width]="width"
+                    [height]="height">
+                </google-chart>
+            </div>
+        </div>
     </div>
 </div>
