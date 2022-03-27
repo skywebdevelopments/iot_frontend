@@ -13,6 +13,12 @@ interface listItems {
 
 const TREE_DATA: listItems[] = [
   {
+    icon: "dashboard",
+    labelText: "Dashboard",
+    routerLink: "/dashboard",
+    
+  },
+  {
     icon: "memory",
     labelText: "Hardware",
     routerLink: "",
@@ -59,7 +65,7 @@ const TREE_DATA: listItems[] = [
             routerLink: "/addNode",
 
           }
-          
+
         ]
 
       },
@@ -75,7 +81,7 @@ const TREE_DATA: listItems[] = [
             routerLink: "/listentity",
 
           }
-          
+
         ]
 
       },
@@ -91,7 +97,7 @@ const TREE_DATA: listItems[] = [
             routerLink: "/listmqttuser",
 
           }
-          
+
         ]
 
       }

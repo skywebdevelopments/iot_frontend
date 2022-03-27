@@ -54,17 +54,10 @@ export class LoginComponent implements OnInit {
   }
   
   checkToken() {
-    let token_key = localStorage.getItem('token');
-
-    if (token_key) {
-      this.router.navigateByUrl('/dashboard')
-
+    let token_key = localStorage.getItem('token');//to check google user if deactivated or not
+    if (token_key==='deactivated') {
+    this.openSnackBar("Sorry, you are temporary deactivated", "Ok", 4000);
     }
-    else {
-      this.router.navigateByUrl('/')
-
-    }
-
   }
 
   openSnackBar(message: string, action: string, interval: number) {
@@ -81,7 +74,7 @@ export class LoginComponent implements OnInit {
           this.Invalid_login()
         }
         else if (res['code'] === 1105) {
-          this.openSnackBar("Sorry you are temporary deactivated", "Ok", 4000);
+          this.openSnackBar("Sorry, you are temporary deactivated", "Ok", 4000);
           this.form_login.reset();
         }
         else {
@@ -110,7 +103,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.checkToken();
+    this.checkToken();
     this.init_form();
   }
 

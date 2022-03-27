@@ -28,7 +28,8 @@
                 <!-- use a disabled button to provide padding for tree leaf -->
 
                 <div class="outer-div">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon">{{node.icon}}</mat-icon>
+                    <mat-icon class="dashboard" *ngIf="node.icon==='dashboard'"  aria-hidden="false" aria-label="Example home icon">{{node.icon}}</mat-icon>
+                    <mat-icon aria-hidden="false" *ngIf="node.icon!=='dashboard'" aria-label="Example home icon">{{node.icon}}</mat-icon>
 
                     <button mat-button class="text-capitalize text-dark"
                         [routerLink]="node.routerLink">{{node.labelText}}</button>

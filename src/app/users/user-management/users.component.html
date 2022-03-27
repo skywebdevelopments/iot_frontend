@@ -50,14 +50,14 @@
 
                                     <!-- edit button -->
                                     <div class="btn-edit" *ngSwitchCase="'isEdit'">
-                                        <div *ngIf='authorize(["user:update"])'>
+                                        <div *ngIf='authorize(["users:update"])'>
                                             <button mat-icon-button [matMenuTriggerFor]="menuu"
                                                 aria-label="Example icon-button with a menu">
                                                 <mat-icon>more_vert</mat-icon>
                                             </button>
                                         </div>
                                         <mat-menu class="p-2" #menuu="matMenu">
-                                            <div *ngIf='authorize(["user:update"])'>
+                                            <div *ngIf='authorize(["users:update"])'>
                                                 <!-- edit -->
 
                                                 <button *ngIf="!enable_save_all;"
