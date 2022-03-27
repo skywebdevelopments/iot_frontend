@@ -39,6 +39,8 @@
     </div>
 
 
+
+
     <div class="col-auto  w-100">
         <h1 style="font-weight: bold; margin-left: 0.3cm;">List Node Groups</h1>
         <!-- end -->
@@ -81,8 +83,6 @@
                                     <mat-icon>delete</mat-icon>
                                     <span>delete</span>
                                 </button>
-
-
                             </div>
 
 
@@ -127,7 +127,7 @@
                                                     <mat-icon>more_vert</mat-icon>
                                                 </button>
                                             </div>
-                                            <mat-menu  class="p-2" #menuu="matMenu">
+                                            <mat-menu class="p-2" #menuu="matMenu">
                                                 <div *ngIf='authorize(["n_group:update"])'>
                                                     <!-- edit -->
                                                     <button
@@ -143,6 +143,13 @@
                                                     <button (click)="delete_dialog(element)" mat-menu-item>
                                                         <mat-icon>delete</mat-icon>
                                                         <span>delete {{element.name}}</span>
+                                                    </button>
+                                                </div>
+
+                                                <div *ngIf='authorize(["n_group:list"]) '>
+                                                    <button (click)="selectTableRow(element)" mat-menu-item>
+                                                        <mat-icon>list</mat-icon>
+                                                        <span>View {{element.name}}</span>
                                                     </button>
                                                 </div>
                                             </mat-menu>
@@ -228,7 +235,171 @@
         </div>
     </div>
 
+    <div class="mt-5 w-100" *ngIf="selectedTableRecord">
+        <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{selectedTableRecord.name}}</mat-panel-title>
+                <mat-panel-description>Assigned Nodes</mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div *ngIf="selectedTableRecord.node.length !== 0">
+                <div class="row">
+
+                    <div class="col-auto  w-100">
+                        <!-- end -->
+                        <div class="container-fluid mt-1">
+
+                            <div *ngIf="selectionn.hasValue()">
+                                <div class="col-auto">
+                                    <!-- menu div -->
+                                    <div class="col-auto" style="margin-left: 21cm;">
+
+                                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                                            aria-label="Example icon-button with a menu">
+                                            <mat-icon>more_horizontal</mat-icon>
+                                        </button>
+                                        <mat-menu class="p-2" #menu="matMenu">
+                                            <div *ngIf='authorize(["node:delete"])'>
+                                                <button data-toggle="modal" *ngIf="selectionn.hasValue()"
+                                                    data-target="#exampleModall" mat-menu-item>
+                                                    <mat-icon>delete</mat-icon>
+                                                    <span>delete</span>
+                                                </button>
+                                            </div>
+
+
+                                        </mat-menu>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- filter control -->
+                            <mat-form-field appearance="standard" style="width: 25%;">
+
+                                <mat-label>
+                                    <mat-icon>search</mat-icon> Search
+                                </mat-label>
+                                <input matInput (keyup)="applyFilterr($event)" placeholder="type to filter" #input>
+
+                            </mat-form-field>
+                            <!-- end -->
+
+
+                            <!-- table -->
+                            <div class="mat-elevation-z8 w-100">
+                                <table mat-table [dataSource]="dataSourcee" matSort>
+
+                                    <!-- Checkbox Column -->
+                                    <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumnss">
+
+                                        <div *ngIf="col !=='select' ">
+
+
+                                            <!-- table header -->
+                                            <th mat-sort-header mat-header-cell *matHeaderCellDef>
+                                                <span class="text-capitalize">
+                                                    {{col.replace('_',' ')}}
+                                                </span>
+                                            </th>
+
+                                            <!-- table cell -->
+                                            <td mat-cell *matCellDef="let element">
+                                                <div>
+                                                    <!-- row: view mode -->
+                                                    <span>
+                                                        <!-- text cell -->
+                                                        <label>
+                                                            {{element[col]}}
+                                                        </label>
+                                                        <!-- end -->
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </div>
+
+                                        <!-- for checkboxes -->
+                                        <div *ngIf="col ==='select'">
+                                            <th mat-header-cell class="w" *matHeaderCellDef>
+                                                <mat-checkbox (change)="$event ? masterTogglee() : null"
+                                                    [checked]="selectionn.hasValue() && isAllSelectedd()"
+                                                    [indeterminate]="selectionn.hasValue() && !isAllSelectedd()"
+                                                    [aria-label]="checkboxLabell()">
+                                                </mat-checkbox>
+                                            </th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <mat-checkbox (click)="$event.stopPropagation()"
+                                                    (change)="$event ? selectionn.toggle(row) : null"
+                                                    [checked]="selectionn.isSelected(row)"
+                                                    [aria-label]="checkboxLabell(row)">
+                                                </mat-checkbox>
+                                            </td>
+                                        </div>
+
+
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="selectedTableRecord.node.length === 0">
+                <span>No Node is Assigned !</span> <span style="margin-left: 1cm;"></span>
+
+                <button mat-button color="primary" [routerLink]="['/listNode']" routerLinkActive="router-link-active">
+                    Assign Node </button>
+            </div>
+        </mat-expansion-panel>
+    </div>
+
+
+    <!--Delete  Modal -->
+    <div class="row">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Delete {{selectionn.selected.length}} Nodes</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- delete confirmation -->
+                        <div class="m-5">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <h3>Are you sure you want to delete the below record(s)?</h3>
+
+                                    <ol>
+                                        <li *ngFor="let item of selectionn.selected">
+                                            {{item.friendly_name}}
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
 
 
 
-    <!-- Button trigger modal -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" (click)="delete_node()" data-dismiss="modal" class="btn btn-danger">yes,
+                            Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Button trigger modal -->

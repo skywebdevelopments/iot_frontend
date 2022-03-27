@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ListGroupService } from '../../service/n_group/list-group.service';
 import { DeleteGroupService } from '../../service/n_group/delete-group.service';
 import { UpdateGroupService } from '../../service/n_group/update-group.service';
+import { DeleteNodeService } from '../../service/node/delete-node.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -18,12 +20,20 @@ export interface groupElement {
   rec_id: "text"
 }
 
+export interface nodeElement {
+  friendly_name: "text",
+  board_name: "text",
+  board_model: "text",
+  rec_id: "text"
+}
+
 const TABLE_SCHEMA = {
   "isEdit": "isEdit",
   "isDelete": "isDelete"
 }
 // to be filled from the service
 const ELEMENT_DATA: groupElement[] = [];
+const Node_DATA: nodeElement[] = [];
 @Component({
   selector: 'app-list-group',
   templateUrl: './list-group.component.html',
@@ -37,12 +47,21 @@ export class ListGroupComponent implements OnInit {
   form_updateGroup: any;
   replace_with_input = false;
   authorized: boolean;
+  selectedTableRecord: any;
   // end
 
 
   displayedColumns: string[] = ['select', 'name', 'active', 'isEdit', 'isDelete'];
+
+  //node Table
+  displayedColumnss: string[] = ['select', 'friendly_name', 'board_name','board_model'];
+
   dataSource = new MatTableDataSource<groupElement>(ELEMENT_DATA);
   selection = new SelectionModel<groupElement>(true, []);
+
+//Node Table
+  dataSourcee = new MatTableDataSource<nodeElement>(Node_DATA);
+  selectionn = new SelectionModel<nodeElement>(true, []);
 
 
   dataSchema = TABLE_SCHEMA;
@@ -60,6 +79,8 @@ export class ListGroupComponent implements OnInit {
     private service_listGroup: ListGroupService,
     private service_deleteGroup: DeleteGroupService,
     private service_updateGroup: UpdateGroupService,
+
+    private service_deletenode:DeleteNodeService,
 
     private _snackBar: MatSnackBar,
     private fb: FormBuilder,
@@ -96,6 +117,47 @@ export class ListGroupComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
   }
+
+
+  // for nodes 
+
+  isAllSelectedd() {
+    const numSelected = this.selectionn.selected.length;
+    if (this.dataSourcee.data) {
+      const numRows = this.dataSourcee.data.length;
+      return numSelected === numRows;
+    }
+    return 0;
+  }
+
+  masterTogglee() {
+    if (this.isAllSelectedd()) {
+      this.selectionn.clear();
+      return;
+    }
+
+    this.selectionn.select(...this.dataSourcee.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabell(row?: nodeElement): string {
+    if (!row) {
+      return `${this.isAllSelectedd() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selectionn.isSelected(row) ? 'deselect' : 'select'} row ${row.friendly_name}`;
+  }
+
+  applyFilterr(event: any) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourcee.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourcee.paginator) {
+      this.dataSourcee.paginator.firstPage();
+    }
+
+  }
+
+  //end
+
   applyFilter(event: any) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -109,8 +171,8 @@ export class ListGroupComponent implements OnInit {
   get_group_list(showSnackBar: boolean) {
 
     this.service_listGroup.service_list_group().then(res => {
-
       if (res['data']) {
+        console.log(res['data'])
         // add data to the table (data source)
         this.dataSource.data = res['data']
 
@@ -237,6 +299,33 @@ export class ListGroupComponent implements OnInit {
     })
   }
 
+  
+  selectTableRow(row: any) {
+    this.selectedTableRecord = row;
+    this.dataSourcee.data= this.selectedTableRecord.node
+  }
+
+   // delete group
+   delete_node() {
+
+    this.selectionn.selected.forEach(node => {
+      let formData = {
+        rec_id: node.rec_id
+      }
+
+      this.service_deletenode.service_delete_node(formData).then(res => {
+        console.log(res);
+
+        this.openSnackBar(res['message'], '', 4000);
+
+        // recall refresh
+      //  this.get_group_list(true);
+
+      })
+    })
+    // !important: clear all the current selections after delete requests
+    this.selectionn.clear();
+  }
 
   ngOnInit(): void {
     // get the data table on init.
