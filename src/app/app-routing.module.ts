@@ -22,6 +22,8 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 
 import { TestcomComponent } from './testcom/testcom.component';
 
+import { Dashboard2Component } from './test/dashboard2/dashboard2.component';
+
 
 const routes: Routes = [
   { path: "Login", component: LoginComponent },
@@ -41,7 +43,8 @@ const routes: Routes = [
   { path: "addUgroup", component: AddUgroupsComponent },
   { path: "listUgroup", component: ListUgroupsComponent },
   { path: "test123", component: TestcomComponent },
-  {path: "provision", component: SensorProvisionComponent}
+  {path: "provision", component: SensorProvisionComponent},
+  {path: "dash", component: Dashboard2Component}
 ]
 // const routes: Routes = [
 //   { path: "Login", component: LoginComponent, outlet: "first" },

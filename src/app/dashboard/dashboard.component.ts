@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
   get_log_list() {
     this.service_log.service_list_logs().then(res => {
       if (res['data']) {

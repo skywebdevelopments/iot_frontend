@@ -15,7 +15,7 @@ const TREE_DATA: listItems[] = [
   {
     icon: "dashboard",
     labelText: "Dashboard",
-    routerLink: "/dashboard",
+    routerLink: "/dash",
     
   },
   {
