@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserProfileComponent implements OnInit {
 
   email: any;
+  google_id: any;
   role: any;
   name: any;
   password: any;
@@ -55,6 +56,7 @@ export class UserProfileComponent implements OnInit {
       this.role = res['u_group']['groupname']
       this.id = res['id']
       this.password_user = res['password']
+      this.google_id = res['googleID']
       this.form_update.controls['name'].setValue(this.name)
     })
   }

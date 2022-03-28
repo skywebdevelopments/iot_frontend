@@ -40,47 +40,51 @@
                     </form>
                 </mat-card-content>
             </mat-tab>
-            <mat-tab label="Update">
-                <ng-template mat-tab-label>
-                    <mat-icon class="example-tab-icon"> update </mat-icon>Update info
-                </ng-template>
-                <mat-card-content>
-                    <form [formGroup]="form_update">
-                        <!-- user name field-->
-                        <div class="container mt-4">
-                            <mat-form-field class="example-full-width">
-                                <label>Username</label>
-                                <input type="text" matInput formControlName="name">
-                                <mat-error *ngIf="form_update.controls['name'].invalid">{{getErrorMessagename()}}</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <!-- end -->
-                        <!-- password field-->
-                        <div class="container mt-4">
-                            <mat-form-field class="example-full-width">
-                                <label>Current Password</label>
-                                <input type="password" matInput formControlName="password">
-                                <mat-error *ngIf="form_update.controls['password'].invalid">{{getErrorMessagepass()}}</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <!-- end -->
-                        <!-- new password field-->
-                        <div class="container mt-4">
-                            <mat-form-field class="example-full-width">
-                                <label>New Password</label>
-                                <input type="password" matInput formControlName="newpassword">
-                                <mat-error *ngIf="form_update.controls['newpassword'].invalid">{{getErrorMessagenewpass()}}</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <!-- end -->
-                        <button [disabled]="form_update.invalid" (click)="submit_all()"
-                            class=" btn-success btn btn-sm" mat-raised-button style="margin-left: 7.2cm;">
-                            <span>Save</span>
-                        </button>
-                    </form>
-                </mat-card-content>
-            </mat-tab>
-         
+            <div *ngIf="google_id===null">
+                <mat-tab label="Update">
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon"> update </mat-icon>Update info
+                    </ng-template>
+                    <mat-card-content>
+                        <form [formGroup]="form_update">
+                            <!-- user name field-->
+                            <div class="container mt-4">
+                                <mat-form-field class="example-full-width">
+                                    <label>Username</label>
+                                    <input type="text" matInput formControlName="name">
+                                    <mat-error *ngIf="form_update.controls['name'].invalid">{{getErrorMessagename()}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- end -->
+                            <!-- password field-->
+                            <div class="container mt-4">
+                                <mat-form-field class="example-full-width">
+                                    <label>Current Password</label>
+                                    <input type="password" matInput formControlName="password">
+                                    <mat-error *ngIf="form_update.controls['password'].invalid">
+                                        {{getErrorMessagepass()}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- end -->
+                            <!-- new password field-->
+                            <div class="container mt-4">
+                                <mat-form-field class="example-full-width">
+                                    <label>New Password</label>
+                                    <input type="password" matInput formControlName="newpassword">
+                                    <mat-error *ngIf="form_update.controls['newpassword'].invalid">
+                                        {{getErrorMessagenewpass()}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- end -->
+                            <button [disabled]="form_update.invalid" (click)="submit_all()"
+                                class=" btn-success btn btn-sm" mat-raised-button style="margin-left: 7.2cm;">
+                                <span>Save</span>
+                            </button>
+                        </form>
+                    </mat-card-content>
+                </mat-tab>
+            </div>
         </mat-tab-group>
 
     </mat-card>
