@@ -180,8 +180,8 @@
                                         <span>View {{element.board_model}}</span>
                                     </button>
                                 </div>
-                                
-                                <div  *ngIf='authorize(["entity:list"]) '>
+
+                                <div *ngIf='authorize(["entity:list"]) '>
                                     <button (click)="selectTableRowe(element)" mat-menu-item>
                                         <mat-icon>list</mat-icon>
                                         <span>Entities</span>
@@ -241,35 +241,35 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <div *ngIf="!selectedTableRecord.isEdit">
-         <div class="row">
-            <div class="col-6">
-                Macaddress: {{ selectedTableRecord.mac_address}}<br>
-                Static IP: {{ selectedTableRecord.static_ip}}<br>
-                DNS 1: {{ selectedTableRecord.dns1}}<br>
-                Gateway: {{ selectedTableRecord.gateway}}<br>
-                Serial Number: {{ selectedTableRecord.serial_number}}<br>
-                Access Point Name: {{ selectedTableRecord.ap_name}}<br>
-                Node Profile: {{ selectedTableRecord.node_profile}}<br>
-                Board Name: {{ selectedTableRecord.board_name}}<br>
-                Sim Serial: {{ selectedTableRecord.sim_serial}}<br>
-                Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<br>
-                Flags: {{ selectedTableRecord.flags}}<br>
-          
+            <div class="row">
+                <div class="col-6">
+                    Macaddress: {{ selectedTableRecord.mac_address}}<br>
+                    Static IP: {{ selectedTableRecord.static_ip}}<br>
+                    DNS 1: {{ selectedTableRecord.dns1}}<br>
+                    Gateway: {{ selectedTableRecord.gateway}}<br>
+                    Serial Number: {{ selectedTableRecord.serial_number}}<br>
+                    Access Point Name: {{ selectedTableRecord.ap_name}}<br>
+                    Node Profile: {{ selectedTableRecord.node_profile}}<br>
+                    Board Name: {{ selectedTableRecord.board_name}}<br>
+                    Sim Serial: {{ selectedTableRecord.sim_serial}}<br>
+                    Mqtt User: {{ selectedTableRecord.mqtt_user.username}}<br>
+                    Flags: {{ selectedTableRecord.flags}}<br>
+
+                </div>
+                <div class="col-6">
+                    Client Id: {{ selectedTableRecord.client_id}}<br>
+                    Active: {{ selectedTableRecord.active}}<br>
+                    DNS 2: {{ selectedTableRecord.dns2}}<br>
+                    Subnet: {{ selectedTableRecord.subnet}}<br>
+                    Sleep Time: {{ selectedTableRecord.sleep_time}}<br>
+                    Access Point IP: {{ selectedTableRecord.ap_ip}}<br>
+                    Host IP: {{ selectedTableRecord.host_ip}}<br>
+                    Board Model: {{ selectedTableRecord.board_model}}<br>
+                    Sim Msidm: {{ selectedTableRecord.sim_msidm}}<br>
+                    Entity: {{ selectedTableRecord.entity.length}}<br>
+                    Friendly name: {{ selectedTableRecord.friendly_name}}<br>
+                </div>
             </div>
-            <div class="col-6">
-                Client Id: {{ selectedTableRecord.client_id}}<br>
-                Active: {{ selectedTableRecord.active}}<br>
-                DNS 2: {{ selectedTableRecord.dns2}}<br>
-                Subnet: {{ selectedTableRecord.subnet}}<br>
-                Sleep Time: {{ selectedTableRecord.sleep_time}}<br>
-                Access Point IP: {{ selectedTableRecord.ap_ip}}<br>
-                Host IP: {{ selectedTableRecord.host_ip}}<br>
-                Board Model: {{ selectedTableRecord.board_model}}<br>
-                Sim Msidm: {{ selectedTableRecord.sim_msidm}}<br>
-                Entity: {{ selectedTableRecord.entity.length}}<br>
-                Friendly name: {{ selectedTableRecord.friendly_name}}<br>
-            </div>
-        </div>
             <div *ngIf='authorize(["node:delete"])' style="margin-left: 22cm;  position:absolute; bottom: 0.48cm;">
                 <button mat-raised-button color="warn" (click)="delete_dialog(selectedTableRecord)">
                     <mat-icon>delete</mat-icon>
@@ -309,7 +309,7 @@
 
             <div class="  full-name-inputs">
                 <!-- serial_number -->
-                <mat-form-field class="example-full-width" appearance="fill" >
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Serial Number</mat-label>
                     <input type="text" matInput formControlName="serial_number" placeholder="Enter a Serial Number">
                 </mat-form-field>
@@ -495,23 +495,33 @@
     </mat-expansion-panel>
 </div>
 
-<div  class="mt-5" *ngIf="selectedTableRecorde">
+<div class="mt-5" *ngIf="selectedTableRecorde">
     <mat-expansion-panel expanded="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{selectedTableRecorde.friendly_name}}</mat-panel-title>
-        <mat-panel-description>Assigned Entities</mat-panel-description>
-      </mat-expansion-panel-header>
-  
-      <ul>
-        <li *ngFor="let entityy of selectedTableRecorde.entity;">Name : {{ entityy.name}} <span
-            style="margin-left:50px;"></span> Type : {{entityy.type}}</li>
-      </ul>
-      <div *ngIf='authorize(["node:update"])' style="margin-left: 21cm;">
-        <!-- delete -->
-        <button mat-raised-button color="primary"   [routerLink]="['/listentity']" routerLinkActive="router-link-active" >
-            <mat-icon>edit</mat-icon>
-            <span>Edit Entity</span>
-        </button>
-    </div>
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{selectedTableRecorde.friendly_name}}</mat-panel-title>
+            <mat-panel-description>Assigned Entities</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngIf="selectedTableRecorde.entity.length !== 0 ">
+            <ul>
+                <li *ngFor="let entityy of selectedTableRecorde.entity;">Name : {{ entityy.name}} <span
+                        style="margin-left:50px;"></span> Type : {{entityy.type}}</li>
+            </ul>
+            <div *ngIf='authorize(["node:update"])' style="margin-left: 21cm;">
+                <!-- delete -->
+                <button mat-raised-button color="primary" [routerLink]="['/listentity']"
+                    routerLinkActive="router-link-active">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit Entity</span>
+                </button>
+            </div>
+        </div>
+
+
+        <div *ngIf="selectedTableRecorde.entity.length === 0 ">
+            <span>No Entity is Assigned !</span> <span style="margin-left: 1cm;"></span>
+
+            <button mat-button color="primary" [routerLink]="['/listentity']" routerLinkActive="router-link-active">
+                Assign Entity </button>
+        </div>
     </mat-expansion-panel>
 </div>

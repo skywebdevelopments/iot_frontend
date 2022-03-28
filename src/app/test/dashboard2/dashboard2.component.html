@@ -2,7 +2,7 @@
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card overflow-auto">
+      <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
@@ -17,28 +17,23 @@
         </mat-card-header>
         <mat-card-content class=" dashboard-card-content">
           <div class="  ">
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
+            <div *ngIf="card.title === 'Log Chart'">
+                  <google-chart 
+                      [title]="''" 
+                      [type]="myType" 
+                      [data]="myData"
+                      [options]="options"
+                      [width]="width"
+                      [height]="height">
+                  </google-chart>
+                </div>
+
+                <div *ngIf=" card.title === 'Node Types Chart'">
+                  <google-chart [title]="''" [type]="myType" [data]="myentity" [options]="options" [width]="width"
+                    [height]="height">
+                  </google-chart>
+                </div>
+
           </div>
         </mat-card-content>
       </mat-card>

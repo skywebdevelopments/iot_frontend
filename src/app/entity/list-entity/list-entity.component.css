@@ -27,3 +27,15 @@
   overflow: hidden;
   vertical-align: middle;
 }
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: rgb(35, 86, 134) !important;
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgb(35, 86, 134) !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: rgb(35, 86, 134) !important;
+}
